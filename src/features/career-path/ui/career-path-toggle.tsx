@@ -14,12 +14,12 @@ export const CareerPathToggle: React.FC = () => {
   return (
     <Card className="p-4 sm:p-6 rounded-none bg-[#f5f5f5] border-[#cacacb]">
       {/* Nike Filter-Chip / Tab Switcher */}
-      <div className="flex items-center justify-center gap-2 p-1.5 bg-white rounded-full border border-[#cacacb] mb-5 max-w-sm mx-auto">
+      <div className="mx-auto mb-5 flex w-full max-w-sm flex-col items-stretch justify-center gap-2 rounded-[24px] border border-[#cacacb] bg-white p-1.5 sm:flex-row sm:rounded-full">
         <button
           type="button"
           onClick={() => setActiveTab('frontend')}
           aria-pressed={activeTab === 'frontend'}
-          className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-full text-[11px] font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+          className={`flex min-h-11 w-full items-center justify-center gap-2 rounded-full px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all duration-200 cursor-pointer sm:flex-1 sm:text-[11px] sm:tracking-wider ${
             activeTab === 'frontend'
               ? 'bg-[#111111] text-white'
               : 'bg-transparent text-[#707072] hover:text-[#111111]'
@@ -33,7 +33,7 @@ export const CareerPathToggle: React.FC = () => {
           type="button"
           onClick={() => setActiveTab('ios')}
           aria-pressed={activeTab === 'ios'}
-          className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-full text-[11px] font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+          className={`flex min-h-11 w-full items-center justify-center gap-2 rounded-full px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all duration-200 cursor-pointer sm:flex-1 sm:text-[11px] sm:tracking-wider ${
             activeTab === 'ios'
               ? 'bg-[#111111] text-white'
               : 'bg-transparent text-[#707072] hover:text-[#111111]'

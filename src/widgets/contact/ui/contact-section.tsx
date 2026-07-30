@@ -53,7 +53,7 @@ export const ContactSection: React.FC = () => {
     >
       <div
         aria-hidden="true"
-        className="absolute inset-0 flex items-center justify-center pointer-events-none"
+        className="absolute inset-0 hidden items-center justify-center pointer-events-none md:flex"
       >
         <div className="ring-orbit absolute w-[540px] h-[540px] lg:w-[680px] lg:h-[680px] rounded-full border border-white/10" />
         <div
@@ -202,8 +202,8 @@ export const ContactSection: React.FC = () => {
       </Container>
 
       <div className="relative z-10 mt-auto border-t border-white/15">
-        <Container className="py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] uppercase font-medium tracking-wider text-white/50">
-          <div className="flex items-center gap-3">
+        <Container className="flex flex-col items-center justify-between gap-3 py-5 text-center text-[10px] font-medium uppercase tracking-wider text-white/50 sm:flex-row sm:text-left">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 sm:justify-start">
             <span className="text-white font-bold">O‘ZBEKISTON</span>
             <span>&copy; {new Date().getFullYear()} ABDULAZIZ. BARCHA HUQUQLAR HIMOYALANGAN.</span>
           </div>
@@ -214,7 +214,7 @@ export const ContactSection: React.FC = () => {
             <Link href="/goals" className="hover:text-white transition-colors">Maqsadlar</Link>
           </div>
 
-          <span className="flex items-center gap-2">
+          <span className="flex items-center justify-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#007d48]" />
             Toshkent, UZB — Hamkorlikka ochiq
           </span>

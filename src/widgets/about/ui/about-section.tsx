@@ -111,7 +111,7 @@ export const AboutSection: React.FC = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: reducedMotion ? 0 : 0.6, delay: reducedMotion ? 0 : 0.15 }}
-            className="scene-3d flex justify-center py-6"
+            className="scene-3d hidden justify-center py-6 lg:flex"
             onMouseMove={handleSceneMouseMove}
             onMouseLeave={handleSceneMouseLeave}
           >

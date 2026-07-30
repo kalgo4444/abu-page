@@ -124,3 +124,11 @@
     animation: none;
   }
 }
+
+@media (max-width: 1023px) {
+  .cube-3d,
+  .float-y,
+  .ring-orbit {
+    animation: none;
+  }
+}

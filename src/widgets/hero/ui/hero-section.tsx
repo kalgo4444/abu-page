@@ -181,17 +181,17 @@ export const HeroSection: React.FC = () => {
               </p>
 
               {/* Metrics Bar - Catalog Style */}
-              <div className="grid grid-cols-3 gap-4 pt-2 max-w-lg border-y border-[#e5e5e5] py-3">
+              <div className="grid grid-cols-1 gap-3 border-y border-[#e5e5e5] py-3 sm:grid-cols-3 sm:gap-4">
                 <div>
-                  <span className="block text-2xl font-extrabold text-[#111111] font-display-campaign">REACT / NEXT.JS</span>
+                  <span className="block break-words font-display-campaign text-base font-extrabold leading-none text-[#111111] sm:text-lg lg:text-2xl">REACT / NEXT.JS</span>
                   <span className="text-xs text-[#707072] uppercase font-medium">Asosiy Web Stack</span>
                 </div>
                 <div>
-                  <span className="block text-2xl font-extrabold text-[#111111] font-display-campaign">SWIFT / SWIFTUI</span>
+                  <span className="block break-words font-display-campaign text-base font-extrabold leading-none text-[#111111] sm:text-lg lg:text-2xl">SWIFT / SWIFTUI</span>
                   <span className="text-xs text-[#707072] uppercase font-medium">Mobil Maqsad</span>
                 </div>
                 <div>
-                  <span className="block text-2xl font-extrabold text-[#111111] font-display-campaign">AI & MCP</span>
+                  <span className="block break-words font-display-campaign text-base font-extrabold leading-none text-[#111111] sm:text-lg lg:text-2xl">AI & MCP</span>
                   <span className="text-xs text-[#707072] uppercase font-medium">Agent Vositalari</span>
                 </div>
               </div>
@@ -223,7 +223,7 @@ export const HeroSection: React.FC = () => {
           {/* Right Column: 3D Scene — Cube, Floating Chips & Catalog Card */}
           <motion.div
             style={reducedMotion ? undefined : { y: sceneY, rotate: sceneRotate, opacity: sceneOpacity }}
-            className="lg:col-span-5 flex justify-center mt-20 lg:mt-0"
+            className="hidden lg:col-span-5 lg:flex lg:justify-center"
           >
             <div className="scene-3d w-full max-w-md">
               <motion.div

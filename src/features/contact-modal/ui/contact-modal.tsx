@@ -148,7 +148,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: reducedMotion ? 1 : 0.95, y: reducedMotion ? 0 : 10 }}
             transition={{ duration: reducedMotion ? 0 : 0.2 }}
-            className="relative z-10 w-full max-w-lg overflow-hidden border border-[#111111] bg-white p-6 focus:outline-none sm:p-10"
+            className="relative z-10 max-h-[calc(100dvh-2rem)] w-full max-w-lg overflow-x-hidden overflow-y-auto border border-[#111111] bg-white p-5 focus:outline-none sm:max-h-[calc(100dvh-3rem)] sm:p-10"
           >
             <button
               type="button"
