@@ -20,14 +20,14 @@ export default function OpenGraphImage() {
       }}
     >
       <div style={{ display: 'flex', fontSize: 28, letterSpacing: 3 }}>
-        FRONT-END · NEXT.JS · SWIFT
+        FRONT-END · NEXT.JS · TYPESCRIPT
       </div>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div style={{ display: 'flex', fontSize: 110, fontWeight: 800, lineHeight: 0.9 }}>
           ABDULAZIZ
         </div>
         <div style={{ display: 'flex', marginTop: 28, fontSize: 38, color: '#707072' }}>
-          Front-end dasturchi va iOS yo‘nalishi
+          Front-end dasturchi
         </div>
       </div>
       <div

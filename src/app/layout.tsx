@@ -13,18 +13,15 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: SITE_URL,
   title: {
-    default: 'Abdulaziz — Front-end dasturchi va iOS yo‘nalishi',
+    default: 'Abdulaziz — Front-end dasturchi',
     template: '%s | Abdulaziz',
   },
   description:
-    'Abdulazizning React, Next.js va TypeScript asosidagi front-end ishlari, Swift hamda SwiftUI yo‘nalishidagi rivojlanishi haqida portfolio.',
+    'Abdulazizning React, Next.js va TypeScript asosidagi front-end ishlari haqida portfolio.',
   keywords: [
     'Abdulaziz',
     'Portfolio',
     'Front-end Developer',
-    'iOS Developer',
-    'Swift',
-    'SwiftUI',
     'React',
     'Next.js',
     'TypeScript',
@@ -35,9 +32,9 @@ export const metadata: Metadata = {
   creator: 'Abdulaziz',
   alternates: { canonical: '/' },
   openGraph: {
-    title: 'Abdulaziz — Front-end dasturchi va iOS yo‘nalishi',
+    title: 'Abdulaziz — Front-end dasturchi',
     description:
-      'React va Next.js asosida zamonaviy veb-ilovalar yaratuvchi front-end dasturchi, Swift va SwiftUI o‘rganuvchisi.',
+      'React va Next.js asosida zamonaviy veb-ilovalar yaratuvchi front-end dasturchi.',
     url: '/',
     siteName: 'Abdulaziz portfolio',
     locale: 'uz_UZ',
@@ -45,9 +42,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Abdulaziz — Front-end dasturchi va iOS yo‘nalishi',
+    title: 'Abdulaziz — Front-end dasturchi',
     description:
-      'React va Next.js asosida zamonaviy veb-ilovalar yaratuvchi front-end dasturchi, Swift va SwiftUI o‘rganuvchisi.',
+      'React va Next.js asosida zamonaviy veb-ilovalar yaratuvchi front-end dasturchi.',
   },
 };
 

@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import {
   Globe,
-  Smartphone,
   Bot,
   Server,
   Activity,
@@ -23,7 +22,6 @@ export const InterestsSection: React.FC = () => {
   const total = PROFILE_DATA.interests.length;
   const categoryLabels = {
     tech: 'Texnologiya',
-    mobile: 'Mobil',
     ai: 'Sun’iy intellekt',
     lifestyle: 'Hayot tarzi',
   };
@@ -32,8 +30,6 @@ export const InterestsSection: React.FC = () => {
     switch (iconName) {
       case 'Globe':
         return <Globe className="w-6 h-6 text-white" />;
-      case 'Smartphone':
-        return <Smartphone className="w-6 h-6 text-white" />;
       case 'Bot':
         return <Bot className="w-6 h-6 text-white" />;
       case 'Server':

@@ -5,7 +5,7 @@ import { createPageMetadata } from '@/shared/config/site';
 export const metadata: Metadata = createPageMetadata({
   title: 'Qiziqishlar',
   description:
-    'Veb va mobil ilovalar, Apple ekotizimi, AI agentlar, Linux serverlar hamda sog‘lom turmush tarziga oid qiziqishlar.',
+    'Veb-ilovalar, AI agentlar, Linux serverlar hamda sog‘lom turmush tarziga oid qiziqishlar.',
   path: '/interests',
 });
 

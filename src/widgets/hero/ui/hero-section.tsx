@@ -10,7 +10,7 @@ import {
   useReducedMotion,
 } from 'framer-motion';
 import type { MotionValue } from 'framer-motion';
-import { ArrowRight, Code2, Smartphone, ShieldCheck, Cpu } from 'lucide-react';
+import { ArrowRight, Code2, ShieldCheck, Cpu } from 'lucide-react';
 import { Container } from '@/shared/ui/container';
 import { Button } from '@/shared/ui/button';
 import { Badge } from '@/shared/ui/badge';
@@ -22,8 +22,8 @@ const CUBE_HALF = 56;
 const CUBE_FACES = [
   { label: 'REACT', transform: `rotateY(0deg) translateZ(${CUBE_HALF}px)`, dark: false },
   { label: 'NEXT.JS', transform: `rotateY(90deg) translateZ(${CUBE_HALF}px)`, dark: true },
-  { label: 'SWIFT', transform: `rotateY(180deg) translateZ(${CUBE_HALF}px)`, dark: false },
-  { label: 'iOS', transform: `rotateY(-90deg) translateZ(${CUBE_HALF}px)`, dark: true },
+  { label: 'TAILWIND', transform: `rotateY(180deg) translateZ(${CUBE_HALF}px)`, dark: false },
+  { label: 'JS', transform: `rotateY(-90deg) translateZ(${CUBE_HALF}px)`, dark: true },
   { label: 'A', transform: `rotateX(90deg) translateZ(${CUBE_HALF}px)`, dark: true },
   { label: 'TS', transform: `rotateX(-90deg) translateZ(${CUBE_HALF}px)`, dark: false },
 ];
@@ -32,8 +32,8 @@ const MARQUEE_ITEMS = [
   'REACT',
   'NEXT.JS',
   'TYPESCRIPT',
-  'SWIFT',
-  'SWIFTUI',
+  'TAILWIND CSS',
+  'JAVASCRIPT',
   'TAILWIND CSS',
   'AI AGENTS',
   'MCP',
@@ -158,9 +158,6 @@ export const HeroSection: React.FC = () => {
                 <Badge variant="purple" icon={<Code2 className="w-3.5 h-3.5" />}>
                   FRONT-END DEVELOPER
                 </Badge>
-                <Badge variant="orange" icon={<Smartphone className="w-3.5 h-3.5" />}>
-                  SWIFT & IOS LEARNER
-                </Badge>
               </div>
 
               {/* Nike Signature Towering Campaign Headline (96px Bebas Neue style) */}
@@ -170,25 +167,21 @@ export const HeroSection: React.FC = () => {
                     ABDULAZIZ
                   </span>
                   <span className="mt-1 block text-2xl font-extrabold text-[#707072] sm:text-3xl lg:text-4xl">
-                    FRONT-END & SWIFT iOS ENGINEER
+                    FRONT-END DEVELOPER
                   </span>
                 </h1>
               </div>
 
               {/* Subtitle */}
               <p className="text-base sm:text-lg text-[#39393b] max-w-xl font-normal leading-relaxed">
-                O‘zbekistonda yuqori unumdorlikga ega zamonaviy web-ilovalar yaratuvchi <strong className="text-[#111111] font-semibold">Front-end dasturchiman</strong>. Hozirda professional <strong className="text-[#111111] font-semibold">iOS Engineer</strong> darajasiga erishish uchun Swift hamda SwiftUI texnologiyalarini faol o‘rganmoqdaman.
+                O‘zbekistonda yuqori unumdorlikka ega zamonaviy veb-ilovalar yaratuvchi <strong className="text-[#111111] font-semibold">Front-end dasturchiman</strong>. React, Next.js va TypeScript orqali qulay hamda tezkor foydalanuvchi tajribasini yaratishga e’tibor qarataman.
               </p>
 
               {/* Metrics Bar - Catalog Style */}
-              <div className="grid grid-cols-1 gap-3 border-y border-[#e5e5e5] py-3 sm:grid-cols-3 sm:gap-4">
+              <div className="grid grid-cols-1 gap-3 border-y border-[#e5e5e5] py-3 sm:grid-cols-2 sm:gap-4">
                 <div>
                   <span className="block break-words font-display-campaign text-base font-extrabold leading-none text-[#111111] sm:text-lg lg:text-2xl">REACT / NEXT.JS</span>
                   <span className="text-xs text-[#707072] uppercase font-medium">Asosiy Web Stack</span>
-                </div>
-                <div>
-                  <span className="block break-words font-display-campaign text-base font-extrabold leading-none text-[#111111] sm:text-lg lg:text-2xl">SWIFT / SWIFTUI</span>
-                  <span className="text-xs text-[#707072] uppercase font-medium">Mobil Maqsad</span>
                 </div>
                 <div>
                   <span className="block break-words font-display-campaign text-base font-extrabold leading-none text-[#111111] sm:text-lg lg:text-2xl">AI & MCP</span>
@@ -265,8 +258,8 @@ export const HeroSection: React.FC = () => {
                   className="-bottom-7 -left-2 sm:-left-6"
                 >
                   <div className="flex items-center gap-2 bg-white text-[#111111] border-2 border-[#111111] px-3 py-1.5 font-display-campaign text-sm tracking-tight whitespace-nowrap">
-                    <Smartphone className="w-4 h-4" />
-                    SWIFT & SWIFTUI
+                    <Code2 className="w-4 h-4" />
+                    TAILWIND CSS
                   </div>
                 </FloatingChip>
 
@@ -291,9 +284,9 @@ export const HeroSection: React.FC = () => {
                     <div className="h-[1px] bg-[#cacacb] w-full" />
 
                     <div className="space-y-1">
-                      <span className="text-xs font-bold text-[#d30005] uppercase tracking-wider">{'//'} Mobil Yo‘nalish</span>
-                       <p className="text-xl font-bold text-[#111111]">Swift & SwiftUI Learner</p>
-                      <p className="text-xs text-[#4b4b4d]">iOS Native Apps • Xcode Architecture</p>
+                       <span className="text-xs font-bold text-[#1151ff] uppercase tracking-wider">{'//'} Front-end Fokus</span>
+                        <p className="text-xl font-bold text-[#111111]">Responsive UX</p>
+                       <p className="text-xs text-[#4b4b4d]">Tailwind CSS • REST API Integration</p>
                     </div>
 
                     <div className="h-[1px] bg-[#cacacb] w-full" />

@@ -12,7 +12,7 @@ export interface InterestItem {
   title: string;
   description: string;
   icon: string;
-  category: 'tech' | 'mobile' | 'ai' | 'lifestyle';
+  category: 'tech' | 'ai' | 'lifestyle';
 }
 
 export interface GoalItem {
@@ -26,14 +26,14 @@ export interface GoalItem {
 
 export const PROFILE_DATA = {
   name: "Abdulaziz",
-  title: "Front-end dasturchi va iOS yo‘nalishi o‘rganuvchisi",
+  title: "Front-end dasturchi",
   education: {
     university: "O‘zbekistondagi xususiy universitet (IT Fakulteti)",
     direction: "Software Engineering (SW) yo‘nalishi",
     year: "3-kurs talabasi",
     description: "Universitetdagi ta’lim bilan birga dasturlashni mustaqil ravishda o‘rganib, amaliy loyihalar va ilg‘or AI texnologiyalari orqali tajribamni rivojlantirib boryapman."
   },
-  bio: "Men — Abdulaziz, zamonaviy veb-ilovalar yaratish bilan shug‘ullanuvchi Front-end dasturchiman. Kelajakda professional iOS dasturchi bo‘lish uchun Swift va SwiftUI texnologiyalarini chuqur o‘rganmoqdaman.",
+  bio: "Men — Abdulaziz, zamonaviy, tezkor va foydalanuvchi uchun qulay veb-ilovalar yaratishga ixtisoslashgan Front-end dasturchiman.",
   contacts: {
     github: "",
     telegram: "",
@@ -56,17 +56,6 @@ export const PROFILE_DATA = {
       ]
     },
     {
-      title: "iOS & Mobile Development",
-      iconName: "Apple",
-      description: "Apple ekotizimi uchun sifatli va nativ ilovalar yaratish",
-      items: [
-        { name: "Swift", status: "learning" },
-        { name: "SwiftUI", status: "learning" },
-        { name: "iOS Architecture Patterns", status: "learning" },
-        { name: "Xcode & Apple Docs", status: "learning" }
-      ]
-    },
-    {
       title: "AI Tools & Dev Ecosystem",
       iconName: "Cpu",
       description: "Sun’iy intellekt agentlari va zamonaviy ishlab chiqish vositalari",
@@ -83,17 +72,10 @@ export const PROFILE_DATA = {
   interests: [
     {
       id: "web-mobile",
-      title: "Web & Mobile Ilovalar",
-      description: "Foydalanuvchilar uchun qulay, chiroyli va tez ishlaydigan dasturlar yaratish",
+      title: "Veb-ilovalar",
+      description: "Foydalanuvchilar uchun qulay, chiroyli va tez ishlaydigan veb-ilovalar yaratish",
       icon: "Globe",
       category: "tech"
-    },
-    {
-      id: "ios-swift",
-      title: "iOS & Apple Ekotizimi",
-      description: "Swift va SwiftUI orqali iPhone hamda Mac uchun nativ va tezkor ilovalar",
-      icon: "Smartphone",
-      category: "mobile"
     },
     {
       id: "ai-agents",
@@ -120,11 +102,11 @@ export const PROFILE_DATA = {
 
   goals: [
     {
-      id: "ios-senior",
-      title: "Professional iOS Dasturchi",
-      subtitle: "Swift & SwiftUI Nativ Dasturlash",
-      description: "Apple ekotizimida xalqaro darajadagi yuqori performansli mobil ilovalar yaratish va iOS Senior dasturchiga aylanish.",
-      icon: "Smartphone",
+      id: "frontend-career",
+      title: "Professional Front-end Dasturchi",
+      subtitle: "React, Next.js va TypeScript",
+      description: "Zamonaviy, tezkor va qulay foydalanuvchi tajribasiga ega veb-ilovalar yaratishda chuqur mutaxassis bo‘lish.",
+      icon: "Code2",
       timeframe: "Asosiy Maqsad"
     },
     {

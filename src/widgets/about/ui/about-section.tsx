@@ -12,7 +12,7 @@ import { GraduationCap, Fingerprint } from 'lucide-react';
 import { Container } from '@/shared/ui/container';
 import { Badge } from '@/shared/ui/badge';
 import { FullscreenSection } from '@/shared/ui/fullscreen-section';
-import { CareerPathToggle } from '@/features/career-path/ui/career-path-toggle';
+import { FrontendStackCard } from '@/features/career-path/ui/frontend-stack-card';
 import { PROFILE_DATA } from '@/entities/profile/model/profile-data';
 
 const BARCODE_WIDTHS = [3, 1, 2, 1, 4, 2, 1, 3, 1, 2, 5, 1, 2, 1, 3];
@@ -57,7 +57,7 @@ export const AboutSection: React.FC = () => {
             </h1>
           </div>
           <p className="hidden lg:block max-w-xs text-xs text-white/60 leading-relaxed font-medium">
-            O‘zbekistondagi xususiy universitet talabasi sifatida nafaqat nazariy bilimlar, balki amaliy web va mobil loyihalar ustida doimiy izlanishdaman.
+            O‘zbekistondagi xususiy universitet talabasi sifatida nazariy bilimlar bilan birga amaliy veb-loyihalar ustida doimiy izlanishdaman.
           </p>
         </motion.div>
 
@@ -186,7 +186,7 @@ export const AboutSection: React.FC = () => {
                   className="float-y inline-block bg-white text-[#111111] border-2 border-[#111111] px-3 py-1.5 font-display-campaign text-xs tracking-tight whitespace-nowrap"
                   style={{ animationDelay: '1.2s' }}
                 >
-                  SWIFT LEARNER
+                  FRONT-END
                 </span>
               </div>
             </motion.div>
@@ -200,7 +200,7 @@ export const AboutSection: React.FC = () => {
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: reducedMotion ? 0 : 0.5, delay: reducedMotion ? 0 : 0.2 }}
         >
-          <CareerPathToggle />
+          <FrontendStackCard />
         </motion.div>
       </Container>
     </FullscreenSection>

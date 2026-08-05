@@ -9,7 +9,7 @@ import {
   useTransform,
   useReducedMotion,
 } from 'framer-motion';
-import { Smartphone, Rocket, Globe2, Compass, Flag } from 'lucide-react';
+import { Code2, Rocket, Globe2, Compass, Flag } from 'lucide-react';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { Container } from '@/shared/ui/container';
@@ -49,8 +49,8 @@ export const GoalsSection: React.FC = () => {
 
   const getIcon = (iconName: string, className: string) => {
     switch (iconName) {
-      case 'Smartphone':
-        return <Smartphone className={className} />;
+      case 'Code2':
+        return <Code2 className={className} />;
       case 'Rocket':
         return <Rocket className={className} />;
       case 'Globe2':
@@ -81,7 +81,7 @@ export const GoalsSection: React.FC = () => {
                 MAQSADLARIM ZINAPOYASI
               </h1>
               <p className="text-xs sm:text-sm text-[#707072] leading-relaxed font-medium max-w-md">
-                Kuchli iOS muhandisiga aylanish, shaxsiy IT mahsulotlar yaratish va global kompaniyalar bilan hamkorlik qilish rejasi. Qadamni tanlang:
+                Front-end yo‘nalishida chuqur mutaxassis bo‘lish, shaxsiy IT mahsulotlar yaratish va global kompaniyalar bilan hamkorlik qilish rejasi. Qadamni tanlang:
               </p>
             </div>
 

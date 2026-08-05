@@ -5,7 +5,7 @@ import { createPageMetadata } from '@/shared/config/site';
 export const metadata: Metadata = createPageMetadata({
   title: 'Kasbiy maqsadlar',
   description:
-    'Professional iOS dasturchi bo‘lish, foydali IT mahsulotlar yaratish va xalqaro jamoalarda tajriba oshirish maqsadlari.',
+    'Front-end yo‘nalishida rivojlanish, foydali IT mahsulotlar yaratish va xalqaro jamoalarda tajriba oshirish maqsadlari.',
   path: '/goals',
 });
 

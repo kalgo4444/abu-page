@@ -45,12 +45,11 @@ export const SkillsSection: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('Barchasi');
   const reducedMotion = useReducedMotion();
 
-  const categories = ['Barchasi', 'Front-End', 'iOS & Swift', 'AI & Tools'];
+  const categories = ['Barchasi', 'Front-End', 'AI & Tools'];
 
   const filteredSkills = PROFILE_DATA.skills.filter((group) => {
     if (activeCategory === 'Barchasi') return true;
     if (activeCategory === 'Front-End') return group.title.includes('Front-End');
-    if (activeCategory === 'iOS & Swift') return group.title.includes('iOS');
     if (activeCategory === 'AI & Tools') return group.title.includes('AI');
     return true;
   });
@@ -80,7 +79,7 @@ export const SkillsSection: React.FC = () => {
             </h1>
           </div>
           <p className="hidden lg:block max-w-xs text-xs text-[#707072] leading-relaxed font-medium">
-            HTML/CSS va React’dan boshlab Swift, Apple ekotizimi va AI vositalarigacha (OpenCode, Codex, MCP) amaliy bilimlar.
+            HTML/CSS va React’dan boshlab Next.js, TypeScript hamda AI vositalarigacha (OpenCode, Codex, MCP) amaliy bilimlar.
           </p>
         </motion.div>
 

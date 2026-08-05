@@ -5,7 +5,7 @@ import { createPageMetadata } from '@/shared/config/site';
 export const metadata: Metadata = createPageMetadata({
   title: 'Bog‘lanish',
   description:
-    'Front-end, Next.js, iOS yoki AI vositalariga oid loyiha, hamkorlik va takliflar bo‘yicha Abdulaziz bilan bog‘laning.',
+    'Front-end, Next.js yoki AI vositalariga oid loyiha, hamkorlik va takliflar bo‘yicha Abdulaziz bilan bog‘laning.',
   path: '/contact',
 });
 

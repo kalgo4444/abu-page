@@ -9,7 +9,7 @@ export default function Home() {
     name: PROFILE_DATA.name,
     url: SITE_URL.href,
     jobTitle: PROFILE_DATA.title,
-    knowsAbout: ['React', 'Next.js', 'TypeScript', 'Swift', 'SwiftUI'],
+    knowsAbout: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'],
   };
 
   return (

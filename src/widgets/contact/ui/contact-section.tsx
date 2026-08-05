@@ -114,7 +114,7 @@ export const ContactSection: React.FC = () => {
           </h1>
 
           <p className="text-sm sm:text-base text-white/65 max-w-xl leading-relaxed font-normal">
-            Front-end veb-saytlar, Next.js loyihalari, iOS ilovalar yoki sun’iy intellekt vositalari bilan ishlash bo‘yicha bog‘lanishingiz mumkin.
+            Front-end veb-saytlar, Next.js loyihalari yoki sun’iy intellekt vositalari bilan ishlash bo‘yicha bog‘lanishingiz mumkin.
           </p>
         </motion.div>
 
