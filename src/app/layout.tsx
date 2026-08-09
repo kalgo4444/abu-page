@@ -54,8 +54,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uz" className={jetbrainsMono.variable}>
-      <body className="antialiased bg-white text-[#111111] min-h-screen selection:bg-[#111111] selection:text-white">
+    <html lang="uz" className={jetbrainsMono.variable} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var theme=localStorage.getItem('theme');if(theme!=='light'&&theme!=='dark'){theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=theme}catch(e){}})()`,
+          }}
+        />
+      </head>
+      <body className="antialiased min-h-screen selection:bg-[#111111] selection:text-white">
         <SiteShell>{children}</SiteShell>
       </body>
     </html>

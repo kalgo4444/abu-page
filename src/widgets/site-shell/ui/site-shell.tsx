@@ -3,6 +3,7 @@
 import { useCallback, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { ContactModalContext } from '@/features/contact-modal/model/contact-modal-context';
+import { ThemeProvider } from '@/features/theme/model/theme-context';
 import { Navbar } from '@/widgets/navbar/ui/navbar';
 
 const ContactModal = dynamic(() =>
@@ -25,16 +26,18 @@ export const SiteShell = ({ children }: SiteShellProps) => {
   const closeContactModal = useCallback(() => setIsContactOpen(false), []);
 
   return (
-    <ContactModalContext.Provider value={{ openContactModal }}>
-      <div inert={isContactOpen} aria-hidden={isContactOpen}>
-        <Navbar />
-        <main className="relative min-h-screen overflow-x-hidden bg-white text-[#111111]">
-          {children}
-        </main>
-      </div>
-      {hasOpenedContact && (
-        <ContactModal isOpen={isContactOpen} onClose={closeContactModal} />
-      )}
-    </ContactModalContext.Provider>
+    <ThemeProvider>
+      <ContactModalContext.Provider value={{ openContactModal }}>
+        <div inert={isContactOpen} aria-hidden={isContactOpen}>
+          <Navbar />
+          <main className="relative min-h-screen overflow-x-hidden bg-[var(--canvas)] text-[var(--ink)]">
+            {children}
+          </main>
+        </div>
+        {hasOpenedContact && (
+          <ContactModal isOpen={isContactOpen} onClose={closeContactModal} />
+        )}
+      </ContactModalContext.Provider>
+    </ThemeProvider>
   );
 };

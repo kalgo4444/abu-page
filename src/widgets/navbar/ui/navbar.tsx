@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { Container } from '@/shared/ui/container';
+import { ThemeToggle } from '@/features/theme/ui/theme-toggle';
 
 const NAV_LINKS = [
   { label: 'MEN HAQIMDA', href: '/about' },
@@ -65,7 +66,7 @@ export const Navbar: React.FC = () => {
       }}
       transition={{ duration: reducedMotion ? 0 : 0.4, ease: [0.25, 0.4, 0.25, 1] }}
       onFocusCapture={() => setHidden(false)}
-      className="fixed top-2.5 sm:top-3 inset-x-0 z-50"
+      className="theme-chrome fixed top-2.5 sm:top-3 inset-x-0 z-50"
     >
       <Container>
         <div
@@ -134,6 +135,7 @@ export const Navbar: React.FC = () => {
             </nav>
 
             <div className="flex items-center gap-3 shrink-0">
+              <ThemeToggle />
               <Link
                 href="/contact"
                 className="font-brand hidden h-11 items-center justify-center rounded-full bg-[#111111] px-4 text-[10px] font-normal uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#222222] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] focus-visible:ring-offset-2 sm:inline-flex"

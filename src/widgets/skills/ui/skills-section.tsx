@@ -61,7 +61,7 @@ export const SkillsSection: React.FC = () => {
   }));
 
   return (
-    <FullscreenSection id="skills" className="bg-white text-[#111111]">
+    <FullscreenSection id="skills" className="theme-page bg-white text-[#111111]">
       <Container className="flex-1 flex flex-col justify-center gap-4 lg:gap-5 py-24 lg:py-16 w-full">
         <motion.div
           initial={{ opacity: 0, y: reducedMotion ? 0 : 20 }}

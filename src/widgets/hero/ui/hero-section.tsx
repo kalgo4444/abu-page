@@ -138,7 +138,7 @@ export const HeroSection: React.FC = () => {
       id="hero"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="bg-white text-[#111111]"
+      className="theme-page bg-white text-[#111111]"
     >
       <Container className="flex-1 flex flex-col justify-center w-full pt-24 lg:pt-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">

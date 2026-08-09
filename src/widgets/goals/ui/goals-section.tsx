@@ -63,7 +63,7 @@ export const GoalsSection: React.FC = () => {
   };
 
   return (
-    <FullscreenSection id="goals" className="bg-[#f5f5f5] text-[#111111]">
+    <FullscreenSection id="goals" className="theme-page bg-[#f5f5f5] text-[#111111]">
       <Container className="flex-1 flex flex-col justify-center py-24 lg:py-16 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <motion.div
