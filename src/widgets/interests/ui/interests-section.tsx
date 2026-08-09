@@ -72,7 +72,7 @@ export const InterestsSection: React.FC = () => {
 
   return (
     <FullscreenSection id="interests" className="bg-white text-[#111111]">
-      <Container className="flex-1 flex flex-col justify-center gap-4 lg:gap-6 py-24 lg:py-16 w-full">
+      <Container className="flex-1 flex flex-col justify-center gap-4 lg:gap-5 py-24 lg:py-12 xl:py-16 w-full">
         <motion.div
           initial={{ opacity: 0, y: reducedMotion ? 0 : 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -98,7 +98,7 @@ export const InterestsSection: React.FC = () => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: reducedMotion ? 0 : 0.6, delay: reducedMotion ? 0 : 0.1 }}
-          className="hidden lg:block relative h-[440px] xl:h-[470px] scene-3d"
+          className="hidden lg:block relative h-[min(52svh,560px)] min-h-[400px] scene-3d"
         >
           {PROFILE_DATA.interests.map((item, idx) => {
             let offset = (idx - activeIndex + total) % total;
@@ -109,7 +109,7 @@ export const InterestsSection: React.FC = () => {
                 key={item.id}
                 initial={false}
                 animate={{
-                  x: `${offset * 64}%`,
+                  x: `${offset * 88}%`,
                   rotateY: offset === 0 ? 0 : offset > 0 ? -50 : 50,
                   z: absOffset === 0 ? 0 : absOffset === 1 ? -180 : -340,
                   opacity: absOffset === 0 ? 1 : absOffset === 1 ? 0.85 : 0.45,
@@ -119,7 +119,7 @@ export const InterestsSection: React.FC = () => {
                   ease: [0.25, 0.4, 0.25, 1],
                 }}
                 style={{ zIndex: 10 - absOffset }}
-                className="absolute left-1/2 top-1/2 -mt-[215px] -ml-[150px] w-[300px] h-[430px] bg-[#111111] text-white p-7 flex flex-col justify-between overflow-hidden text-left"
+                className="absolute left-1/2 top-1/2 h-[min(50svh,540px)] min-h-[390px] w-[clamp(300px,25vw,420px)] -translate-x-1/2 -translate-y-1/2 bg-[#111111] text-white p-7 xl:p-8 flex flex-col justify-between overflow-hidden text-left"
               >
                 <button
                   type="button"

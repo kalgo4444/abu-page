@@ -161,6 +161,7 @@ export const Navbar: React.FC = () => {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: reducedMotion ? 0 : 0.2 }}
                 className="lg:hidden overflow-hidden border-t border-[#e5e5e5] px-6"
               >
                 <div className="flex flex-col gap-4 py-6">

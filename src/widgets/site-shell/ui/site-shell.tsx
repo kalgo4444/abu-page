@@ -26,10 +26,12 @@ export const SiteShell = ({ children }: SiteShellProps) => {
 
   return (
     <ContactModalContext.Provider value={{ openContactModal }}>
-      <Navbar />
-      <main className="relative min-h-screen overflow-x-hidden bg-white text-[#111111]">
-        {children}
-      </main>
+      <div inert={isContactOpen} aria-hidden={isContactOpen}>
+        <Navbar />
+        <main className="relative min-h-screen overflow-x-hidden bg-white text-[#111111]">
+          {children}
+        </main>
+      </div>
       {hasOpenedContact && (
         <ContactModal isOpen={isContactOpen} onClose={closeContactModal} />
       )}

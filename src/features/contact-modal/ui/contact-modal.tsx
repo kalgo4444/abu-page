@@ -17,6 +17,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const dialogRef = useRef<HTMLDivElement>(null);
+  const successHeadingRef = useRef<HTMLHeadingElement>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reducedMotion = useReducedMotion();
 
@@ -51,10 +52,10 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
       const firstElement = focusableElements[0];
       const lastElement = focusableElements.at(-1);
 
-      if (event.shiftKey && document.activeElement === firstElement) {
+      if (event.shiftKey && (document.activeElement === dialogRef.current || document.activeElement === firstElement)) {
         event.preventDefault();
         lastElement?.focus();
-      } else if (!event.shiftKey && document.activeElement === lastElement) {
+      } else if (!event.shiftKey && (document.activeElement === dialogRef.current || document.activeElement === lastElement)) {
         event.preventDefault();
         firstElement?.focus();
       }
@@ -76,6 +77,10 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
     []
   );
 
+  useEffect(() => {
+    if (submitted) successHeadingRef.current?.focus();
+  }, [submitted]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const name = formData.name.trim();
@@ -86,11 +91,14 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
 
     setIsSubmitting(true);
     setError('');
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10_000);
 
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({
           name,
           contact,
@@ -118,9 +126,14 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
         setFormData({ name: '', email: '', message: '', website: '' });
         onClose();
       }, 2500);
-    } catch {
-      setError('Xabarni yuborib bo‘lmadi. Internet aloqasini tekshiring.');
+    } catch (error) {
+      setError(
+        error instanceof DOMException && error.name === 'AbortError'
+          ? 'So‘rov vaqti tugadi. Internetni tekshirib, qayta urinib ko‘ring.'
+          : 'Xabarni yuborib bo‘lmadi. Internet aloqasini tekshiring.',
+      );
     } finally {
+      clearTimeout(timeout);
       setIsSubmitting(false);
     }
   };
@@ -133,6 +146,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: reducedMotion ? 0 : 0.2 }}
             onClick={closeModal}
             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
           />
@@ -164,7 +178,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 <div className="w-16 h-16 bg-[#007d48] text-white rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
-                <h3 id="contact-modal-title" className="text-2xl font-bold uppercase text-[#111111] font-display-campaign mb-2">
+                <h3 ref={successHeadingRef} id="contact-modal-title" tabIndex={-1} className="text-2xl font-bold uppercase text-[#111111] font-display-campaign mb-2 focus:outline-none">
                   RAHMAT! XABARINGIZ YUBORILDI
                 </h3>
                 <p id="contact-modal-description" aria-live="polite" className="text-[#707072] text-sm font-medium">

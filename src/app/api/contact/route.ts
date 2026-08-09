@@ -1,38 +1,45 @@
 export const runtime = 'nodejs';
 
-const MAX_NAME_LENGTH = 100;
-const MAX_CONTACT_LENGTH = 200;
-const MAX_MESSAGE_LENGTH = 2_000;
-const MAX_BODY_SIZE = 8_192;
-const RATE_LIMIT = 5;
-const RATE_WINDOW_MS = 10 * 60 * 1_000;
-const requestCounts = new Map<string, { count: number; resetAt: number }>();
-
-const readText = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
-
-const isRateLimited = (request: Request) => {
-  const forwardedFor = request.headers.get('x-forwarded-for');
-  const ip = forwardedFor?.split(',')[0]?.trim() || request.headers.get('x-real-ip');
-
-  if (!ip) return false;
-
-  const now = Date.now();
-  const current = requestCounts.get(ip);
-
-  if (!current || current.resetAt <= now) {
-    requestCounts.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
-    return false;
-  }
-
-  current.count += 1;
-  return current.count > RATE_LIMIT;
-};
+import { SITE_URL } from '@/shared/config/site';
+import {
+  MAX_BODY_SIZE,
+  MAX_CONTACT_LENGTH,
+  MAX_MESSAGE_LENGTH,
+  MAX_NAME_LENGTH,
+  isValidContact,
+  readText,
+} from '@/shared/lib/contact';
+import { enforceContactRateLimit } from '@/shared/lib/contact-rate-limit';
 
 export async function POST(request: Request) {
-  if (isRateLimited(request)) {
+  const origin = request.headers.get('origin');
+  if (origin && origin !== SITE_URL.origin) {
+    return Response.json({ error: 'Noto‘g‘ri so‘rov manbasi.' }, { status: 403 });
+  }
+
+  let rateLimit;
+
+  try {
+    rateLimit = await enforceContactRateLimit(request);
+  } catch {
+    return Response.json(
+      { error: 'Xabar xizmati vaqtincha ishlamayapti. Keyinroq urinib ko‘ring.' },
+      { status: 503 },
+    );
+  }
+
+  if (!rateLimit.success) {
+    const retryAfter = Math.max(1, Math.ceil((rateLimit.reset - Date.now()) / 1_000));
     return Response.json(
       { error: 'Juda ko‘p so‘rov yuborildi. Keyinroq urinib ko‘ring.' },
-      { status: 429 },
+      {
+        status: 429,
+        headers: {
+          'Retry-After': String(retryAfter),
+          'X-RateLimit-Limit': String(rateLimit.limit),
+          'X-RateLimit-Remaining': String(rateLimit.remaining),
+        },
+      },
     );
   }
 
@@ -84,6 +91,10 @@ export async function POST(request: Request) {
     message.length > MAX_MESSAGE_LENGTH
   ) {
     return Response.json({ error: 'Maydonlardan biri ruxsat etilgan hajmdan uzun.' }, { status: 400 });
+  }
+
+  if (!isValidContact(contact)) {
+    return Response.json({ error: 'Email yoki Telegram manzili noto‘g‘ri.' }, { status: 400 });
   }
 
   const token = process.env.TELEGRAM_BOT_TOKEN;
