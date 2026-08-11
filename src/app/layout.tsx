@@ -26,7 +26,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: SITE_URL,
   title: {
-    default: 'Abdulaziz — Front-end dasturchi',
+    default: 'Abdulaziz - Frontend dasturchi',
     template: '%s | Abdulaziz',
   },
   description:
@@ -45,17 +45,17 @@ export const metadata: Metadata = {
   creator: 'Abdulaziz',
   alternates: { canonical: '/' },
   openGraph: {
-    title: 'Abdulaziz — Front-end dasturchi',
+    title: 'Abdulaziz - Frontend dasturchi',
     description:
       'React va Next.js asosida zamonaviy veb-ilovalar yaratuvchi front-end dasturchi.',
     url: '/',
-    siteName: 'Abdulaziz portfolio',
+    siteName: 'Abdulaziz Portfolio',
     locale: 'uz_UZ',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Abdulaziz — Front-end dasturchi',
+    title: 'Abdulaziz - Frontend dasturchi',
     description:
       'React va Next.js asosida zamonaviy veb-ilovalar yaratuvchi front-end dasturchi.',
   },
