@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, HTMLMotionProps } from 'framer-motion';
+import { motion, HTMLMotionProps, useReducedMotion } from 'framer-motion';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -17,9 +17,11 @@ export const Card: React.FC<CardProps> = ({
   hoverEffect = false,
   ...props
 }) => {
+  const reducedMotion = useReducedMotion();
+
   return (
     <motion.div
-      whileHover={hoverEffect ? { y: -2, transition: { duration: 0.15 } } : undefined}
+      whileHover={hoverEffect && !reducedMotion ? { y: -2, transition: { duration: 0.15 } } : undefined}
       className={twMerge(
         clsx(
           'bg-white rounded-none border border-[#e5e5e5] p-6 relative overflow-hidden transition-colors hover:border-[#111111]',

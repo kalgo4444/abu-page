@@ -150,13 +150,10 @@ export const HeroSection: React.FC = () => {
               transition={{ duration: reducedMotion ? 0 : 0.6 }}
               className="space-y-5"
             >
-              {/* Status Badges */}
+              {/* Status Badge */}
               <div className="flex flex-wrap items-center gap-2">
                 <Badge variant="blue" icon={<ShieldCheck className="w-3.5 h-3.5" />}>
-                  IT FAKULTETI — 3-KURS TALABASI
-                </Badge>
-                <Badge variant="purple" icon={<Code2 className="w-3.5 h-3.5" />}>
-                  FRONT-END DEVELOPER
+                  3-KURS TALABASI • FRONT-END DEVELOPER
                 </Badge>
               </div>
 
@@ -173,21 +170,9 @@ export const HeroSection: React.FC = () => {
               </div>
 
               {/* Subtitle */}
-              <p className="text-base sm:text-lg text-[#39393b] max-w-xl font-normal leading-relaxed">
-                O‘zbekistonda yuqori unumdorlikka ega zamonaviy veb-ilovalar yaratuvchi <strong className="text-[#111111] font-semibold">Front-end dasturchiman</strong>. React, Next.js va TypeScript orqali qulay hamda tezkor foydalanuvchi tajribasini yaratishga e’tibor qarataman.
+              <p className="max-w-lg text-base font-normal leading-relaxed text-[#39393b] sm:text-lg">
+                React, Next.js va TypeScript yordamida tezkor, qulay hamda ishonchli veb-interfeyslar yarataman.
               </p>
-
-              {/* Metrics Bar - Catalog Style */}
-              <div className="grid grid-cols-1 gap-3 border-y border-[#e5e5e5] py-3 sm:grid-cols-2 sm:gap-4">
-                <div>
-                  <span className="block break-words font-display-campaign text-base font-extrabold leading-none text-[#111111] sm:text-lg lg:text-2xl">REACT / NEXT.JS</span>
-                  <span className="text-xs text-[#707072] uppercase font-medium">Asosiy Web Stack</span>
-                </div>
-                <div>
-                  <span className="block break-words font-display-campaign text-base font-extrabold leading-none text-[#111111] sm:text-lg lg:text-2xl">AI & MCP</span>
-                  <span className="text-xs text-[#707072] uppercase font-medium">Agent Vositalari</span>
-                </div>
-              </div>
 
               {/* Nike Dual Pill CTA Buttons */}
               <div className="flex flex-wrap items-center gap-4 pt-2">
@@ -197,7 +182,7 @@ export const HeroSection: React.FC = () => {
                   onClick={openContactModal}
                   className="uppercase font-bold tracking-wider text-xs"
                 >
-                  Hamkorlik Taklifi
+                  Bog‘lanish
                 </Button>
 
                 <Button

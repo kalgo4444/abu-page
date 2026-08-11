@@ -56,7 +56,7 @@ export const AboutSection: React.FC = () => {
               TA’LIM VA DASTURLASH SAYOHATI
             </h1>
           </div>
-          <p className="hidden lg:block max-w-xs text-xs text-white/60 leading-relaxed font-medium">
+          <p className="max-w-md text-xs font-medium leading-relaxed text-white/60 lg:max-w-xs">
             O‘zbekistondagi xususiy universitet talabasi sifatida nazariy bilimlar bilan birga amaliy veb-loyihalar ustida doimiy izlanishdaman.
           </p>
         </motion.div>
@@ -111,7 +111,7 @@ export const AboutSection: React.FC = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: reducedMotion ? 0 : 0.6, delay: reducedMotion ? 0 : 0.15 }}
-            className="scene-3d hidden justify-center py-6 lg:flex"
+            className="scene-3d flex justify-center py-2 lg:py-6"
             onMouseMove={handleSceneMouseMove}
             onMouseLeave={handleSceneMouseLeave}
           >
@@ -169,7 +169,7 @@ export const AboutSection: React.FC = () => {
 
               <div
                 aria-hidden="true"
-                className="absolute -top-5 -right-2 sm:-right-4 pointer-events-none"
+                className="absolute -top-5 -right-2 hidden pointer-events-none sm:-right-4 lg:block"
                 style={{ transform: 'translateZ(60px)' }}
               >
                 <span className="float-y inline-block bg-[#111111] text-white border-2 border-white px-3 py-1.5 font-display-campaign text-xs tracking-tight whitespace-nowrap">
@@ -177,18 +177,6 @@ export const AboutSection: React.FC = () => {
                 </span>
               </div>
 
-              <div
-                aria-hidden="true"
-                className="absolute -bottom-5 -left-2 sm:-left-4 pointer-events-none"
-                style={{ transform: 'translateZ(45px)' }}
-              >
-                <span
-                  className="float-y inline-block bg-white text-[#111111] border-2 border-[#111111] px-3 py-1.5 font-display-campaign text-xs tracking-tight whitespace-nowrap"
-                  style={{ animationDelay: '1.2s' }}
-                >
-                  FRONT-END
-                </span>
-              </div>
             </motion.div>
           </motion.div>
         </div>

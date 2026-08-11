@@ -45,12 +45,18 @@ export const InterestsSection: React.FC = () => {
     setActiveIndex(((index % total) + total) % total);
   };
 
-  const cardContent = (item: (typeof PROFILE_DATA.interests)[number]) => (
+  const cardContent = (item: (typeof PROFILE_DATA.interests)[number], index: number) => (
     <>
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent z-0 opacity-90" />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-2 top-12 font-display-campaign text-[9rem] leading-none text-white/[0.05]"
+      >
+        0{index + 1}
+      </span>
+      <div aria-hidden="true" className="absolute inset-x-0 top-1/2 border-t border-white/10" />
 
       <div className="relative z-10 flex items-center justify-between border-b border-white/20 pb-4">
-        <div className="p-3 bg-white/10 rounded-full backdrop-blur-md">{getIcon(item.icon)}</div>
+        <div className="rounded-full border border-white/20 bg-white/10 p-3">{getIcon(item.icon)}</div>
         <span className="text-[11px] font-bold uppercase tracking-wider text-[#cacacb]">
           {categoryLabels[item.category]}
         </span>
@@ -129,7 +135,7 @@ export const InterestsSection: React.FC = () => {
                   tabIndex={idx === activeIndex ? 0 : -1}
                   className="absolute inset-0 z-20 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-white"
                 />
-                {cardContent(item)}
+            {cardContent(item, idx)}
               </motion.article>
             );
           })}
@@ -144,7 +150,7 @@ export const InterestsSection: React.FC = () => {
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
-          <span className="text-xs font-mono font-bold text-[#707072] tracking-widest">
+          <span aria-live="polite" className="text-xs font-mono font-bold text-[#707072] tracking-widest">
             0{activeIndex + 1} / 0{total}
           </span>
           <button
@@ -159,12 +165,12 @@ export const InterestsSection: React.FC = () => {
 
         <div className="lg:hidden overflow-x-auto snap-x snap-mandatory -mx-4 px-4 pb-2">
           <div className="flex gap-4 w-max">
-            {PROFILE_DATA.interests.map((item) => (
+            {PROFILE_DATA.interests.map((item, index) => (
               <article
                 key={item.id}
                 className="snap-center relative bg-[#111111] text-white p-7 flex flex-col justify-between w-[270px] aspect-[4/5] overflow-hidden shrink-0"
               >
-                {cardContent(item)}
+                {cardContent(item, index)}
               </article>
             ))}
           </div>

@@ -17,13 +17,6 @@ const NAV_LINKS = [
   { label: 'MAQSADLAR', href: '/goals' },
 ];
 
-const HOVER_STYLES = [
-  { text: 'hover:text-[#1151ff]', underline: 'group-hover:bg-[#1151ff]' },
-  { text: 'hover:text-[#ed1aa0]', underline: 'group-hover:bg-[#ed1aa0]' },
-  { text: 'hover:text-[#0a7281]', underline: 'group-hover:bg-[#0a7281]' },
-  { text: 'hover:text-[#d30005]', underline: 'group-hover:bg-[#d30005]' },
-];
-
 export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -99,7 +92,7 @@ export const Navbar: React.FC = () => {
             </Link>
 
             <nav aria-label="Asosiy navigatsiya" className="hidden lg:flex flex-1 items-center justify-center gap-7">
-              {NAV_LINKS.map((link, index) => {
+              {NAV_LINKS.map((link) => {
                 const isActive = pathname === link.href;
                 return (
                   <motion.div
@@ -108,8 +101,8 @@ export const Navbar: React.FC = () => {
                     transition={{ type: 'spring', stiffness: 420, damping: 24 }}
                     className={twMerge(
                       clsx(
-                        'font-brand group relative text-[11px] font-normal tracking-[0.04em] transition-colors',
-                        isActive ? 'text-[#111111]' : `text-[#707072] ${HOVER_STYLES[index].text}`
+                        'font-brand group relative text-[11px] font-semibold tracking-[0.04em] transition-colors hover:text-[#111111]',
+                        isActive ? 'text-[#111111]' : 'text-[#707072]'
                       )
                     )}
                     style={{ transformStyle: 'preserve-3d' }}
@@ -123,7 +116,7 @@ export const Navbar: React.FC = () => {
                       <span
                         className={twMerge(
                           clsx(
-                            `absolute bottom-0 left-0 h-[2px] bg-[#111111] transition-all duration-200 ${HOVER_STYLES[index].underline}`,
+                            'absolute bottom-0 left-0 h-[2px] bg-[#111111] transition-all duration-200',
                             isActive ? 'w-full' : 'w-0 group-hover:w-full'
                           )
                         )}
@@ -138,7 +131,7 @@ export const Navbar: React.FC = () => {
               <ThemeToggle />
               <Link
                 href="/contact"
-                className="font-brand hidden h-11 items-center justify-center rounded-full bg-[#111111] px-4 text-[10px] font-normal uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#222222] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] focus-visible:ring-offset-2 sm:inline-flex"
+                className="font-brand hidden h-11 items-center justify-center rounded-full bg-[#111111] px-5 text-[10px] font-semibold uppercase tracking-[0.08em] text-white transition-transform hover:bg-[#222222] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] focus-visible:ring-offset-2 sm:inline-flex"
               >
                 Bog‘lanish
               </Link>
@@ -192,9 +185,9 @@ export const Navbar: React.FC = () => {
                       <Link
                         href="/contact"
                         onClick={() => setMobileMenuOpen(false)}
-                        className="flex h-12 w-full items-center justify-center rounded-full bg-[#111111] px-8 text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-[#222222]"
+                        className="flex h-12 w-full items-center justify-center rounded-full bg-[#111111] px-8 text-sm font-bold uppercase tracking-wider text-white transition-transform hover:bg-[#222222] active:scale-[0.98]"
                       >
-                        Hamkorlik Taklifi
+                        Bog‘lanish
                       </Link>
                     </div>
                 </div>

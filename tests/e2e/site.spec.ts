@@ -4,6 +4,6 @@ test('home page is available and contact modal can be opened', async ({ page }) 
   await page.goto('/');
 
   await expect(page).toHaveTitle(/Front-end dasturchi/);
-  await page.getByRole('button', { name: 'Hamkorlik Taklifi' }).click();
+  await page.getByRole('button', { name: 'Bog‘lanish' }).click();
   await expect(page.getByRole('dialog')).toBeVisible();
 });

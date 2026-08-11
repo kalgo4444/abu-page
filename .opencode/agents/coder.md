@@ -24,6 +24,3 @@ review.
 4. Follow the project’s existing package manager, style, and test commands.
 5. Run the narrowest relevant checks before declaring implementation work
    complete. Report changed files, commands run, and any remaining risk.
-6. For new UI or redesign visual direction, use `frontend-design`. For UX,
-   accessibility, responsive behavior, or UI review, use `ui-ux-pro-max`. Use
-   both only for a full UI overhaul.

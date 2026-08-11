@@ -1,12 +1,25 @@
 import type { Metadata } from 'next';
-import { JetBrains_Mono } from 'next/font/google';
+import { Bebas_Neue, Inter, JetBrains_Mono } from 'next/font/google';
 import { SITE_URL } from '@/shared/config/site';
 import { SiteShell } from '@/widgets/site-shell/ui/site-shell';
 import './globals.css';
 
-const jetbrainsMono = JetBrains_Mono({
+const bebasNeue = Bebas_Neue({
+  subsets: ['latin', 'latin-ext'],
+  variable: '--font-display',
+  weight: '400',
+  display: 'swap',
+});
+
+const inter = Inter({
   subsets: ['latin', 'latin-ext'],
   variable: '--font-sans',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin', 'latin-ext'],
+  variable: '--font-mono',
   display: 'swap',
 });
 
@@ -54,7 +67,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uz" className={jetbrainsMono.variable} suppressHydrationWarning>
+    <html
+      lang="uz"
+      className={`${bebasNeue.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script
           dangerouslySetInnerHTML={{

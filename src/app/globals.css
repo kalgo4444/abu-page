@@ -124,18 +124,18 @@ html[data-theme='dark'] .theme-chrome [class~='border-[#e5e5e5]'] {
 
 /* Nike Typography Utilities */
 .font-display-campaign {
-  font-family: var(--font-sans), monospace;
+  font-family: var(--font-display), Impact, sans-serif;
   letter-spacing: 0;
   line-height: 0.9;
   text-transform: uppercase;
 }
 
 .font-brand {
-  font-family: var(--font-sans), monospace;
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .font-mono {
-  font-family: var(--font-sans), monospace;
+  font-family: var(--font-mono), "SFMono-Regular", Consolas, monospace;
 }
 
 /* 3D Scene Utilities */
@@ -202,10 +202,24 @@ html[data-theme='dark'] .theme-chrome [class~='border-[#e5e5e5]'] {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+
   .cube-3d,
   .float-y,
   .ring-orbit {
     animation: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .theme-chrome [class*='backdrop-blur'] {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: var(--surface);
   }
 }
 

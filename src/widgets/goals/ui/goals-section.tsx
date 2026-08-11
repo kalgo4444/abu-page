@@ -140,7 +140,7 @@ export const GoalsSection: React.FC = () => {
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 lg:flex lg:items-end gap-3 sm:gap-4">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:flex lg:items-end">
                 {PROFILE_DATA.goals.map((goal, idx) => {
                   const isActive = goal.id === activeId;
                   return (
@@ -187,7 +187,7 @@ export const GoalsSection: React.FC = () => {
                       <span
                         className={twMerge(
                           clsx(
-                            'text-[10px] lg:text-[11px] font-bold uppercase tracking-wider leading-tight',
+                            'text-xs font-bold uppercase tracking-wider leading-tight',
                             isActive ? 'text-white/85' : 'text-[#4b4b4d]'
                           )
                         )}

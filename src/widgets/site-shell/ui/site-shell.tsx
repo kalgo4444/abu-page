@@ -29,8 +29,17 @@ export const SiteShell = ({ children }: SiteShellProps) => {
     <ThemeProvider>
       <ContactModalContext.Provider value={{ openContactModal }}>
         <div inert={isContactOpen} aria-hidden={isContactOpen}>
+          <a
+            href="#main-content"
+            className="fixed left-4 top-4 z-[60] -translate-y-24 rounded-full bg-[#111111] px-5 py-3 text-sm font-semibold text-white transition-transform focus:translate-y-0"
+          >
+            Asosiy mazmunga o‘tish
+          </a>
           <Navbar />
-          <main className="relative min-h-screen overflow-x-hidden bg-[var(--canvas)] text-[var(--ink)]">
+          <main
+            id="main-content"
+            className="relative min-h-screen overflow-x-hidden bg-[var(--canvas)] text-[var(--ink)]"
+          >
             {children}
           </main>
         </div>

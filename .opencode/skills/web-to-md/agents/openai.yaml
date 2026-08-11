@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web to DESIGN.md"
+  short_description: "Turn websites into reusable DESIGN.md files"
+  default_prompt: "Use $web-to-md to analyze this public website URL and create an implementation-ready DESIGN.md."

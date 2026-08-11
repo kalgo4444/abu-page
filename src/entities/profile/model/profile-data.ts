@@ -129,7 +129,7 @@ export const PROFILE_DATA = {
       id: "freedom-travel",
       title: "Moliyaviy Erkinlik & Sayohat",
       subtitle: "Yangi Tajribalar va Bilim Ulashish",
-      description: "Sayyoramiz bo‘ylab ko‘proq sayohat qilish, dunyoqarashni kengaytirish va toplangan bilimlarni boshqalar bilan ulashish.",
+      description: "Sayyoramiz bo‘ylab ko‘proq sayohat qilish, dunyoqarashni kengaytirish va to‘plangan bilimlarni boshqalar bilan ulashish.",
       icon: "Compass",
       timeframe: "Hayotiy"
     }

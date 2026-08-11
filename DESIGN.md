@@ -547,25 +547,20 @@ Depth in Nike's system comes entirely from photography, not from CSS effects:
 
 ## Fullscreen Pages (Portfolio Implementation)
 
-The portfolio is composed as a sequence of six fullscreen pages (`{component.fullscreen-page}`), each occupying exactly one viewport — `100svh`, implemented as `min-h-svh` on mobile and `lg:h-svh` on desktop — snapping into place via CSS scroll-snap (`y proximity` below 1024px, `y mandatory` at `lg` and up). Every page carries a unique, non-repeating composition while the palette and chrome vocabulary stay identical to the rest of the system.
+The portfolio is composed as six routed fullscreen pages (`{component.fullscreen-page}`), each occupying one viewport — implemented as `min-h-svh` on mobile and `lg:h-svh` on desktop. `/`, `/about`, `/skills`, `/interests`, `/goals`, and `/contact` each carry a unique composition while the shared navbar, palette, typography, and chrome vocabulary remain identical.
 
 ### Page Inventory
 
 1. **Hero** — `{colors.canvas}` campaign page: `{typography.display-campaign}` lockup, spinning 3D tech cube (`cube-3d`) with mouse parallax, floating chips (`float-y`), and a kinetic marquee strip docked to the page's bottom edge via `mt-auto`.
 2. **About** — `{component.fullscreen-page-inverted}`: bio and education hairline rows (`white/15` dividers) beside a mouse-tilting 3D student ID card (`{component.id-card}`) with layered `translateZ` floating chips.
-3. **Skills** — `{colors.canvas}`: 3D orbit ring of `{component.orbit-chip}` chips counter-rotating around a static hairline ellipse; `{component.filter-chip}` / `{component.filter-chip-active}` pills swap the ring's contents; status dots in `{colors.success}`, `{colors.ink}`, and `{colors.mute}`.
+3. **Skills** — `{colors.canvas}`: a balanced two-column inventory of flat technical panels; `{component.filter-chip}` / `{component.filter-chip-active}` pills filter the panels; status dots in `{colors.success}`, `{colors.ink}`, and `{colors.mute}` communicate proficiency.
 4. **Interests** — `{colors.canvas}` stage with a 3D coverflow: `{component.campaign-tile}` cards rotate on the Y axis around a single active card (±50°, `translateZ(-180px)` side slots); navigation via `{component.button-icon-circular}` paddles.
 5. **Goals** — `{colors.soft-cloud}`: ascending 3D staircase of `{component.step-block}` / `{component.step-block-active}` blocks carrying `{typography.display-campaign}` numerals, plus a detail panel on `{colors.canvas}`.
 6. **Contact** — `{component.fullscreen-page-inverted}`: giant two-tone headline (solid `{colors.on-primary}` + 1.5px `white/40` text-stroke outline), a CSS-3D paper plane with mouse parallax, tilted `ring-orbit` ellipses at `white/10`, and the footer merged into the page's bottom strip on a `white/15` hairline instead of a standalone `{component.footer}` block.
 
-### Screen Dots
-
-- Fixed right-edge vertical stack of `{component.screen-dot}` / `{component.screen-dot-active}` rendered in `{colors.on-primary}` with `mix-blend-difference`, so the indicator inverts itself automatically over light and dark pages. Hidden below `lg`; each dot anchors to its page.
-
 ### Motion & 3D Utilities
 
 - `cube-3d` — 16s linear infinite Y-spin at a fixed −20° X tilt (hero).
-- `orbit-ring` / `orbit-chip` — 30s counter-rotated pair that keeps skill chips viewer-facing while the ring spins (skills).
 - `ring-orbit` — 24s rotateZ spin locked at a 72° X tilt (contact).
 - `float-y` — 6s ease-in-out vertical drift for decorative chips and the paper plane.
 - All of the above are disabled under `prefers-reduced-motion: reduce`; scroll-snap stays active and animated 3D scenes fall back to static or 2D chip-cloud layouts.
