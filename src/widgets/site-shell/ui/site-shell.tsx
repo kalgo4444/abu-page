@@ -1,8 +1,10 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { usePathname } from 'next/navigation';
 import { ContactModalContext } from '@/features/contact-modal/model/contact-modal-context';
+import { RoutePagination } from '@/features/route-pagination/ui/route-pagination';
 import { ThemeProvider } from '@/features/theme/model/theme-context';
 import { Navbar } from '@/widgets/navbar/ui/navbar';
 
@@ -17,6 +19,9 @@ interface SiteShellProps {
 export const SiteShell = ({ children }: SiteShellProps) => {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [hasOpenedContact, setHasOpenedContact] = useState(false);
+  const mainRef = useRef<HTMLElement>(null);
+  const pathname = usePathname();
+  const previousPathname = useRef(pathname);
 
   const openContactModal = useCallback(() => {
     setHasOpenedContact(true);
@@ -24,6 +29,20 @@ export const SiteShell = ({ children }: SiteShellProps) => {
   }, []);
 
   const closeContactModal = useCallback(() => setIsContactOpen(false), []);
+
+  useEffect(() => {
+    if (previousPathname.current === pathname) {
+      return;
+    }
+
+    previousPathname.current = pathname;
+
+    const frame = window.requestAnimationFrame(() => {
+      mainRef.current?.focus({ preventScroll: true });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [pathname]);
 
   return (
     <ThemeProvider>
@@ -36,8 +55,11 @@ export const SiteShell = ({ children }: SiteShellProps) => {
             Asosiy mazmunga o‘tish
           </a>
           <Navbar />
+          <RoutePagination />
           <main
+            ref={mainRef}
             id="main-content"
+            tabIndex={-1}
             className="relative min-h-screen overflow-x-hidden bg-[var(--canvas)] text-[var(--ink)]"
           >
             {children}

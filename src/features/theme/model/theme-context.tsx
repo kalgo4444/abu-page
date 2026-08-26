@@ -17,12 +17,24 @@ const getTheme = (): Theme => {
 };
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>(getTheme);
+  const [theme, setTheme] = useState<Theme>('light');
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      setTheme(getTheme());
+      setIsMounted(true);
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+
     document.documentElement.dataset.theme = theme;
     localStorage.setItem('theme', theme);
-  }, [theme]);
+  }, [isMounted, theme]);
 
   return (
     <ThemeContext value={{ theme, toggleTheme: () => setTheme(theme === 'dark' ? 'light' : 'dark') }}>

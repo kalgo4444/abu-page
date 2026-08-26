@@ -69,6 +69,7 @@ export default function RootLayout({
   return (
     <html
       lang="uz"
+      data-scroll-behavior="smooth"
       className={`${bebasNeue.variable} ${inter.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
