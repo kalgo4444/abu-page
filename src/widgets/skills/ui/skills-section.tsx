@@ -82,17 +82,24 @@ export const SkillsSection: React.FC = () => {
                 key={group.title}
                 initial={{ opacity: 0, y: reducedMotion ? 0 : 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                whileHover={reducedMotion ? undefined : { y: -4 }}
+                whileHover={
+                  reducedMotion
+                    ? undefined
+                    : { y: -8, rotateX: 2, rotateY: groupIndex % 2 === 0 ? -2 : 2, scale: 1.015, z: 18 }
+                }
+                whileTap={reducedMotion ? undefined : { scale: 0.985, z: 6 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: reducedMotion ? 0 : 0.35, delay: reducedMotion ? 0 : groupIndex * 0.06 }}
-                className={`group relative isolate min-h-[244px] overflow-hidden border border-[#111111] bg-white p-4 sm:p-5 ${
+                className={`tactile-panel group relative isolate min-h-[244px] overflow-hidden border border-[#111111] bg-white p-4 sm:p-5 ${
                   filteredSkills.length === 1 ? 'md:col-span-2 md:w-full md:max-w-2xl md:justify-self-center' : ''
                 }`}
                 style={{ transformStyle: 'preserve-3d' }}
               >
+                <span aria-hidden="true" className="detail-cross detail-cross--top" />
+                <span aria-hidden="true" className="detail-cross detail-cross--bottom" />
                 <div className="absolute inset-x-3 bottom-[-7px] -z-10 h-2 border-x border-b border-[#cacacb] bg-[#f5f5f5] transition-transform duration-300 group-hover:translate-y-[7px]" />
                 <div className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-[#1151ff] transition-transform duration-300 group-hover:scale-x-100" />
-                <div className="flex items-start justify-between gap-4 border-b border-[#e5e5e5] pb-3">
+                <div className="flex items-start justify-between gap-4 border-b border-[#e5e5e5] pb-3" style={{ transform: 'translateZ(16px)' }}>
                   <div>
                     <span className="font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[#1151ff]">
                       0{groupIndex + 1} / {group.items.length} TA
@@ -104,7 +111,7 @@ export const SkillsSection: React.FC = () => {
                   <span className="mt-0.5 h-3 w-3 shrink-0 border border-[#111111] bg-[#f5f5f5]" />
                 </div>
                 <p className="mt-3 text-xs leading-relaxed text-[#707072]">{group.description}</p>
-                <ul className="mt-4 flex flex-wrap gap-1.5">
+                <ul className="mt-4 flex flex-wrap gap-1.5" style={{ transform: 'translateZ(10px)' }}>
                   {group.items.map((skill) => (
                     <li
                       key={skill.name}

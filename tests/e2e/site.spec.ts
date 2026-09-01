@@ -8,23 +8,23 @@ test('home page is available and contact modal can be opened', async ({ page }) 
   await expect(page.getByRole('dialog')).toBeVisible();
 });
 
-test('desktop page pagination navigates and marks the current route', async ({ page }, testInfo) => {
+test('desktop navigation changes route and marks the current page', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'chromium');
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/');
 
-  const pagination = page.getByRole('navigation', { name: 'Portfolio sahifalari' });
-  await expect(pagination).toBeVisible();
-  await pagination.getByRole('link', { name: '02. Men haqimda' }).click();
+  const navigation = page.getByRole('navigation', { name: 'Asosiy navigatsiya' });
+  await expect(navigation).toBeVisible();
+  await navigation.getByRole('link', { name: 'MEN HAQIMDA' }).click();
 
   await expect(page).toHaveURL('/about');
   await expect(
-    pagination.getByRole('link', { name: '02. Men haqimda' }),
+    navigation.getByRole('link', { name: 'MEN HAQIMDA' }),
   ).toHaveAttribute('aria-current', 'page');
   await expect(page.locator('#main-content')).toBeFocused();
 });
 
-test('mobile keeps the 3D page spine hidden without horizontal overflow', async ({ page }, testInfo) => {
+test('mobile has no removed page spine or horizontal overflow', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile');
   await page.goto('/');
 

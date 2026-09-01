@@ -12,6 +12,7 @@ import { GraduationCap, Fingerprint } from 'lucide-react';
 import { Container } from '@/shared/ui/container';
 import { Badge } from '@/shared/ui/badge';
 import { FullscreenSection } from '@/shared/ui/fullscreen-section';
+import { VectorOrb } from '@/shared/ui/vector-orb';
 import { FrontendStackCard } from '@/features/career-path/ui/frontend-stack-card';
 import { PROFILE_DATA } from '@/entities/profile/model/profile-data';
 
@@ -125,7 +126,15 @@ export const AboutSection: React.FC = () => {
                 style={{ transform: 'rotate(-5deg) translateZ(-50px)' }}
               />
 
-              <div className="relative bg-white text-[#111111] aspect-[8/5] p-5 sm:p-6 flex flex-col justify-between border-2 border-white">
+              <motion.div
+                whileHover={reducedMotion ? undefined : { scale: 1.035, z: 28 }}
+                whileTap={reducedMotion ? undefined : { scale: 0.985, z: 12 }}
+                transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+                className="tactile-panel relative bg-white text-[#111111] aspect-[8/5] p-5 sm:p-6 flex flex-col justify-between border-2 border-white"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                <span aria-hidden="true" className="detail-cross detail-cross--top" />
+                <span aria-hidden="true" className="detail-cross detail-cross--bottom" />
                 <div className="flex items-center justify-between pb-3 border-b border-[#e5e5e5]">
                   <div className="flex items-center gap-2.5">
                     <div className="w-8 h-8 bg-[#111111] text-white flex items-center justify-center font-extrabold text-sm tracking-tighter">
@@ -165,7 +174,7 @@ export const AboutSection: React.FC = () => {
                     Toshkent, UZB
                   </span>
                 </div>
-              </div>
+              </motion.div>
 
               <div
                 aria-hidden="true"
@@ -175,6 +184,14 @@ export const AboutSection: React.FC = () => {
                 <span className="float-y inline-block bg-[#111111] text-white border-2 border-white px-3 py-1.5 font-display-campaign text-xs tracking-tight whitespace-nowrap">
                   FRONT-END
                 </span>
+              </div>
+
+              <div
+                aria-hidden="true"
+                className="absolute -bottom-10 -left-8 hidden pointer-events-none lg:block"
+                style={{ transform: 'translateZ(74px)' }}
+              >
+                <VectorOrb className="h-20 w-20 opacity-70" inverted />
               </div>
 
             </motion.div>

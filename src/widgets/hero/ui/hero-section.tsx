@@ -15,6 +15,7 @@ import { Container } from '@/shared/ui/container';
 import { Button } from '@/shared/ui/button';
 import { Badge } from '@/shared/ui/badge';
 import { FullscreenSection } from '@/shared/ui/fullscreen-section';
+import { VectorOrb } from '@/shared/ui/vector-orb';
 import { useContactModal } from '@/features/contact-modal/model/contact-modal-context';
 
 /* --- 3D Cube config (112px box => faces pushed out by 56px) --- */
@@ -248,10 +249,33 @@ export const HeroSection: React.FC = () => {
                   </div>
                 </FloatingChip>
 
+                <FloatingChip
+                  mouseX={mouseX}
+                  mouseY={mouseY}
+                  depth={28}
+                  delay={1.4}
+                  className="-bottom-10 -right-8"
+                >
+                  <div className="relative border border-[#cacacb] bg-white/90 p-2">
+                    <VectorOrb className="h-24 w-24" />
+                    <span className="absolute -bottom-4 right-0 font-mono text-[8px] font-bold tracking-[0.16em] text-[#707072]">
+                      XYZ / 03
+                    </span>
+                  </div>
+                </FloatingChip>
+
                 {/* Nike Flat Catalog Card (1:1 Aspect Ratio on Soft Cloud Surface) */}
-                <div className="w-full bg-[#f5f5f5] border border-[#e5e5e5] p-8 relative flex flex-col justify-between aspect-square">
+                <motion.div
+                  whileHover={reducedMotion ? undefined : { scale: 1.025, z: 24 }}
+                  whileTap={reducedMotion ? undefined : { scale: 0.985, z: 10 }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+                  className="tactile-panel group w-full bg-[#f5f5f5] border border-[#e5e5e5] p-8 relative flex flex-col justify-between aspect-square"
+                  style={{ transformStyle: 'preserve-3d' }}
+                >
+                  <span aria-hidden="true" className="detail-cross detail-cross--top" />
+                  <span aria-hidden="true" className="detail-cross detail-cross--bottom" />
                   {/* Promo Tag */}
-                  <div className="flex items-center justify-between pb-4 border-b border-[#cacacb]">
+                  <div className="flex items-center justify-between pb-4 border-b border-[#cacacb]" style={{ transform: 'translateZ(12px)' }}>
                     <span className="inline-block bg-white text-[#111111] px-3 py-1 text-[11px] font-bold uppercase tracking-wider rounded-full border border-[#cacacb]">
                       MUTAXASSISLIK KARTASI
                     </span>
@@ -259,7 +283,7 @@ export const HeroSection: React.FC = () => {
                   </div>
 
                   {/* Center Content Lockup */}
-                  <div className="my-auto space-y-4 py-6">
+                  <div className="my-auto space-y-4 py-6" style={{ transform: 'translateZ(18px)' }}>
                     <div className="space-y-1">
                       <span className="text-xs font-bold text-[#707072] uppercase tracking-wider">{'//'} Hozirgi Bosqich</span>
                        <p className="text-xl font-bold text-[#111111]">Front-end Dasturchi</p>
@@ -283,14 +307,14 @@ export const HeroSection: React.FC = () => {
                   </div>
 
                   {/* Bottom Card Footer */}
-                  <div className="pt-4 border-t border-[#cacacb] flex items-center justify-between text-xs text-[#111111] font-medium">
+                  <div className="pt-4 border-t border-[#cacacb] flex items-center justify-between text-xs text-[#111111] font-medium" style={{ transform: 'translateZ(12px)' }}>
                     <span className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-[#007d48]" />
                       Loyihalar va Hamkorlik uchun ochiq
                     </span>
                     <span className="text-[#707072]">Toshkent, UZB</span>
                   </div>
-                </div>
+                </motion.div>
               </motion.div>
             </div>
           </motion.div>

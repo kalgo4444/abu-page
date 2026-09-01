@@ -151,6 +151,8 @@ export const GoalsSection: React.FC = () => {
                       aria-pressed={isActive}
                       initial={{ opacity: 0, y: reducedMotion ? 0 : 24 }}
                       whileInView={{ opacity: 1, y: 0 }}
+                      whileHover={reducedMotion ? undefined : { y: -7, scale: 1.025, z: 24 }}
+                      whileTap={reducedMotion ? undefined : { scale: 0.97, z: 8 }}
                       viewport={{ once: true }}
                       transition={{
                         duration: reducedMotion ? 0 : 0.4,
@@ -158,7 +160,7 @@ export const GoalsSection: React.FC = () => {
                       }}
                       className={twMerge(
                         clsx(
-                          'flex-1 h-28 border p-3 sm:p-4 flex flex-col justify-between text-left transition-colors cursor-pointer',
+                          'tactile-panel relative flex-1 h-28 border p-3 sm:p-4 flex flex-col justify-between text-left transition-colors cursor-pointer',
                           STEP_HEIGHTS[idx],
                           isActive
                             ? 'bg-[#111111] text-white border-[#111111]'
@@ -166,6 +168,15 @@ export const GoalsSection: React.FC = () => {
                         )
                       )}
                     >
+                      <span
+                        aria-hidden="true"
+                        className={twMerge(
+                          clsx(
+                            'absolute inset-x-1 -bottom-2 h-2 border-x border-b',
+                            isActive ? 'border-[#111111] bg-[#39393b]' : 'border-[#cacacb] bg-[#e5e5e5]'
+                          )
+                        )}
+                      />
                       <div className="flex items-start justify-between gap-2">
                         <span
                           className={twMerge(

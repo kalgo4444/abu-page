@@ -4,8 +4,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 import { ContactModalContext } from '@/features/contact-modal/model/contact-modal-context';
-import { RoutePagination } from '@/features/route-pagination/ui/route-pagination';
 import { ThemeProvider } from '@/features/theme/model/theme-context';
+import { InteractiveBackground } from '@/shared/ui/interactive-background';
 import { Navbar } from '@/widgets/navbar/ui/navbar';
 
 const ContactModal = dynamic(() =>
@@ -55,7 +55,6 @@ export const SiteShell = ({ children }: SiteShellProps) => {
             Asosiy mazmunga o‘tish
           </a>
           <Navbar />
-          <RoutePagination />
           <main
             ref={mainRef}
             id="main-content"
@@ -64,6 +63,7 @@ export const SiteShell = ({ children }: SiteShellProps) => {
           >
             {children}
           </main>
+          <InteractiveBackground />
         </div>
         {hasOpenedContact && (
           <ContactModal isOpen={isContactOpen} onClose={closeContactModal} />

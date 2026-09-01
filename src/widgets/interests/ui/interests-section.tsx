@@ -120,13 +120,17 @@ export const InterestsSection: React.FC = () => {
                   z: absOffset === 0 ? 0 : absOffset === 1 ? -180 : -340,
                   opacity: absOffset === 0 ? 1 : absOffset === 1 ? 0.85 : 0.45,
                 }}
+                whileHover={reducedMotion ? undefined : { scale: idx === activeIndex ? 1.04 : 1.02 }}
+                whileTap={reducedMotion ? undefined : { scale: 0.985 }}
                 transition={{
                   duration: reducedMotion ? 0 : 0.55,
                   ease: [0.25, 0.4, 0.25, 1],
                 }}
                 style={{ zIndex: 10 - absOffset }}
-                className="absolute left-1/2 top-1/2 h-[min(50svh,540px)] min-h-[390px] w-[clamp(300px,25vw,420px)] -translate-x-1/2 -translate-y-1/2 bg-[#111111] text-white p-7 xl:p-8 flex flex-col justify-between overflow-hidden text-left"
+                className="tactile-panel absolute left-1/2 top-1/2 h-[min(50svh,540px)] min-h-[390px] w-[clamp(300px,25vw,420px)] -translate-x-1/2 -translate-y-1/2 bg-[#111111] text-white p-7 xl:p-8 flex flex-col justify-between overflow-hidden text-left"
               >
+                <span aria-hidden="true" className="detail-cross detail-cross--top detail-cross--inverse" />
+                <span aria-hidden="true" className="detail-cross detail-cross--bottom detail-cross--inverse" />
                 <button
                   type="button"
                   onClick={() => goTo(idx)}

@@ -25,12 +25,12 @@ type AnchorElementProps = BaseProps &
 export type ButtonProps = ButtonElementProps | AnchorElementProps;
 
 const baseStyles =
-  'inline-flex items-center justify-center gap-2 font-medium rounded-full transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] focus-visible:ring-offset-2';
+  'inline-flex items-center justify-center gap-2 font-medium rounded-full transition-all duration-200 cursor-pointer hover:-translate-y-0.5 hover:scale-[1.02] active:translate-y-px active:scale-[0.97] disabled:transform-none disabled:opacity-50 disabled:cursor-not-allowed tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] focus-visible:ring-offset-2';
 
 const variants: Record<ButtonVariant, string> = {
-  primary: 'bg-[#111111] hover:bg-[#222222] text-white active:scale-98 active:opacity-90 shadow-none',
-  secondary: 'bg-[#f5f5f5] hover:bg-[#e5e5e5] text-[#111111] active:scale-98 shadow-none',
-  outline: 'bg-white border border-[#cacacb] text-[#111111] hover:border-[#111111] active:scale-98',
+  primary: 'bg-[#111111] hover:bg-[#222222] text-white active:opacity-90 shadow-none',
+  secondary: 'bg-[#f5f5f5] hover:bg-[#e5e5e5] text-[#111111] shadow-none',
+  outline: 'bg-white border border-[#cacacb] text-[#111111] hover:border-[#111111]',
 };
 
 const sizes: Record<ButtonSize, string> = {
