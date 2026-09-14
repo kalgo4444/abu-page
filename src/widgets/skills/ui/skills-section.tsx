@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { Container } from '@/shared/ui/container';
 import { Badge } from '@/shared/ui/badge';
 import { FullscreenSection } from '@/shared/ui/fullscreen-section';
+import { TechGyroscope } from '@/shared/ui/tech-gyroscope';
 import { SkillFilter } from '@/features/skill-filter/ui/skill-filter';
 import { PROFILE_DATA, SkillStatus } from '@/entities/profile/model/profile-data';
 
@@ -57,9 +58,22 @@ export const SkillsSection: React.FC = () => {
               KO‘NIKMALAR EKOTIZIMI
             </h1>
           </div>
-          <p className="hidden lg:block max-w-xs text-xs text-[#707072] leading-relaxed font-medium">
-            HTML/CSS va React’dan boshlab Next.js, TypeScript hamda AI vositalarigacha (OpenCode, Codex, MCP) amaliy bilimlar.
-          </p>
+          <div className="hidden lg:flex items-center gap-4">
+            <div className="relative border border-[#cacacb] bg-[#f5f5f5] p-2 flex items-center gap-3">
+              <TechGyroscope className="h-10 w-10 text-[#111111]" />
+              <div className="pr-1">
+                <span className="font-mono text-[9px] font-bold text-[#1151ff] block tracking-wider">
+                  3D RADAR
+                </span>
+                <span className="text-[10px] font-bold text-[#111111] uppercase tracking-tight">
+                  {activeCategory}
+                </span>
+              </div>
+            </div>
+            <p className="max-w-xs text-xs text-[#707072] leading-relaxed font-medium">
+              HTML/CSS va React’dan boshlab Next.js, TypeScript hamda AI vositalarigacha (OpenCode, Codex, MCP) amaliy bilimlar.
+            </p>
+          </div>
         </motion.div>
 
         <motion.div
@@ -85,21 +99,28 @@ export const SkillsSection: React.FC = () => {
                 whileHover={
                   reducedMotion
                     ? undefined
-                    : { y: -8, rotateX: 2, rotateY: groupIndex % 2 === 0 ? -2 : 2, scale: 1.015, z: 18 }
+                    : { y: -8, rotateX: 3, rotateY: groupIndex % 2 === 0 ? -3 : 3, scale: 1.018, z: 24 }
                 }
-                whileTap={reducedMotion ? undefined : { scale: 0.985, z: 6 }}
+                whileTap={reducedMotion ? undefined : { scale: 0.985, z: 8 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: reducedMotion ? 0 : 0.35, delay: reducedMotion ? 0 : groupIndex * 0.06 }}
-                className={`tactile-panel group relative isolate min-h-[244px] overflow-hidden border border-[#111111] bg-white p-4 sm:p-5 ${
+                className={`tactile-panel extrusion-edge group relative isolate min-h-[244px] overflow-hidden border border-[#111111] bg-white p-4 sm:p-5 ${
                   filteredSkills.length === 1 ? 'md:col-span-2 md:w-full md:max-w-2xl md:justify-self-center' : ''
                 }`}
                 style={{ transformStyle: 'preserve-3d' }}
               >
+                {/* Subtle hologram glare on card hover */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 hologram-sheen opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ transform: 'translateZ(1px)' }}
+                />
+
                 <span aria-hidden="true" className="detail-cross detail-cross--top" />
                 <span aria-hidden="true" className="detail-cross detail-cross--bottom" />
                 <div className="absolute inset-x-3 bottom-[-7px] -z-10 h-2 border-x border-b border-[#cacacb] bg-[#f5f5f5] transition-transform duration-300 group-hover:translate-y-[7px]" />
                 <div className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-[#1151ff] transition-transform duration-300 group-hover:scale-x-100" />
-                <div className="flex items-start justify-between gap-4 border-b border-[#e5e5e5] pb-3" style={{ transform: 'translateZ(16px)' }}>
+                <div className="flex items-start justify-between gap-4 border-b border-[#e5e5e5] pb-3" style={{ transform: 'translateZ(20px)' }}>
                   <div>
                     <span className="font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[#1151ff]">
                       0{groupIndex + 1} / {group.items.length} TA
@@ -108,19 +129,22 @@ export const SkillsSection: React.FC = () => {
                       {group.title}
                     </h3>
                   </div>
-                  <span className="mt-0.5 h-3 w-3 shrink-0 border border-[#111111] bg-[#f5f5f5]" />
+                  <span className="mt-0.5 h-3 w-3 shrink-0 border border-[#111111] bg-[#f5f5f5] group-hover:bg-[#1151ff] transition-colors" />
                 </div>
-                <p className="mt-3 text-xs leading-relaxed text-[#707072]">{group.description}</p>
-                <ul className="mt-4 flex flex-wrap gap-1.5" style={{ transform: 'translateZ(10px)' }}>
+                <p className="mt-3 text-xs leading-relaxed text-[#707072]" style={{ transform: 'translateZ(12px)' }}>
+                  {group.description}
+                </p>
+                <ul className="mt-4 flex flex-wrap gap-1.5" style={{ transform: 'translateZ(24px)' }}>
                   {group.items.map((skill) => (
-                    <li
+                    <motion.li
                       key={skill.name}
-                      className="flex items-center gap-1.5 border border-[#e5e5e5] bg-[#f5f5f5] px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-[#39393b] transition-colors duration-200 group-hover:bg-white"
+                      whileHover={reducedMotion ? undefined : { scale: 1.06, z: 8 }}
+                      className="flex items-center gap-1.5 border border-[#e5e5e5] bg-[#f5f5f5] px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-[#39393b] transition-colors duration-200 group-hover:bg-white shadow-xs"
                     >
                       <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${STATUS_DOT[skill.status]}`} />
                       {skill.name}
                       <span className="sr-only">— {STATUS_LABEL[skill.status]}</span>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
               </motion.article>

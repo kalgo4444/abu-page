@@ -15,18 +15,18 @@ import { Container } from '@/shared/ui/container';
 import { Button } from '@/shared/ui/button';
 import { Badge } from '@/shared/ui/badge';
 import { FullscreenSection } from '@/shared/ui/fullscreen-section';
-import { VectorOrb } from '@/shared/ui/vector-orb';
+import { TechGyroscope } from '@/shared/ui/tech-gyroscope';
 import { useContactModal } from '@/features/contact-modal/model/contact-modal-context';
 
 /* --- 3D Cube config (112px box => faces pushed out by 56px) --- */
 const CUBE_HALF = 56;
 const CUBE_FACES = [
-  { label: 'REACT', transform: `rotateY(0deg) translateZ(${CUBE_HALF}px)`, dark: false },
-  { label: 'NEXT.JS', transform: `rotateY(90deg) translateZ(${CUBE_HALF}px)`, dark: true },
-  { label: 'TAILWIND', transform: `rotateY(180deg) translateZ(${CUBE_HALF}px)`, dark: false },
-  { label: 'JS', transform: `rotateY(-90deg) translateZ(${CUBE_HALF}px)`, dark: true },
-  { label: 'A', transform: `rotateX(90deg) translateZ(${CUBE_HALF}px)`, dark: true },
-  { label: 'TS', transform: `rotateX(-90deg) translateZ(${CUBE_HALF}px)`, dark: false },
+  { label: 'REACT', transform: `rotateY(0deg) translateZ(${CUBE_HALF}px)`, dark: false, code: '01' },
+  { label: 'NEXT.JS', transform: `rotateY(90deg) translateZ(${CUBE_HALF}px)`, dark: true, code: '02' },
+  { label: 'TAILWIND', transform: `rotateY(180deg) translateZ(${CUBE_HALF}px)`, dark: false, code: '03' },
+  { label: 'JS', transform: `rotateY(-90deg) translateZ(${CUBE_HALF}px)`, dark: true, code: '04' },
+  { label: 'A', transform: `rotateX(90deg) translateZ(${CUBE_HALF}px)`, dark: true, code: '05' },
+  { label: 'TS', transform: `rotateX(-90deg) translateZ(${CUBE_HALF}px)`, dark: false, code: '06' },
 ];
 
 const MARQUEE_ITEMS = [
@@ -43,15 +43,27 @@ const MARQUEE_ITEMS = [
 const TechCube: React.FC = () => (
   <div className="preserve-3d" style={{ transform: 'translateZ(60px)' }}>
     <div className="cube-3d relative w-28 h-28">
+      {/* Central 3D Core Node */}
+      <div
+        aria-hidden="true"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border border-current bg-[#1151ff] opacity-80"
+        style={{ transform: 'translateZ(0px)' }}
+      />
       {CUBE_FACES.map((face) => (
         <div
           key={face.label}
-          className={`cube-face border-2 border-[#111111] font-display-campaign text-xl tracking-tight ${
+          className={`cube-face border-2 border-[#111111] font-display-campaign text-xl tracking-tight select-none relative overflow-hidden ${
             face.dark ? 'bg-[#111111] text-white' : 'bg-white text-[#111111]'
           }`}
           style={{ transform: face.transform }}
         >
-          {face.label}
+          <span className="absolute top-1 left-1 font-mono text-[7px] font-bold opacity-40">
+            {face.code}
+          </span>
+          <span className="absolute bottom-1 right-1 font-mono text-[7px] font-bold opacity-40">
+            +
+          </span>
+          <span className="relative z-10">{face.label}</span>
         </div>
       ))}
     </div>
@@ -256,63 +268,77 @@ export const HeroSection: React.FC = () => {
                   delay={1.4}
                   className="-bottom-10 -right-8"
                 >
-                  <div className="relative border border-[#cacacb] bg-white/90 p-2">
-                    <VectorOrb className="h-24 w-24" />
+                  <div className="relative border border-[#cacacb] bg-white/95 p-2 shadow-sm">
+                    <TechGyroscope className="h-24 w-24" />
                     <span className="absolute -bottom-4 right-0 font-mono text-[8px] font-bold tracking-[0.16em] text-[#707072]">
                       XYZ / 03
                     </span>
                   </div>
                 </FloatingChip>
 
-                {/* Nike Flat Catalog Card (1:1 Aspect Ratio on Soft Cloud Surface) */}
+                {/* Nike Flat Catalog Card (1:1 Aspect Ratio on Soft Cloud Surface with Volumetric 3D Layers) */}
                 <motion.div
-                  whileHover={reducedMotion ? undefined : { scale: 1.025, z: 24 }}
-                  whileTap={reducedMotion ? undefined : { scale: 0.985, z: 10 }}
+                  whileHover={reducedMotion ? undefined : { scale: 1.025, z: 28 }}
+                  whileTap={reducedMotion ? undefined : { scale: 0.985, z: 12 }}
                   transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-                  className="tactile-panel group w-full bg-[#f5f5f5] border border-[#e5e5e5] p-8 relative flex flex-col justify-between aspect-square"
+                  className="tactile-panel extrusion-edge group w-full bg-[#f5f5f5] border border-[#e5e5e5] p-8 relative flex flex-col justify-between aspect-square overflow-hidden"
                   style={{ transformStyle: 'preserve-3d' }}
                 >
+                  {/* Subtle specular sheen that reveals on hover */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 hologram-sheen opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    style={{ transform: 'translateZ(1px)' }}
+                  />
+
                   <span aria-hidden="true" className="detail-cross detail-cross--top" />
                   <span aria-hidden="true" className="detail-cross detail-cross--bottom" />
+
                   {/* Promo Tag */}
-                  <div className="flex items-center justify-between pb-4 border-b border-[#cacacb]" style={{ transform: 'translateZ(12px)' }}>
-                    <span className="inline-block bg-white text-[#111111] px-3 py-1 text-[11px] font-bold uppercase tracking-wider rounded-full border border-[#cacacb]">
+                  <div
+                    className="flex items-center justify-between pb-4 border-b border-[#cacacb]"
+                    style={{ transform: 'translateZ(26px)' }}
+                  >
+                    <span className="inline-block bg-white text-[#111111] px-3 py-1 text-[11px] font-bold uppercase tracking-wider rounded-full border border-[#cacacb] shadow-xs">
                       MUTAXASSISLIK KARTASI
                     </span>
                     <span className="text-xs font-mono text-[#707072]">2026 EDITION</span>
                   </div>
 
-                  {/* Center Content Lockup */}
-                  <div className="my-auto space-y-4 py-6" style={{ transform: 'translateZ(18px)' }}>
-                    <div className="space-y-1">
+                  {/* Center Content Lockup with Layered 3D Depth */}
+                  <div className="my-auto space-y-4 py-6" style={{ transform: 'translateZ(38px)' }}>
+                    <div className="space-y-1" style={{ transform: 'translateZ(8px)' }}>
                       <span className="text-xs font-bold text-[#707072] uppercase tracking-wider">{'//'} Hozirgi Bosqich</span>
-                       <p className="text-xl font-bold text-[#111111]">Front-end Dasturchi</p>
+                      <p className="text-xl font-bold text-[#111111]">Front-end Dasturchi</p>
                       <p className="text-xs text-[#4b4b4d]">React • Next.js • TypeScript • Tailwind CSS</p>
                     </div>
 
-                    <div className="h-[1px] bg-[#cacacb] w-full" />
+                    <div className="h-[1px] bg-[#cacacb] w-full opacity-70" />
 
-                    <div className="space-y-1">
-                       <span className="text-xs font-bold text-[#1151ff] uppercase tracking-wider">{'//'} Front-end Fokus</span>
-                        <p className="text-xl font-bold text-[#111111]">Responsive UX</p>
-                       <p className="text-xs text-[#4b4b4d]">Tailwind CSS • REST API Integration</p>
+                    <div className="space-y-1" style={{ transform: 'translateZ(12px)' }}>
+                      <span className="text-xs font-bold text-[#1151ff] uppercase tracking-wider">{'//'} Front-end Fokus</span>
+                      <p className="text-xl font-bold text-[#111111]">Responsive UX</p>
+                      <p className="text-xs text-[#4b4b4d]">Tailwind CSS • REST API Integration</p>
                     </div>
 
-                    <div className="h-[1px] bg-[#cacacb] w-full" />
+                    <div className="h-[1px] bg-[#cacacb] w-full opacity-70" />
 
-                    <div className="space-y-1">
+                    <div className="space-y-1" style={{ transform: 'translateZ(8px)' }}>
                       <span className="text-xs font-bold text-[#007d48] uppercase tracking-wider">{'//'} Zamonaviy Agentlar</span>
                       <p className="text-xs text-[#111111] font-semibold">OpenCode • Codex • MCP • Linux VPS</p>
                     </div>
                   </div>
 
                   {/* Bottom Card Footer */}
-                  <div className="pt-4 border-t border-[#cacacb] flex items-center justify-between text-xs text-[#111111] font-medium" style={{ transform: 'translateZ(12px)' }}>
+                  <div
+                    className="pt-4 border-t border-[#cacacb] flex items-center justify-between text-xs text-[#111111] font-medium"
+                    style={{ transform: 'translateZ(24px)' }}
+                  >
                     <span className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-[#007d48]" />
+                      <span className="w-2 h-2 rounded-full bg-[#007d48] animate-pulse" />
                       Loyihalar va Hamkorlik uchun ochiq
                     </span>
-                    <span className="text-[#707072]">Toshkent, UZB</span>
+                    <span className="text-[#707072] font-mono text-[11px]">Toshkent, UZB</span>
                   </div>
                 </motion.div>
               </motion.div>

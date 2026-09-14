@@ -32,8 +32,8 @@ export const GoalsSection: React.FC = () => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const springConfig = { stiffness: 150, damping: 20, mass: 0.5 };
-  const tiltX = useSpring(useTransform(mouseY, [-0.5, 0.5], [7, -7]), springConfig);
-  const tiltY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), springConfig);
+  const tiltX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), springConfig);
+  const tiltY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-9, 9]), springConfig);
 
   const handleSceneMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (reducedMotion) return;
@@ -85,7 +85,15 @@ export const GoalsSection: React.FC = () => {
               </p>
             </div>
 
-            <div className="border border-[#cacacb] bg-white p-5 sm:p-6 min-h-[190px]">
+            <div
+              className="tactile-panel extrusion-edge relative border border-[#cacacb] bg-white p-5 sm:p-6 min-h-[190px] shadow-sm overflow-hidden"
+              style={{ transformStyle: 'preserve-3d' }}
+            >
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 hologram-sheen opacity-25"
+                style={{ transform: 'translateZ(1px)' }}
+              />
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeGoal.id}
@@ -94,8 +102,12 @@ export const GoalsSection: React.FC = () => {
                   exit={{ opacity: 0, y: reducedMotion ? 0 : -10 }}
                   transition={{ duration: reducedMotion ? 0 : 0.25 }}
                   className="space-y-3"
+                  style={{ transformStyle: 'preserve-3d' }}
                 >
-                  <div className="flex items-center justify-between gap-3 pb-3 border-b border-[#e5e5e5]">
+                  <div
+                    className="flex items-center justify-between gap-3 pb-3 border-b border-[#e5e5e5]"
+                    style={{ transform: 'translateZ(20px)' }}
+                  >
                     <Badge variant="blue" size="sm" className="font-bold uppercase text-[10px]">
                       {activeGoal.timeframe}
                     </Badge>
@@ -103,13 +115,22 @@ export const GoalsSection: React.FC = () => {
                       0{activeIndex + 1} / 0{PROFILE_DATA.goals.length}
                     </span>
                   </div>
-                  <h3 className="font-display-campaign text-2xl sm:text-3xl uppercase tracking-tight text-[#111111] leading-none">
+                  <h3
+                    className="font-display-campaign text-2xl sm:text-3xl uppercase tracking-tight text-[#111111] leading-none"
+                    style={{ transform: 'translateZ(28px)' }}
+                  >
                     {activeGoal.title}
                   </h3>
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-[#707072]">
+                  <p
+                    className="text-[11px] font-bold uppercase tracking-wider text-[#707072]"
+                    style={{ transform: 'translateZ(14px)' }}
+                  >
                     {'//'} {activeGoal.subtitle}
                   </p>
-                  <p className="text-xs sm:text-sm text-[#39393b] leading-relaxed">
+                  <p
+                    className="text-xs sm:text-sm text-[#39393b] leading-relaxed"
+                    style={{ transform: 'translateZ(18px)' }}
+                  >
                     {activeGoal.description}
                   </p>
                 </motion.div>
@@ -132,10 +153,10 @@ export const GoalsSection: React.FC = () => {
             >
               <div
                 aria-hidden="true"
-                className="absolute -top-7 right-1 pointer-events-none"
+                className="absolute -top-7 right-1 pointer-events-none z-30"
                 style={{ transform: 'translateZ(50px)' }}
               >
-                <span className="float-y inline-block bg-[#111111] text-white px-3 py-1.5 font-display-campaign text-xs tracking-tight whitespace-nowrap">
+                <span className="float-y inline-block bg-[#111111] text-white px-3 py-1.5 font-display-campaign text-xs tracking-tight whitespace-nowrap shadow-md">
                   KELAJAK REJASI
                 </span>
               </div>
@@ -151,33 +172,60 @@ export const GoalsSection: React.FC = () => {
                       aria-pressed={isActive}
                       initial={{ opacity: 0, y: reducedMotion ? 0 : 24 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      whileHover={reducedMotion ? undefined : { y: -7, scale: 1.025, z: 24 }}
+                      whileHover={reducedMotion ? undefined : { y: -8, scale: 1.025, z: 28 }}
                       whileTap={reducedMotion ? undefined : { scale: 0.97, z: 8 }}
                       viewport={{ once: true }}
                       transition={{
                         duration: reducedMotion ? 0 : 0.4,
                         delay: reducedMotion ? 0 : idx * 0.08,
                       }}
+                      style={{
+                        transformStyle: 'preserve-3d',
+                        transform: reducedMotion
+                          ? undefined
+                          : isActive
+                          ? 'translateZ(24px)'
+                          : 'translateZ(0px)',
+                      }}
                       className={twMerge(
                         clsx(
                           'tactile-panel relative flex-1 h-28 border p-3 sm:p-4 flex flex-col justify-between text-left transition-colors cursor-pointer',
                           STEP_HEIGHTS[idx],
                           isActive
-                            ? 'bg-[#111111] text-white border-[#111111]'
-                            : 'bg-white text-[#111111] border-[#cacacb] hover:border-[#111111]'
+                            ? 'bg-[#111111] text-white border-[#111111] shadow-xl'
+                            : 'bg-white text-[#111111] border-[#cacacb] hover:border-[#111111] shadow-xs'
                         )
                       )}
                     >
+                      {/* Active 3D Milestone Beacon Pin */}
+                      {isActive && (
+                        <div
+                          aria-hidden="true"
+                          className="absolute -top-5 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none"
+                          style={{ transform: 'translateZ(30px)' }}
+                        >
+                          <span className="h-2 w-2 rotate-45 bg-[#1151ff] shadow-sm animate-pulse" />
+                          <span className="h-2.5 w-[1px] bg-[#1151ff]" />
+                        </div>
+                      )}
+
+                      {/* 3D Extruded Bottom Pedestal Edge */}
                       <span
                         aria-hidden="true"
                         className={twMerge(
                           clsx(
-                            'absolute inset-x-1 -bottom-2 h-2 border-x border-b',
-                            isActive ? 'border-[#111111] bg-[#39393b]' : 'border-[#cacacb] bg-[#e5e5e5]'
+                            'absolute inset-x-0 -bottom-2.5 h-2.5 border-x border-b transition-colors',
+                            isActive
+                              ? 'border-[#111111] bg-[#252527]'
+                              : 'border-[#cacacb] bg-[#dedee0]'
                           )
                         )}
                       />
-                      <div className="flex items-start justify-between gap-2">
+
+                      <div
+                        className="flex items-start justify-between gap-2"
+                        style={{ transform: 'translateZ(20px)' }}
+                      >
                         <span
                           className={twMerge(
                             clsx(
@@ -196,6 +244,7 @@ export const GoalsSection: React.FC = () => {
                         )}
                       </div>
                       <span
+                        style={{ transform: 'translateZ(14px)' }}
                         className={twMerge(
                           clsx(
                             'text-xs font-bold uppercase tracking-wider leading-tight',

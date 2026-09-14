@@ -17,6 +17,77 @@ import { FullscreenSection } from '@/shared/ui/fullscreen-section';
 import { PROFILE_DATA } from '@/entities/profile/model/profile-data';
 import { useContactModal } from '@/features/contact-modal/model/contact-modal-context';
 
+const OrigamiPaperPlane3D: React.FC = () => {
+  return (
+    <div
+      className="preserve-3d relative w-44 h-44 lg:w-56 lg:h-56"
+      style={{ transformStyle: 'preserve-3d' }}
+      aria-hidden="true"
+    >
+      {/* Central Keel / Fuselage */}
+      <div
+        className="absolute inset-0 bg-[#cacacb]"
+        style={{
+          clipPath: 'polygon(50% 0%, 50% 100%, 48% 60%)',
+          transform: 'translateZ(12px)',
+        }}
+      />
+
+      {/* Left Wing (Primary Surface) */}
+      <div
+        className="absolute inset-0 bg-white"
+        style={{
+          clipPath: 'polygon(50% 0%, 0% 88%, 50% 68%)',
+          transformOrigin: '50% 50%',
+          transform: 'rotateY(-18deg) rotateZ(-4deg) translateZ(8px)',
+        }}
+      >
+        {/* Navigation Wingtip Light (Left - Cyan) */}
+        <span className="absolute left-[3%] bottom-[12%] h-1.5 w-1.5 rounded-full bg-[#1151ff] shadow-[0_0_8px_#1151ff]" />
+      </div>
+
+      {/* Right Wing (Primary Surface) */}
+      <div
+        className="absolute inset-0 bg-[#f5f5f5]"
+        style={{
+          clipPath: 'polygon(50% 0%, 100% 88%, 50% 68%)',
+          transformOrigin: '50% 50%',
+          transform: 'rotateY(18deg) rotateZ(4deg) translateZ(8px)',
+        }}
+      >
+        {/* Navigation Wingtip Light (Right - Emerald) */}
+        <span className="absolute right-[3%] bottom-[12%] h-1.5 w-1.5 rounded-full bg-[#007d48] shadow-[0_0_8px_#007d48]" />
+      </div>
+
+      {/* Left Underwing Fold / Dihedral Shading */}
+      <div
+        className="absolute inset-0 bg-[#9e9ea0]"
+        style={{
+          clipPath: 'polygon(50% 0%, 50% 68%, 36% 82%)',
+          transformOrigin: '50% 50%',
+          transform: 'rotateY(-35deg) translateZ(2px)',
+        }}
+      />
+
+      {/* Right Underwing Fold / Dihedral Shading */}
+      <div
+        className="absolute inset-0 bg-[#707072]"
+        style={{
+          clipPath: 'polygon(50% 0%, 50% 68%, 64% 82%)',
+          transformOrigin: '50% 50%',
+          transform: 'rotateY(35deg) translateZ(2px)',
+        }}
+      />
+
+      {/* 3D Contrail Vapor Line */}
+      <div
+        className="absolute left-1/2 bottom-0 -translate-x-1/2 w-[1px] h-28 bg-gradient-to-b from-white/40 to-transparent pointer-events-none"
+        style={{ transform: 'rotateX(90deg) translateZ(-40px)' }}
+      />
+    </div>
+  );
+};
+
 export const ContactSection: React.FC = () => {
   const reducedMotion = useReducedMotion();
   const { openContactModal } = useContactModal();
@@ -31,6 +102,8 @@ export const ContactSection: React.FC = () => {
   const springConfig = { stiffness: 120, damping: 18, mass: 0.5 };
   const planeX = useSpring(useTransform(mouseX, (v) => v * 46), springConfig);
   const planeY = useSpring(useTransform(mouseY, (v) => v * 34), springConfig);
+  const planeRoll = useSpring(useTransform(mouseX, [-0.5, 0.5], [-22, 22]), springConfig);
+  const planePitch = useSpring(useTransform(mouseY, [-0.5, 0.5], [16, -16]), springConfig);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (reducedMotion) return;
@@ -60,31 +133,30 @@ export const ContactSection: React.FC = () => {
           className="ring-orbit absolute w-[700px] h-[700px] lg:w-[880px] lg:h-[880px] rounded-full border border-dashed border-white/5"
           style={{ animationDirection: 'reverse', animationDuration: '36s' }}
         />
+        {/* Radar Cardinal Axis Lines */}
+        <div className="absolute w-[800px] h-[1px] bg-white/[0.04]" />
+        <div className="absolute h-[800px] w-[1px] bg-white/[0.04]" />
       </div>
 
       <div
         aria-hidden="true"
-        className="absolute right-[5%] top-[13%] hidden md:block pointer-events-none z-10"
+        className="absolute right-[5%] top-[12%] hidden md:block pointer-events-none z-10"
       >
-        <motion.div style={{ x: planeX, y: planeY }}>
+        <motion.div
+          style={
+            reducedMotion
+              ? undefined
+              : {
+                  x: planeX,
+                  y: planeY,
+                  rotateZ: planeRoll,
+                  rotateX: planePitch,
+                  transformStyle: 'preserve-3d',
+                }
+          }
+        >
           <div className="float-y">
-            <div
-              className="preserve-3d relative w-36 h-36 lg:w-48 lg:h-48"
-              style={{ transform: 'rotateX(18deg) rotateZ(-10deg)' }}
-            >
-              <div
-                className="absolute inset-0 bg-white"
-                style={{ clipPath: 'polygon(0 0, 100% 50%, 0 50%)' }}
-              />
-              <div
-                className="absolute inset-0 bg-[#cacacb]"
-                style={{
-                  clipPath: 'polygon(0 50%, 100% 50%, 0 100%)',
-                  transform: 'rotateX(-45deg)',
-                  transformOrigin: '50% 50%',
-                }}
-              />
-            </div>
+            <OrigamiPaperPlane3D />
           </div>
         </motion.div>
       </div>
@@ -130,7 +202,7 @@ export const ContactSection: React.FC = () => {
             size="lg"
             onClick={openContactModal}
             icon={<Send className="w-4 h-4" />}
-            className="bg-white text-[#111111] hover:bg-[#e5e5e5] uppercase font-bold tracking-wider text-xs"
+            className="bg-white text-[#111111] hover:bg-[#e5e5e5] uppercase font-bold tracking-wider text-xs shadow-lg"
           >
             Xabar Qoldirish
           </Button>

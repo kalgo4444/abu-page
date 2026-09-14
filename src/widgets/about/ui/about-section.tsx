@@ -12,7 +12,7 @@ import { GraduationCap, Fingerprint } from 'lucide-react';
 import { Container } from '@/shared/ui/container';
 import { Badge } from '@/shared/ui/badge';
 import { FullscreenSection } from '@/shared/ui/fullscreen-section';
-import { VectorOrb } from '@/shared/ui/vector-orb';
+import { TechGyroscope } from '@/shared/ui/tech-gyroscope';
 import { FrontendStackCard } from '@/features/career-path/ui/frontend-stack-card';
 import { PROFILE_DATA } from '@/entities/profile/model/profile-data';
 
@@ -122,7 +122,7 @@ export const AboutSection: React.FC = () => {
             >
               <div
                 aria-hidden="true"
-                className="absolute inset-0 border border-white/25"
+                className="absolute inset-0 border border-white/25 shadow-2xl"
                 style={{ transform: 'rotate(-5deg) translateZ(-50px)' }}
               />
 
@@ -130,14 +130,37 @@ export const AboutSection: React.FC = () => {
                 whileHover={reducedMotion ? undefined : { scale: 1.035, z: 28 }}
                 whileTap={reducedMotion ? undefined : { scale: 0.985, z: 12 }}
                 transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-                className="tactile-panel relative bg-white text-[#111111] aspect-[8/5] p-5 sm:p-6 flex flex-col justify-between border-2 border-white"
+                className="tactile-panel relative bg-white text-[#111111] aspect-[8/5] p-5 sm:p-6 flex flex-col justify-between border-2 border-white shadow-2xl overflow-hidden"
                 style={{ transformStyle: 'preserve-3d' }}
               >
+                {/* 3D Physical Lanyard Clip at top */}
+                <div
+                  aria-hidden="true"
+                  className="absolute -top-2 left-1/2 -translate-x-1/2 w-14 h-4 bg-[#111111] border border-white/40 flex items-center justify-center z-30"
+                  style={{ transform: 'translateZ(34px)' }}
+                >
+                  <div className="w-6 h-1 bg-white/70 rounded-full" />
+                </div>
+
+                {/* Dynamic holographic sheen overlay */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 hologram-sheen opacity-40 group-hover:opacity-75 transition-opacity duration-300"
+                  style={{ transform: 'translateZ(1px)' }}
+                />
+
                 <span aria-hidden="true" className="detail-cross detail-cross--top" />
                 <span aria-hidden="true" className="detail-cross detail-cross--bottom" />
-                <div className="flex items-center justify-between pb-3 border-b border-[#e5e5e5]">
+
+                <div
+                  className="flex items-center justify-between pb-3 border-b border-[#e5e5e5]"
+                  style={{ transform: 'translateZ(26px)' }}
+                >
                   <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 bg-[#111111] text-white flex items-center justify-center font-extrabold text-sm tracking-tighter">
+                    <div
+                      className="w-8 h-8 bg-[#111111] text-white flex items-center justify-center font-extrabold text-sm tracking-tighter shadow-sm"
+                      style={{ transform: 'translateZ(8px)' }}
+                    >
                       A
                     </div>
                     <span className="text-[10px] font-bold uppercase tracking-widest text-[#707072]">
@@ -147,11 +170,11 @@ export const AboutSection: React.FC = () => {
                   <span className="text-[10px] font-mono font-bold text-[#707072]">2026</span>
                 </div>
 
-                <div className="space-y-1 py-2">
+                <div className="space-y-1 py-2" style={{ transform: 'translateZ(34px)' }}>
                   <span className="block text-[10px] font-bold uppercase tracking-widest text-[#707072]">
                     {'//'} Software Engineering
                   </span>
-                  <span className="block font-display-campaign text-3xl sm:text-4xl uppercase tracking-tight leading-none">
+                  <span className="block font-display-campaign text-3xl sm:text-4xl uppercase tracking-tight leading-none text-[#111111]">
                     ABDULAZIZ
                   </span>
                   <span className="block text-xs font-semibold text-[#4b4b4d]">
@@ -159,7 +182,10 @@ export const AboutSection: React.FC = () => {
                   </span>
                 </div>
 
-                <div className="flex items-end justify-between pt-3 border-t border-[#e5e5e5]">
+                <div
+                  className="flex items-end justify-between pt-3 border-t border-[#e5e5e5]"
+                  style={{ transform: 'translateZ(20px)' }}
+                >
                   <div className="flex items-stretch gap-[3px] h-6" aria-hidden="true">
                     {BARCODE_WIDTHS.map((width, idx) => (
                       <span
@@ -181,7 +207,7 @@ export const AboutSection: React.FC = () => {
                 className="absolute -top-5 -right-2 hidden pointer-events-none sm:-right-4 lg:block"
                 style={{ transform: 'translateZ(60px)' }}
               >
-                <span className="float-y inline-block bg-[#111111] text-white border-2 border-white px-3 py-1.5 font-display-campaign text-xs tracking-tight whitespace-nowrap">
+                <span className="float-y inline-block bg-[#111111] text-white border-2 border-white px-3 py-1.5 font-display-campaign text-xs tracking-tight whitespace-nowrap shadow-lg">
                   FRONT-END
                 </span>
               </div>
@@ -191,7 +217,7 @@ export const AboutSection: React.FC = () => {
                 className="absolute -bottom-10 -left-8 hidden pointer-events-none lg:block"
                 style={{ transform: 'translateZ(74px)' }}
               >
-                <VectorOrb className="h-20 w-20 opacity-70" inverted />
+                <TechGyroscope className="h-20 w-20 opacity-80" inverted />
               </div>
 
             </motion.div>

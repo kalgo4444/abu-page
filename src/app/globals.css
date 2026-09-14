@@ -423,6 +423,55 @@ html[data-theme='dark'] .theme-chrome [class~='border-[#e5e5e5]'] {
   }
 }
 
+/* Technical 3D Gyroscope */
+.tech-gyro {
+  animation: tech-gyro-turn 18s linear infinite;
+}
+
+@keyframes tech-gyro-turn {
+  from {
+    transform: rotateX(20deg) rotateY(0deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateX(20deg) rotateY(360deg) rotateZ(15deg);
+  }
+}
+
+/* Holographic dynamic sheen for 3D card elevation */
+.hologram-sheen {
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 30%,
+    rgba(255, 255, 255, 0.28) 50%,
+    rgba(255, 255, 255, 0.04) 70%,
+    transparent 100%
+  );
+}
+
+/* Specular light for dark 3D cards */
+.hologram-sheen-dark {
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 25%,
+    rgba(255, 255, 255, 0.16) 50%,
+    rgba(255, 255, 255, 0.03) 75%,
+    transparent 100%
+  );
+}
+
+/* 3D Layer extrusion for cards & buttons */
+.extrusion-edge {
+  box-shadow: 0 16px 32px -8px rgba(17, 17, 17, 0.12),
+              0 6px 12px -4px rgba(17, 17, 17, 0.06);
+}
+
+html[data-theme='dark'] .extrusion-edge {
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.45),
+              0 6px 12px -4px rgba(0, 0, 0, 0.25);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -432,6 +481,7 @@ html[data-theme='dark'] .theme-chrome [class~='border-[#e5e5e5]'] {
 
   .cube-3d,
   .vector-orb,
+  .tech-gyro,
   .float-y,
   .ring-orbit,
   .route-stage {
@@ -451,8 +501,10 @@ html[data-theme='dark'] .theme-chrome [class~='border-[#e5e5e5]'] {
 @media (max-width: 1023px) {
   .cube-3d,
   .vector-orb,
+  .tech-gyro,
   .float-y,
   .ring-orbit {
     animation: none;
   }
 }
+
