@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   motion,
   AnimatePresence,
@@ -15,12 +15,14 @@ import { twMerge } from 'tailwind-merge';
 import { Container } from '@/shared/ui/container';
 import { Badge } from '@/shared/ui/badge';
 import { FullscreenSection } from '@/shared/ui/fullscreen-section';
+import { GoalsWallpaper } from '@/widgets/goals/ui/goals-wallpaper';
 import { PROFILE_DATA } from '@/entities/profile/model/profile-data';
 
 const STEP_HEIGHTS = ['lg:h-36', 'lg:h-44', 'lg:h-52', 'lg:h-60'];
 
 export const GoalsSection: React.FC = () => {
   const [activeId, setActiveId] = useState<string>(PROFILE_DATA.goals[0]?.id ?? '');
+  const sectionRef = useRef<HTMLElement>(null);
   const reducedMotion = useReducedMotion();
 
   const activeIndex = Math.max(
@@ -63,8 +65,9 @@ export const GoalsSection: React.FC = () => {
   };
 
   return (
-    <FullscreenSection id="goals" className="theme-page bg-[#f5f5f5] text-[#111111]">
-      <Container className="flex-1 flex flex-col justify-center py-24 lg:py-16 w-full">
+    <FullscreenSection ref={sectionRef} id="goals" className="theme-page isolate bg-[#f5f5f5] text-[#111111]">
+      <GoalsWallpaper scrollContainerRef={sectionRef} />
+      <Container className="relative z-10 flex-1 flex flex-col justify-center py-24 lg:py-16 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, y: reducedMotion ? 0 : 20 }}

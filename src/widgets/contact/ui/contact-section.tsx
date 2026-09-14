@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import Link from 'next/link';
 import {
   motion,
@@ -14,6 +14,7 @@ import { Container } from '@/shared/ui/container';
 import { Button } from '@/shared/ui/button';
 import { Badge } from '@/shared/ui/badge';
 import { FullscreenSection } from '@/shared/ui/fullscreen-section';
+import { ContactWallpaper } from '@/widgets/contact/ui/contact-wallpaper';
 import { PROFILE_DATA } from '@/entities/profile/model/profile-data';
 import { useContactModal } from '@/features/contact-modal/model/contact-modal-context';
 
@@ -90,6 +91,7 @@ const OrigamiPaperPlane3D: React.FC = () => {
 
 export const ContactSection: React.FC = () => {
   const reducedMotion = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
   const { openContactModal } = useContactModal();
   const hasSocialLinks = Boolean(
     PROFILE_DATA.contacts.github ||
@@ -119,11 +121,13 @@ export const ContactSection: React.FC = () => {
 
   return (
     <FullscreenSection
+      ref={sectionRef}
       id="contact"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="bg-[#111111] text-white"
+      className="isolate bg-[#111111] text-white"
     >
+      <ContactWallpaper scrollContainerRef={sectionRef} />
       <div
         aria-hidden="true"
         className="absolute inset-0 hidden items-center justify-center pointer-events-none md:flex"

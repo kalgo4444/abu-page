@@ -82,6 +82,113 @@
   will-change: transform;
 }
 
+/* Live wallpaper: canvas aurora + parallax orbs + technical grid (goals light, contact dark). */
+.live-wallpaper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.live-wallpaper__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.live-wallpaper__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  will-change: transform;
+}
+
+.live-wallpaper--light .live-wallpaper__orb--near {
+  left: -12%;
+  top: -18%;
+  width: 62vmax;
+  height: 62vmax;
+  background: radial-gradient(circle, rgba(17, 81, 255, 0.14) 0%, rgba(190, 175, 253, 0.1) 45%, transparent 70%);
+  animation: goals-drift-near 18s ease-in-out infinite alternate;
+}
+
+.live-wallpaper--light .live-wallpaper__orb--far {
+  right: -16%;
+  bottom: -22%;
+  width: 68vmax;
+  height: 68vmax;
+  background: radial-gradient(circle, rgba(10, 114, 129, 0.12) 0%, rgba(237, 26, 160, 0.08) 48%, transparent 72%);
+  animation: goals-drift-far 22s ease-in-out infinite alternate;
+}
+
+.live-wallpaper--dark .live-wallpaper__orb--near {
+  left: -12%;
+  top: -18%;
+  width: 62vmax;
+  height: 62vmax;
+  background: radial-gradient(circle, rgba(17, 81, 255, 0.32) 0%, rgba(190, 175, 253, 0.18) 45%, transparent 70%);
+  animation: goals-drift-near 18s ease-in-out infinite alternate;
+}
+
+.live-wallpaper--dark .live-wallpaper__orb--far {
+  right: -16%;
+  bottom: -22%;
+  width: 68vmax;
+  height: 68vmax;
+  background: radial-gradient(circle, rgba(10, 114, 129, 0.26) 0%, rgba(237, 26, 160, 0.16) 48%, transparent 72%);
+  animation: goals-drift-far 22s ease-in-out infinite alternate;
+}
+
+.live-wallpaper__grid {
+  position: absolute;
+  inset: -12%;
+  background-image:
+    linear-gradient(to right, var(--ambient-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--ambient-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.5;
+  mask-image: radial-gradient(72% 64% at 50% 42%, black 0%, transparent 78%);
+  will-change: transform;
+}
+
+.live-wallpaper--dark .live-wallpaper__grid {
+  opacity: 0.65;
+}
+
+.live-wallpaper__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(17, 17, 17, 0.07) 100%);
+}
+
+.live-wallpaper--dark .live-wallpaper__vignette {
+  background: radial-gradient(120% 90% at 50% 40%, transparent 45%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+html[data-theme='dark'] .live-wallpaper--light .live-wallpaper__vignette {
+  background: radial-gradient(120% 90% at 50% 40%, transparent 50%, rgba(0, 0, 0, 0.35) 100%);
+}
+
+@keyframes goals-drift-near {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(6vmax, 4vmax, 0) scale(1.12);
+  }
+}
+
+@keyframes goals-drift-far {
+  from {
+    transform: translate3d(0, 0, 0) scale(1.08);
+  }
+  to {
+    transform: translate3d(-5vmax, -4vmax, 0) scale(0.96);
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -484,6 +591,8 @@ html[data-theme='dark'] .extrusion-edge {
   .tech-gyro,
   .float-y,
   .ring-orbit,
+  .live-wallpaper__orb,
+  .live-wallpaper__grid,
   .route-stage {
     animation: none;
     transition: none;
@@ -503,7 +612,8 @@ html[data-theme='dark'] .extrusion-edge {
   .vector-orb,
   .tech-gyro,
   .float-y,
-  .ring-orbit {
+  .ring-orbit,
+  .live-wallpaper__orb {
     animation: none;
   }
 }

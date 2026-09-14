@@ -7,9 +7,6 @@ permission:
     '*': allow
     'rm *': deny
     'sudo *': deny
-    'git reset*': deny
-    'git clean*': deny
-    '* publish*': deny
   skill: allow
 ---
 
