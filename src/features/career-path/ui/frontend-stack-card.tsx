@@ -7,7 +7,7 @@ import { Card } from '@/shared/ui/card';
 import { Badge } from '@/shared/ui/badge';
 
 const STACK_LAYERS = [
-  { id: '01', title: 'UI & INTERACTION', tech: 'React • Tailwind CSS • Framer Motion', color: '#1151ff' },
+  { id: '01', title: 'UI & INTERACTION', tech: 'React • React Native (Expo) • Tailwind CSS', color: '#1151ff' },
   { id: '02', title: 'CORE ARCHITECTURE', tech: 'Next.js App Router • TypeScript', color: '#111111' },
   { id: '03', title: 'DATA & AI AGENTS', tech: 'REST APIs • MCP • Upstash Redis', color: '#007d48' },
 ];
@@ -20,20 +20,21 @@ export const FrontendStackCard: React.FC = () => {
       <div className="grid grid-cols-1 items-center gap-5 md:grid-cols-2">
         <div>
           <Badge variant="blue" icon={<Sparkles className="w-3.5 h-3.5" />} className="mb-2 text-[10px] font-bold uppercase">
-            FRONT-END MUHANDISLIGI
+            SOFTWARE ENGINEERING
           </Badge>
           <h3 className="mb-2 font-display-campaign text-xl font-extrabold uppercase text-[#111111] sm:text-2xl">
-            ZAMONAVIY VEB INTERFEYSLAR
+            MODERN WEB & MOBILE UI
           </h3>
           <p className="mb-3 text-xs leading-relaxed text-[#39393b]">
-            React, Next.js, TypeScript va Tailwind CSS yordamida yuqori unumdor, adaptiv veb-ilovalar yarataman.
+            I build fast, responsive web and mobile apps with React, Next.js, React Native (Expo), TypeScript, and Tailwind CSS.
           </p>
           <ul className="space-y-1.5">
             {[
-              'Next.js App Router va Server Components',
-              'TypeScript bilan ishonchli kod arxitekturasi',
-              'Responsive UX va minimal dizayn tizimi',
-              'REST API va backend servislar integratsiyasi',
+              'Next.js App Router and Server Components',
+              'Mobile apps with React Native (Expo)',
+              'Solid code with TypeScript',
+              'Responsive UX and clean design system',
+              'REST API and backend integration',
             ].map((item) => (
               <li key={item} className="flex items-center gap-2 text-xs font-medium text-[#111111]">
                 <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-[#007d48]" />

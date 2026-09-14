@@ -11,10 +11,10 @@ import { Container } from '@/shared/ui/container';
 import { ThemeToggle } from '@/features/theme/ui/theme-toggle';
 
 const NAV_LINKS = [
-  { label: 'MEN HAQIMDA', href: '/about' },
-  { label: 'KO‘NIKMALAR', href: '/skills' },
-  { label: 'QIZIQISHLAR', href: '/interests' },
-  { label: 'MAQSADLAR', href: '/goals' },
+  { label: 'ABOUT', href: '/about' },
+  { label: 'SKILLS', href: '/skills' },
+  { label: 'INTERESTS', href: '/interests' },
+  { label: 'GOALS', href: '/goals' },
 ];
 
 export const Navbar: React.FC = () => {
@@ -91,7 +91,7 @@ export const Navbar: React.FC = () => {
               </div>
             </Link>
 
-            <nav aria-label="Asosiy navigatsiya" className="hidden lg:flex flex-1 items-center justify-center gap-7">
+            <nav aria-label="Main navigation" className="hidden lg:flex flex-1 items-center justify-center gap-7">
               {NAV_LINKS.map((link) => {
                 const isActive = pathname === link.href;
                 return (
@@ -133,13 +133,13 @@ export const Navbar: React.FC = () => {
                 href="/contact"
                 className="font-brand hidden h-11 items-center justify-center rounded-full bg-[#111111] px-5 text-[10px] font-semibold uppercase tracking-[0.08em] text-white transition-transform hover:bg-[#222222] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] focus-visible:ring-offset-2 sm:inline-flex"
               >
-                Bog‘lanish
+                Contact
               </Link>
 
               <button
                 onClick={toggleMobileMenu}
                 className="flex h-11 w-11 items-center justify-center rounded-full text-[#111111] transition-colors hover:bg-[#f5f5f5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] lg:hidden"
-                aria-label={mobileMenuOpen ? 'Menyuni yopish' : 'Menyuni ochish'}
+                aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={mobileMenuOpen}
                 aria-controls="mobile-navigation"
               >
@@ -152,7 +152,7 @@ export const Navbar: React.FC = () => {
             {mobileMenuOpen && (
               <motion.nav
                 id="mobile-navigation"
-                aria-label="Mobil navigatsiya"
+                aria-label="Mobile navigation"
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
@@ -187,7 +187,7 @@ export const Navbar: React.FC = () => {
                         onClick={() => setMobileMenuOpen(false)}
                         className="flex h-12 w-full items-center justify-center rounded-full bg-[#111111] px-8 text-sm font-bold uppercase tracking-wider text-white transition-transform hover:bg-[#222222] active:scale-[0.98]"
                       >
-                        Bog‘lanish
+                        Contact
                       </Link>
                     </div>
                 </div>

@@ -3,9 +3,9 @@ import { GoalsSection } from '@/widgets/goals/ui/goals-section';
 import { createPageMetadata } from '@/shared/config/site';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Kasbiy maqsadlar',
+  title: 'Career goals',
   description:
-    'Front-end yo‘nalishida rivojlanish, foydali IT mahsulotlar yaratish va xalqaro jamoalarda tajriba oshirish maqsadlari.',
+    'Goals: grow in Software Engineering, build useful IT products, and gain global team experience.',
   path: '/goals',
 });
 

@@ -52,7 +52,7 @@ export const SiteShell = ({ children }: SiteShellProps) => {
             href="#main-content"
             className="fixed left-4 top-4 z-[60] -translate-y-24 rounded-full bg-[#111111] px-5 py-3 text-sm font-semibold text-white transition-transform focus:translate-y-0"
           >
-            Asosiy mazmunga o‘tish
+            Skip to main content
           </a>
           <Navbar />
           <main

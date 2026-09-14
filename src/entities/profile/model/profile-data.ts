@@ -26,14 +26,14 @@ export interface GoalItem {
 
 export const PROFILE_DATA = {
   name: "Abdulaziz",
-  title: "Front-end dasturchi",
+  title: "Software Engineer",
   education: {
-    university: "O‘zbekistondagi xususiy universitet (IT Fakulteti)",
-    direction: "Software Engineering (SW) yo‘nalishi",
-    year: "3-kurs talabasi",
-    description: "Universitetdagi ta’lim bilan birga dasturlashni mustaqil ravishda o‘rganib, amaliy loyihalar va ilg‘or AI texnologiyalari orqali tajribamni rivojlantirib boryapman."
+    university: "Private university in Uzbekistan (IT Faculty)",
+    direction: "Software Engineering (SW)",
+    year: "3rd-year student",
+    description: "Along with my university classes, I learn to code on my own and grow my skills through real projects and new AI tools."
   },
-  bio: "Men — Abdulaziz, zamonaviy, tezkor va foydalanuvchi uchun qulay veb-ilovalar yaratishga ixtisoslashgan Front-end dasturchiman.",
+  bio: "I'm Abdulaziz, a Software Engineer. I build fast, simple, and user-friendly web and mobile apps.",
   contacts: {
     github: "",
     telegram: "",
@@ -42,12 +42,13 @@ export const PROFILE_DATA = {
   },
   skills: [
     {
-      title: "Front-End Development",
+      title: "Software Engineering",
       iconName: "Layout",
-      description: "Zamonaviy, tez va adaptiv veb-interfeyslarni ishlab chiqish",
+      description: "Build fast and responsive web and mobile UI",
       items: [
         { name: "React.js", status: "use" },
         { name: "Next.js (App Router)", status: "use" },
+        { name: "React Native (Expo)", status: "use" },
         { name: "TypeScript", status: "use" },
         { name: "JavaScript (ES6+)", status: "know" },
         { name: "HTML5 / CSS3 / Vanilla CSS", status: "know" },
@@ -58,13 +59,13 @@ export const PROFILE_DATA = {
     {
       title: "AI Tools & Dev Ecosystem",
       iconName: "Cpu",
-      description: "Sun’iy intellekt agentlari va zamonaviy ishlab chiqish vositalari",
+      description: "AI agents and modern dev tools",
       items: [
         { name: "AI Agents & LLM Integration", status: "use" },
         { name: "OpenCode & Codex & MCP", status: "use" },
-        { name: "Linux / VPS Serverlar", status: "use" },
+        { name: "Linux / VPS Servers", status: "use" },
         { name: "Git & GitHub Workflow", status: "know" },
-        { name: "Lokal AI Modellar (Ollama/LMStudio)", status: "use" }
+        { name: "Local AI Models (Ollama/LMStudio)", status: "use" }
       ]
     }
   ] as SkillCategory[],
@@ -72,29 +73,29 @@ export const PROFILE_DATA = {
   interests: [
     {
       id: "web-mobile",
-      title: "Veb-ilovalar",
-      description: "Foydalanuvchilar uchun qulay, chiroyli va tez ishlaydigan veb-ilovalar yaratish",
+      title: "Web & Mobile Apps",
+      description: "Build fast, clean, and user-friendly web and mobile apps with React Native / Expo",
       icon: "Globe",
       category: "tech"
     },
     {
       id: "ai-agents",
-      title: "AI Agentlar & MCP",
-      description: "Sun’iy intellekt vositalari (OpenCode, Codex, Model Context Protocol) bilan samaradorlikni oshirish",
+      title: "AI Agents & MCP",
+      description: "Work faster with AI dev tools (OpenCode, Codex, Model Context Protocol)",
       icon: "Bot",
       category: "ai"
     },
     {
       id: "vps-linux",
-      title: "VPS & Linux Texnologiyalari",
-      description: "Serverlar boshqaruvi va lokal AI modellar bilan ishlash muhitini sozlash",
+      title: "VPS & Linux",
+      description: "Manage servers and set up local AI model dev environments",
       icon: "Server",
       category: "tech"
     },
     {
       id: "sport-health",
-      title: "Sport & Sog‘lom Turmush Tarzi",
-      description: "Muntazam jismoniy mashg‘ulotlar va aqliy tetiklikni saqlash",
+      title: "Sport & Healthy Life",
+      description: "Regular workouts and a fresh mind",
       icon: "Activity",
       category: "lifestyle"
     }
@@ -102,36 +103,36 @@ export const PROFILE_DATA = {
 
   goals: [
     {
-      id: "frontend-career",
-      title: "Professional Front-end Dasturchi",
-      subtitle: "React, Next.js va TypeScript",
-      description: "Zamonaviy, tezkor va qulay foydalanuvchi tajribasiga ega veb-ilovalar yaratishda chuqur mutaxassis bo‘lish.",
+      id: "software-career",
+      title: "Professional Software Engineer",
+      subtitle: "React, Next.js, React Native and TypeScript",
+      description: "Become a strong dev who builds fast web and mobile apps with great UX.",
       icon: "Code2",
-      timeframe: "Asosiy Maqsad"
+      timeframe: "Main Goal"
     },
     {
       id: "products",
-      title: "Shaxsiy IT Mahsulotlar",
-      subtitle: "Startaplar va Veb/Mobil ilovalar",
-      description: "Foydalanuvchilarga haqiqiy qiymat beruvchi va muammolarni hal etuvchi shaxsiy loyihalarni ishlab chiqish hamda ishga tushirish.",
+      title: "My Own IT Products",
+      subtitle: "Startups & Web/Mobile Apps",
+      description: "Build and launch my own apps that solve real user problems.",
       icon: "Rocket",
-      timeframe: "Rivojlanish"
+      timeframe: "Growth"
     },
     {
       id: "global",
-      title: "Xalqaro Kompaniyalar",
-      subtitle: "Global Loyihalarda Tajriba",
-      description: "Dunyo darajasidagi kuchli muhandislar jamoasida tajriba oshirish va xalqaro miqyosda ish olib borish.",
+      title: "Global Companies",
+      subtitle: "Work on Global Projects",
+      description: "Grow with a strong dev team and work at a global scale.",
       icon: "Globe2",
-      timeframe: "Karera"
+      timeframe: "Career"
     },
     {
       id: "freedom-travel",
-      title: "Moliyaviy Erkinlik & Sayohat",
-      subtitle: "Yangi Tajribalar va Bilim Ulashish",
-      description: "Sayyoramiz bo‘ylab ko‘proq sayohat qilish, dunyoqarashni kengaytirish va to‘plangan bilimlarni boshqalar bilan ulashish.",
+      title: "Freedom & Travel",
+      subtitle: "New Places & Shared Knowledge",
+      description: "Travel more, learn more, and share what I learn with others.",
       icon: "Compass",
-      timeframe: "Hayotiy"
+      timeframe: "Life"
     }
   ] as GoalItem[]
 };

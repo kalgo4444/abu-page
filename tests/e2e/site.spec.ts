@@ -3,8 +3,8 @@ import { expect, test } from '@playwright/test';
 test('home page is available and contact modal can be opened', async ({ page }) => {
   await page.goto('/');
 
-  await expect(page).toHaveTitle(/Frontend dasturchi/);
-  await page.getByRole('button', { name: 'Bog‘lanish' }).click();
+  await expect(page).toHaveTitle(/Software Engineer/);
+  await page.getByRole('button', { name: 'Contact' }).click();
   await expect(page.getByRole('dialog')).toBeVisible();
 });
 
@@ -13,13 +13,13 @@ test('desktop navigation changes route and marks the current page', async ({ pag
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/');
 
-  const navigation = page.getByRole('navigation', { name: 'Asosiy navigatsiya' });
+  const navigation = page.getByRole('navigation', { name: 'Main navigation' });
   await expect(navigation).toBeVisible();
-  await navigation.getByRole('link', { name: 'MEN HAQIMDA' }).click();
+  await navigation.getByRole('link', { name: 'ABOUT' }).click();
 
   await expect(page).toHaveURL('/about');
   await expect(
-    navigation.getByRole('link', { name: 'MEN HAQIMDA' }),
+    navigation.getByRole('link', { name: 'ABOUT' }),
   ).toHaveAttribute('aria-current', 'page');
   await expect(page.locator('#main-content')).toBeFocused();
 });

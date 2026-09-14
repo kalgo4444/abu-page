@@ -170,23 +170,23 @@ export const ContactSection: React.FC = () => {
           className="space-y-5 flex flex-col items-center"
         >
           <Badge variant="purple" className="bg-transparent text-white border-white/40 uppercase tracking-wider text-[11px]">
-            HAMKORLIK VA ALOQA
+            WORK AND CONTACT
           </Badge>
 
           <h1 className="font-display-campaign uppercase tracking-tight leading-[0.9]">
             <span className="block text-5xl sm:text-7xl lg:text-8xl text-white">
-              BIRGALIKDA
+              LET&apos;S BUILD
             </span>
             <span
               className="block text-5xl sm:text-7xl lg:text-8xl"
               style={{ WebkitTextStroke: '1.5px rgba(255,255,255,0.4)', color: 'transparent' }}
             >
-              YARATAYLIK.
+              TOGETHER.
             </span>
           </h1>
 
           <p className="text-sm sm:text-base text-white/65 max-w-xl leading-relaxed font-normal">
-            Front-end veb-saytlar, Next.js loyihalari yoki sun’iy intellekt vositalari bilan ishlash bo‘yicha bog‘lanishingiz mumkin.
+            Contact me about websites, mobile apps (React Native / Expo), Next.js projects, or AI dev tools.
           </p>
         </motion.div>
 
@@ -204,7 +204,7 @@ export const ContactSection: React.FC = () => {
             icon={<Send className="w-4 h-4" />}
             className="bg-white text-[#111111] hover:bg-[#e5e5e5] uppercase font-bold tracking-wider text-xs shadow-lg"
           >
-            Xabar Qoldirish
+            Send Message
           </Button>
 
           {PROFILE_DATA.contacts.email && (
@@ -215,7 +215,7 @@ export const ContactSection: React.FC = () => {
               icon={<Mail className="w-4 h-4" />}
               className="bg-transparent border-white/40 text-white hover:border-white uppercase font-bold tracking-wider text-xs"
             >
-              Email Yuborish
+              Send Email
             </Button>
           )}
         </motion.div>
@@ -276,19 +276,19 @@ export const ContactSection: React.FC = () => {
       <div className="relative z-10 mt-auto border-t border-white/15">
         <Container className="flex flex-col items-center justify-between gap-3 py-5 text-center text-[10px] font-medium uppercase tracking-wider text-white/50 sm:flex-row sm:text-left">
           <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 sm:justify-start">
-            <span className="text-white font-bold">O‘ZBEKISTON</span>
-            <span>&copy; {new Date().getFullYear()} ABDULAZIZ. BARCHA HUQUQLAR HIMOYALANGAN.</span>
+            <span className="text-white font-bold">UZBEKISTAN</span>
+            <span>&copy; {new Date().getFullYear()} ABDULAZIZ. ALL RIGHTS RESERVED.</span>
           </div>
 
           <div className="hidden md:flex items-center gap-5">
-            <Link href="/about" className="hover:text-white transition-colors">Men Haqimda</Link>
-            <Link href="/skills" className="hover:text-white transition-colors">Ko‘nikmalar</Link>
-            <Link href="/goals" className="hover:text-white transition-colors">Maqsadlar</Link>
+            <Link href="/about" className="hover:text-white transition-colors">About Me</Link>
+            <Link href="/skills" className="hover:text-white transition-colors">Skills</Link>
+            <Link href="/goals" className="hover:text-white transition-colors">Goals</Link>
           </div>
 
           <span className="flex items-center justify-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#007d48]" />
-            Toshkent, UZB — Hamkorlikka ochiq
+            Tashkent, UZB — Open to work
           </span>
         </Container>
       </div>

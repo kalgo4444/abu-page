@@ -7,13 +7,13 @@ const configuredUrl =
     : undefined);
 
 if (process.env.NODE_ENV === 'production' && !configuredUrl) {
-  throw new Error('NEXT_PUBLIC_SITE_URL production deploy uchun majburiy.');
+  throw new Error('NEXT_PUBLIC_SITE_URL is required for a production deploy.');
 }
 
 export const SITE_URL = new URL(configuredUrl ?? 'http://localhost:3000');
 
 if (process.env.NODE_ENV === 'production' && SITE_URL.protocol !== 'https:') {
-  throw new Error('NEXT_PUBLIC_SITE_URL HTTPS manzil bo‘lishi kerak.');
+  throw new Error('NEXT_PUBLIC_SITE_URL must be an HTTPS address.');
 }
 
 interface PageMetadataOptions {

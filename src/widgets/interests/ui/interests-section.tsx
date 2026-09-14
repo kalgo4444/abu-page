@@ -83,9 +83,9 @@ export const InterestsSection: React.FC = () => {
   const reducedMotion = useReducedMotion();
   const total = PROFILE_DATA.interests.length;
   const categoryLabels = {
-    tech: 'Texnologiya',
-    ai: 'Sun’iy intellekt',
-    lifestyle: 'Hayot tarzi',
+    tech: 'Tech',
+    ai: 'AI',
+    lifestyle: 'Lifestyle',
   };
 
   const getIcon = (iconName: string) => {
@@ -174,14 +174,14 @@ export const InterestsSection: React.FC = () => {
         >
           <div className="space-y-3">
             <Badge variant="orange" className="uppercase tracking-wider text-[11px]">
-              QIZIQISHLAR VA SHAVQ
+              INTERESTS & PASSION
             </Badge>
             <h1 className="font-display-campaign text-4xl sm:text-5xl lg:text-6xl uppercase tracking-tight leading-[0.9] text-[#111111]">
-              ILHOM MANBAYIM
+              WHAT INSPIRES ME
             </h1>
           </div>
           <p className="hidden lg:block max-w-xs text-xs text-[#707072] leading-relaxed font-medium">
-            Faqat kod yozish emas, balki texnologiya, AI agentlar, Linux serverlar hamda sog‘lom turmush tarzini muvozanatda tutish.
+            Not just code — a balance of tech, AI agents, Linux servers, and a healthy life.
           </p>
         </motion.div>
 
@@ -220,7 +220,7 @@ export const InterestsSection: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => goTo(idx)}
-                  aria-label={`${item.title} kartasini tanlash`}
+                  aria-label={`Select ${item.title} card`}
                   aria-pressed={idx === activeIndex}
                   tabIndex={idx === activeIndex ? 0 : -1}
                   className="absolute inset-0 z-20 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-white"
@@ -235,7 +235,7 @@ export const InterestsSection: React.FC = () => {
           <button
             type="button"
             onClick={() => goTo(activeIndex - 1)}
-            aria-label="Oldingi karta"
+            aria-label="Previous card"
             className="w-11 h-11 rounded-full flex items-center justify-center border border-[#cacacb] bg-white text-[#111111] hover:bg-[#111111] hover:text-white hover:border-[#111111] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] focus-visible:ring-offset-2 shadow-xs"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -246,7 +246,7 @@ export const InterestsSection: React.FC = () => {
           <button
             type="button"
             onClick={() => goTo(activeIndex + 1)}
-            aria-label="Keyingi karta"
+            aria-label="Next card"
             className="w-11 h-11 rounded-full flex items-center justify-center border border-[#cacacb] bg-white text-[#111111] hover:bg-[#111111] hover:text-white hover:border-[#111111] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] focus-visible:ring-offset-2 shadow-xs"
           >
             <ChevronRight className="w-5 h-5" />

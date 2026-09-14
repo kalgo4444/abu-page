@@ -109,7 +109,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
       const result = (await response.json()) as { error?: string };
 
       if (!response.ok) {
-        setError(result.error ?? 'Xabarni yuborib bo‘lmadi.');
+        setError(result.error ?? 'Could not send the message.');
         return;
       }
 
@@ -129,8 +129,8 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
     } catch (error) {
       setError(
         error instanceof DOMException && error.name === 'AbortError'
-          ? 'So‘rov vaqti tugadi. Internetni tekshirib, qayta urinib ko‘ring.'
-          : 'Xabarni yuborib bo‘lmadi. Internet aloqasini tekshiring.',
+          ? 'Request timed out. Check your internet and try again.'
+          : 'Could not send the message. Check your connection.',
       );
     } finally {
       clearTimeout(timeout);
@@ -167,7 +167,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
             <button
               type="button"
               onClick={closeModal}
-              aria-label="Oynani yopish"
+              aria-label="Close window"
               className="absolute right-5 top-5 rounded-full p-2 text-[#111111] transition-colors hover:bg-[#f5f5f5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111111]"
             >
               <X className="w-5 h-5" />
@@ -179,29 +179,29 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                 <h3 ref={successHeadingRef} id="contact-modal-title" tabIndex={-1} className="text-2xl font-bold uppercase text-[#111111] font-display-campaign mb-2 focus:outline-none">
-                  RAHMAT! XABARINGIZ YUBORILDI
+                  THANKS! MESSAGE SENT
                 </h3>
                 <p id="contact-modal-description" aria-live="polite" className="text-[#707072] text-sm font-medium">
-                  Tez orada siz bilan bog‘lanaman. Hamkorlik taklifi uchun rahmat!
+                  I will contact you soon. Thanks for the offer!
                 </p>
               </div>
             ) : (
               <>
                 <div className="mb-6">
                   <Badge variant="blue" icon={<Sparkles className="w-3.5 h-3.5" />} className="mb-2 font-bold uppercase text-[10px]">
-                    XABAR YUBORISH
+                    SEND MESSAGE
                   </Badge>
                   <h3 id="contact-modal-title" className="text-3xl font-extrabold uppercase text-[#111111] font-display-campaign">
-                    ABDULAZIZ BILAN BOG‘LANING
+                    CONTACT ABDULAZIZ
                   </h3>
                   <p id="contact-modal-description" className="text-[#707072] text-xs sm:text-sm font-medium mt-1">
-                    Yangi loyihalar, takliflar yoki g‘oyalarni muhokama qilish uchun xabar qoldiring.
+                    Leave a message to talk about new projects, offers, or ideas.
                   </p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
-                    <label htmlFor="contact-name" className="block text-xs font-bold uppercase text-[#111111] mb-1.5">Ismingiz *</label>
+                    <label htmlFor="contact-name" className="block text-xs font-bold uppercase text-[#111111] mb-1.5">Your Name *</label>
                     <input
                       id="contact-name"
                       name="name"
@@ -211,7 +211,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                       maxLength={100}
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="Ismingizni kiriting"
+                      placeholder="Enter your name"
                       className="w-full bg-[#f5f5f5] border border-[#cacacb] rounded-full px-4 py-2.5 text-xs font-medium text-[#111111] placeholder-[#707072] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#111111] transition-all"
                     />
                   </div>
@@ -226,13 +226,13 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                       maxLength={200}
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="Email yoki @username"
+                      placeholder="Email or @username"
                       className="w-full bg-[#f5f5f5] border border-[#cacacb] rounded-full px-4 py-2.5 text-xs font-medium text-[#111111] placeholder-[#707072] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#111111] transition-all"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="contact-message" className="block text-xs font-bold uppercase text-[#111111] mb-1.5">Xabar yoki Taklif *</label>
+                    <label htmlFor="contact-message" className="block text-xs font-bold uppercase text-[#111111] mb-1.5">Message or Offer *</label>
                     <textarea
                       id="contact-message"
                       name="message"
@@ -241,13 +241,13 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                       maxLength={2000}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Loyiha g‘oyasi yoki hamkorlik haqida yozing..."
+                      placeholder="Write about your project idea or offer..."
                       className="w-full bg-[#f5f5f5] border border-[#cacacb] rounded-2xl px-4 py-3 text-xs font-medium text-[#111111] placeholder-[#707072] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#111111] transition-all resize-none"
                     />
                   </div>
 
                   <div className="absolute -left-[9999px]" aria-hidden="true">
-                    <label htmlFor="contact-website">Veb-sayt</label>
+                    <label htmlFor="contact-website">Website</label>
                     <input
                       id="contact-website"
                       name="website"
@@ -273,7 +273,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                     className="w-full mt-2 uppercase font-bold tracking-wider text-xs"
                     icon={<Send className="w-4 h-4" />}
                   >
-                    {isSubmitting ? 'Yuborilmoqda...' : 'Xabarni Yuborish'}
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </Button>
                 </form>
               </>

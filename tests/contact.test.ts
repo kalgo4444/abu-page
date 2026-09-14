@@ -49,11 +49,11 @@ describe('POST /api/contact', () => {
 
   it('rejects an invalid contact address', async () => {
     const response = await POST(
-      createRequest({ name: 'Ali', contact: 'not-an-address', message: 'Salom' }),
+      createRequest({ name: 'Ali', contact: 'not-an-address', message: 'Hello' }),
     );
 
     expect(response.status).toBe(400);
-    await expect(response.json()).resolves.toEqual({ error: 'Email yoki Telegram manzili noto‘g‘ri.' });
+    await expect(response.json()).resolves.toEqual({ error: 'Email or Telegram address is wrong.' });
   });
 
   it('returns Retry-After when the rate limit is exceeded', async () => {
@@ -64,7 +64,7 @@ describe('POST /api/contact', () => {
       reset: Date.now() + 60_000,
     });
 
-    const response = await POST(createRequest({ name: 'Ali', message: 'Salom' }));
+    const response = await POST(createRequest({ name: 'Ali', message: 'Hello' }));
 
     expect(response.status).toBe(429);
     expect(response.headers.get('Retry-After')).toBeTruthy();
@@ -72,7 +72,7 @@ describe('POST /api/contact', () => {
 
   it('sends a valid request to Telegram', async () => {
     const response = await POST(
-      createRequest({ name: 'Ali', contact: '@ali_dev', message: 'Hamkorlik qilamizmi?' }),
+      createRequest({ name: 'Ali', contact: '@ali_dev', message: 'Shall we work together?' }),
     );
 
     expect(response.status).toBe(200);

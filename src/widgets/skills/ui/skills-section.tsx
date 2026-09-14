@@ -16,20 +16,20 @@ const STATUS_DOT: Record<SkillStatus, string> = {
 };
 
 const STATUS_LABEL: Record<SkillStatus, string> = {
-  know: 'BILAMAN',
-  use: 'ISHLATAMAN',
-  learning: "O'RGANMOQDAMAN",
+  know: 'I KNOW',
+  use: 'I USE',
+  learning: 'LEARNING',
 };
 
 export const SkillsSection: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState<string>('Barchasi');
+  const [activeCategory, setActiveCategory] = useState<string>('All');
   const reducedMotion = useReducedMotion();
 
-  const categories = ['Barchasi', 'Front-End', 'AI & Tools'];
+  const categories = ['All', 'Software', 'AI & Tools'];
 
   const filteredSkills = PROFILE_DATA.skills.filter((group) => {
-    if (activeCategory === 'Barchasi') return true;
-    if (activeCategory === 'Front-End') return group.title.includes('Front-End');
+    if (activeCategory === 'All') return true;
+    if (activeCategory === 'Software') return group.title.includes('Software');
     if (activeCategory === 'AI & Tools') return group.title.includes('AI');
     return true;
   });
@@ -52,10 +52,10 @@ export const SkillsSection: React.FC = () => {
         >
           <div className="space-y-3">
             <Badge variant="cyan" className="uppercase tracking-wider text-[11px]">
-              TEXNOLOGIYALAR
+              TECH STACK
             </Badge>
             <h1 className="font-display-campaign text-4xl sm:text-5xl lg:text-6xl uppercase tracking-tight leading-[0.9] text-[#111111]">
-              KO‘NIKMALAR EKOTIZIMI
+              SKILLS ECOSYSTEM
             </h1>
           </div>
           <div className="hidden lg:flex items-center gap-4">
@@ -71,7 +71,7 @@ export const SkillsSection: React.FC = () => {
               </div>
             </div>
             <p className="max-w-xs text-xs text-[#707072] leading-relaxed font-medium">
-              HTML/CSS va React’dan boshlab Next.js, TypeScript hamda AI vositalarigacha (OpenCode, Codex, MCP) amaliy bilimlar.
+              Hands-on skills from HTML/CSS and React to Next.js, React Native (Expo), TypeScript, and AI tools (OpenCode, Codex, MCP).
             </p>
           </div>
         </motion.div>
@@ -123,7 +123,7 @@ export const SkillsSection: React.FC = () => {
                 <div className="flex items-start justify-between gap-4 border-b border-[#e5e5e5] pb-3" style={{ transform: 'translateZ(20px)' }}>
                   <div>
                     <span className="font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[#1151ff]">
-                      0{groupIndex + 1} / {group.items.length} TA
+                      0{groupIndex + 1} / {group.items.length} ITEMS
                     </span>
                     <h3 className="font-brand mt-1 text-lg font-bold tracking-[-0.05em] text-[#111111]">
                       {group.title}
@@ -160,7 +160,7 @@ export const SkillsSection: React.FC = () => {
           className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-1 border-t border-[#e5e5e5] lg:pt-3"
         >
           <span className="text-[11px] font-mono font-bold uppercase text-[#111111]">
-            {flatSkills.length} TA VOSITA
+            {flatSkills.length} TOOLS
           </span>
           {statusCounts.map(({ status, count }) => (
             <span

@@ -3,9 +3,9 @@ import { SkillsSection } from '@/widgets/skills/ui/skills-section';
 import { createPageMetadata } from '@/shared/config/site';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'React, Next.js va TypeScript ko‘nikmalari',
+  title: 'React, Next.js, React Native and TypeScript skills',
   description:
-    'React, Next.js, TypeScript, Tailwind CSS, AI agentlar va ishlab chiqish vositalari bo‘yicha amaliy ko‘nikmalar.',
+    'Hands-on skills in React, Next.js, React Native (Expo), TypeScript, Tailwind CSS, AI agents, and dev tools.',
   path: '/skills',
 });
 

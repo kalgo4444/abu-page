@@ -14,7 +14,7 @@ import { enforceContactRateLimit } from '@/shared/lib/contact-rate-limit';
 export async function POST(request: Request) {
   const origin = request.headers.get('origin');
   if (origin && origin !== SITE_URL.origin) {
-    return Response.json({ error: 'Noto‘g‘ri so‘rov manbasi.' }, { status: 403 });
+    return Response.json({ error: 'Bad request source.' }, { status: 403 });
   }
 
   let rateLimit;
@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     rateLimit = await enforceContactRateLimit(request);
   } catch {
     return Response.json(
-      { error: 'Xabar xizmati vaqtincha ishlamayapti. Keyinroq urinib ko‘ring.' },
+      { error: 'Message service is down. Try again later.' },
       { status: 503 },
     );
   }
@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   if (!rateLimit.success) {
     const retryAfter = Math.max(1, Math.ceil((rateLimit.reset - Date.now()) / 1_000));
     return Response.json(
-      { error: 'Juda ko‘p so‘rov yuborildi. Keyinroq urinib ko‘ring.' },
+      { error: 'Too many requests. Try again later.' },
       {
         status: 429,
         headers: {
@@ -44,12 +44,12 @@ export async function POST(request: Request) {
   }
 
   if (!request.headers.get('content-type')?.includes('application/json')) {
-    return Response.json({ error: 'Noto‘g‘ri so‘rov turi.' }, { status: 415 });
+    return Response.json({ error: 'Bad request type.' }, { status: 415 });
   }
 
   const contentLength = Number(request.headers.get('content-length'));
   if (Number.isFinite(contentLength) && contentLength > MAX_BODY_SIZE) {
-    return Response.json({ error: 'So‘rov hajmi juda katta.' }, { status: 413 });
+      return Response.json({ error: 'Request body is too big.' }, { status: 413 });
   }
 
   let body: unknown;
@@ -57,15 +57,15 @@ export async function POST(request: Request) {
   try {
     const rawBody = await request.text();
     if (new TextEncoder().encode(rawBody).byteLength > MAX_BODY_SIZE) {
-      return Response.json({ error: 'So‘rov hajmi juda katta.' }, { status: 413 });
+    return Response.json({ error: 'Request body is too big.' }, { status: 413 });
     }
     body = JSON.parse(rawBody);
   } catch {
-    return Response.json({ error: 'Noto‘g‘ri so‘rov yuborildi.' }, { status: 400 });
+    return Response.json({ error: 'Bad request.' }, { status: 400 });
   }
 
   if (!body || typeof body !== 'object') {
-    return Response.json({ error: 'Noto‘g‘ri so‘rov yuborildi.' }, { status: 400 });
+    return Response.json({ error: 'Bad request.' }, { status: 400 });
   }
 
   const data = body as Record<string, unknown>;
@@ -80,7 +80,7 @@ export async function POST(request: Request) {
 
   if (!name || !message) {
     return Response.json(
-      { error: 'Ism va xabar maydonlari majburiy.' },
+      { error: 'Name and message are required.' },
       { status: 400 },
     );
   }
@@ -90,11 +90,11 @@ export async function POST(request: Request) {
     contact.length > MAX_CONTACT_LENGTH ||
     message.length > MAX_MESSAGE_LENGTH
   ) {
-    return Response.json({ error: 'Maydonlardan biri ruxsat etilgan hajmdan uzun.' }, { status: 400 });
+    return Response.json({ error: 'One field is too long.' }, { status: 400 });
   }
 
   if (!isValidContact(contact)) {
-    return Response.json({ error: 'Email yoki Telegram manzili noto‘g‘ri.' }, { status: 400 });
+    return Response.json({ error: 'Email or Telegram address is wrong.' }, { status: 400 });
   }
 
   const token = process.env.TELEGRAM_BOT_TOKEN;
@@ -102,18 +102,18 @@ export async function POST(request: Request) {
 
   if (!token || !chatId) {
     return Response.json(
-      { error: 'Xabar xizmati hali sozlanmagan.' },
+      { error: 'Message service is not set up yet.' },
       { status: 503 },
     );
   }
 
   const telegramMessage = [
-    'Yangi hamkorlik taklifi',
+    'New work offer',
     '',
-    `Ism: ${name}`,
-    `Aloqa: ${contact || 'Ko‘rsatilmagan'}`,
+    `Name: ${name}`,
+    `Contact: ${contact || 'Not given'}`,
     '',
-    'Xabar:',
+    'Message:',
     message,
   ].join('\n');
 
@@ -127,13 +127,13 @@ export async function POST(request: Request) {
 
     if (!response.ok) {
       return Response.json(
-        { error: 'Xabarni yuborib bo‘lmadi. Keyinroq urinib ko‘ring.' },
+        { error: 'Could not send the message. Try again later.' },
         { status: 502 },
       );
     }
   } catch {
     return Response.json(
-      { error: 'Xabarni yuborib bo‘lmadi. Keyinroq urinib ko‘ring.' },
+      { error: 'Could not send the message. Try again later.' },
       { status: 502 },
     );
   }

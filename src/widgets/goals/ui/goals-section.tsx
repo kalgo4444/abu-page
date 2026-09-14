@@ -75,13 +75,13 @@ export const GoalsSection: React.FC = () => {
           >
             <div className="space-y-3">
               <Badge variant="purple" className="uppercase tracking-wider text-[11px]">
-                STRATEGIYA VA KELAJAK
+                PLAN AND FUTURE
               </Badge>
               <h1 className="font-display-campaign text-4xl sm:text-5xl lg:text-6xl uppercase tracking-tight leading-[0.9]">
-                MAQSADLARIM ZINAPOYASI
+                MY GOALS ROADMAP
               </h1>
               <p className="text-xs sm:text-sm text-[#707072] leading-relaxed font-medium max-w-md">
-                Front-end yo‘nalishida chuqur mutaxassis bo‘lish, shaxsiy IT mahsulotlar yaratish va global kompaniyalar bilan hamkorlik qilish rejasi. Qadamni tanlang:
+                My plan: grow deep in Software Engineering, build my own IT products, and work with global teams. Pick a step:
               </p>
             </div>
 
@@ -157,7 +157,7 @@ export const GoalsSection: React.FC = () => {
                 style={{ transform: 'translateZ(50px)' }}
               >
                 <span className="float-y inline-block bg-[#111111] text-white px-3 py-1.5 font-display-campaign text-xs tracking-tight whitespace-nowrap shadow-md">
-                  KELAJAK REJASI
+                  FUTURE PLAN
                 </span>
               </div>
 

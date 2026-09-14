@@ -51,14 +51,14 @@ export const AboutSection: React.FC = () => {
         >
           <div className="space-y-3">
             <Badge variant="purple" className="bg-transparent text-white border-white/40 uppercase tracking-wider text-[11px]">
-              MEN HAQIMDA
+              ABOUT ME
             </Badge>
             <h1 className="font-display-campaign text-4xl sm:text-5xl lg:text-6xl uppercase tracking-tight leading-[0.9]">
-              TA’LIM VA DASTURLASH SAYOHATI
+              STUDY AND CODING JOURNEY
             </h1>
           </div>
           <p className="max-w-md text-xs font-medium leading-relaxed text-white/60 lg:max-w-xs">
-            O‘zbekistondagi xususiy universitet talabasi sifatida nazariy bilimlar bilan birga amaliy veb-loyihalar ustida doimiy izlanishdaman.
+            As a student at a private university in Uzbekistan, I mix theory with real web projects and daily practice.
           </p>
         </motion.div>
 
@@ -77,7 +77,7 @@ export const AboutSection: React.FC = () => {
             <div className="border-t border-white/15">
               <div className="flex items-start justify-between gap-4 py-3 border-b border-white/15">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-white/50 pt-0.5">
-                  Universitet
+                  University
                 </span>
                 <span className="text-sm font-semibold text-white text-right max-w-[65%]">
                   {PROFILE_DATA.education.university}
@@ -85,7 +85,7 @@ export const AboutSection: React.FC = () => {
               </div>
               <div className="flex items-start justify-between gap-4 py-3 border-b border-white/15">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-white/50 pt-0.5">
-                  Yo‘nalish
+                  Major
                 </span>
                 <span className="text-sm font-semibold text-white text-right">
                   {PROFILE_DATA.education.direction}
@@ -93,7 +93,7 @@ export const AboutSection: React.FC = () => {
               </div>
               <div className="flex items-center justify-between gap-4 py-3 border-b border-white/15">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-white/50">
-                  Bosqich
+                  Level
                 </span>
                 <Badge variant="slate" size="sm" className="bg-white text-[#111111] border-white font-bold">
                   {PROFILE_DATA.education.year}
@@ -164,7 +164,7 @@ export const AboutSection: React.FC = () => {
                       A
                     </div>
                     <span className="text-[10px] font-bold uppercase tracking-widest text-[#707072]">
-                      Talaba ID Kartasi
+                      Student ID Card
                     </span>
                   </div>
                   <span className="text-[10px] font-mono font-bold text-[#707072]">2026</span>
@@ -178,7 +178,7 @@ export const AboutSection: React.FC = () => {
                     ABDULAZIZ
                   </span>
                   <span className="block text-xs font-semibold text-[#4b4b4d]">
-                    IT Fakulteti — 3-kurs talabasi
+                    IT Faculty — 3rd-year student
                   </span>
                 </div>
 
@@ -197,7 +197,7 @@ export const AboutSection: React.FC = () => {
                   </div>
                   <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#111111]">
                     <Fingerprint className="w-4 h-4" />
-                    Toshkent, UZB
+                    Tashkent, UZB
                   </span>
                 </div>
               </motion.div>
@@ -208,7 +208,7 @@ export const AboutSection: React.FC = () => {
                 style={{ transform: 'translateZ(60px)' }}
               >
                 <span className="float-y inline-block bg-[#111111] text-white border-2 border-white px-3 py-1.5 font-display-campaign text-xs tracking-tight whitespace-nowrap shadow-lg">
-                  FRONT-END
+                  SOFTWARE ENGINEER
                 </span>
               </div>
 

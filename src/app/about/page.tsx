@@ -3,9 +3,9 @@ import { AboutSection } from '@/widgets/about/ui/about-section';
 import { createPageMetadata } from '@/shared/config/site';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Men haqimda',
+  title: 'About Me',
   description:
-    'Abdulazizning ta’limi, Software Engineering yo‘nalishi va front-end tajribasi haqida.',
+    'About Abdulaziz — study, Software Engineering major, and software experience.',
   path: '/about',
 });
 

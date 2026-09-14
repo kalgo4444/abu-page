@@ -32,6 +32,8 @@ const CUBE_FACES = [
 const MARQUEE_ITEMS = [
   'REACT',
   'NEXT.JS',
+  'REACT NATIVE',
+  'EXPO',
   'TYPESCRIPT',
   'REST API',
   'JAVASCRIPT',
@@ -166,7 +168,7 @@ export const HeroSection: React.FC = () => {
               {/* Status Badge */}
               <div className="flex flex-wrap items-center gap-2">
                 <Badge variant="blue" icon={<ShieldCheck className="w-3.5 h-3.5" />}>
-                  3-KURS TALABASI • FRONT-END DEVELOPER
+                  3RD-YEAR STUDENT • SOFTWARE ENGINEER
                 </Badge>
               </div>
 
@@ -177,14 +179,14 @@ export const HeroSection: React.FC = () => {
                     ABDULAZIZ
                   </span>
                   <span className="mt-1 block text-2xl font-extrabold text-[#707072] sm:text-3xl lg:text-4xl">
-                    FRONT-END DEVELOPER
+                    SOFTWARE ENGINEER
                   </span>
                 </h1>
               </div>
 
               {/* Subtitle */}
               <p className="max-w-lg text-base font-normal leading-relaxed text-[#39393b] sm:text-lg">
-                React, Next.js va TypeScript yordamida tezkor, qulay hamda ishonchli veb-interfeyslar yarataman.
+                I build fast, clean, and reliable web and mobile UI with React, Next.js, React Native (Expo), and TypeScript.
               </p>
 
               {/* Nike Dual Pill CTA Buttons */}
@@ -195,7 +197,7 @@ export const HeroSection: React.FC = () => {
                   onClick={openContactModal}
                   className="uppercase font-bold tracking-wider text-xs"
                 >
-                  Bog‘lanish
+                  Contact
                 </Button>
 
                 <Button
@@ -205,7 +207,7 @@ export const HeroSection: React.FC = () => {
                   icon={<ArrowRight className="w-4 h-4 text-[#111111]" />}
                   className="uppercase font-bold tracking-wider text-xs"
                 >
-                  Men Haqimda
+                  About Me
                 </Button>
               </div>
             </motion.div>
@@ -300,7 +302,7 @@ export const HeroSection: React.FC = () => {
                     style={{ transform: 'translateZ(26px)' }}
                   >
                     <span className="inline-block bg-white text-[#111111] px-3 py-1 text-[11px] font-bold uppercase tracking-wider rounded-full border border-[#cacacb] shadow-xs">
-                      MUTAXASSISLIK KARTASI
+                      PROFILE CARD
                     </span>
                     <span className="text-xs font-mono text-[#707072]">2026 EDITION</span>
                   </div>
@@ -308,15 +310,15 @@ export const HeroSection: React.FC = () => {
                   {/* Center Content Lockup with Layered 3D Depth */}
                   <div className="my-auto space-y-4 py-6" style={{ transform: 'translateZ(38px)' }}>
                     <div className="space-y-1" style={{ transform: 'translateZ(8px)' }}>
-                      <span className="text-xs font-bold text-[#707072] uppercase tracking-wider">{'//'} Hozirgi Bosqich</span>
-                      <p className="text-xl font-bold text-[#111111]">Front-end Dasturchi</p>
-                      <p className="text-xs text-[#4b4b4d]">React • Next.js • TypeScript • Tailwind CSS</p>
+                      <span className="text-xs font-bold text-[#707072] uppercase tracking-wider">{'//'} Current Role</span>
+                      <p className="text-xl font-bold text-[#111111]">Software Engineer</p>
+                      <p className="text-xs text-[#4b4b4d]">React • Next.js • React Native (Expo) • TypeScript</p>
                     </div>
 
                     <div className="h-[1px] bg-[#cacacb] w-full opacity-70" />
 
                     <div className="space-y-1" style={{ transform: 'translateZ(12px)' }}>
-                      <span className="text-xs font-bold text-[#1151ff] uppercase tracking-wider">{'//'} Front-end Fokus</span>
+                      <span className="text-xs font-bold text-[#1151ff] uppercase tracking-wider">{'//'} Software Focus</span>
                       <p className="text-xl font-bold text-[#111111]">Responsive UX</p>
                       <p className="text-xs text-[#4b4b4d]">Tailwind CSS • REST API Integration</p>
                     </div>
@@ -324,7 +326,7 @@ export const HeroSection: React.FC = () => {
                     <div className="h-[1px] bg-[#cacacb] w-full opacity-70" />
 
                     <div className="space-y-1" style={{ transform: 'translateZ(8px)' }}>
-                      <span className="text-xs font-bold text-[#007d48] uppercase tracking-wider">{'//'} Zamonaviy Agentlar</span>
+                      <span className="text-xs font-bold text-[#007d48] uppercase tracking-wider">{'//'} Modern Agents</span>
                       <p className="text-xs text-[#111111] font-semibold">OpenCode • Codex • MCP • Linux VPS</p>
                     </div>
                   </div>
@@ -336,9 +338,9 @@ export const HeroSection: React.FC = () => {
                   >
                     <span className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-[#007d48] animate-pulse" />
-                      Loyihalar va Hamkorlik uchun ochiq
+                      Open to projects and teamwork
                     </span>
-                    <span className="text-[#707072] font-mono text-[11px]">Toshkent, UZB</span>
+                    <span className="text-[#707072] font-mono text-[11px]">Tashkent, UZB</span>
                   </div>
                 </motion.div>
               </motion.div>

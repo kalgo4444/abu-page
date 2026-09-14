@@ -26,17 +26,19 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: SITE_URL,
   title: {
-    default: 'Abdulaziz - Frontend dasturchi',
+    default: 'Abdulaziz - Software Engineer',
     template: '%s | Abdulaziz',
   },
   description:
-    'Abdulazizning React, Next.js va TypeScript asosidagi front-end ishlari haqida portfolio.',
+    'Portfolio of Abdulaziz — software work with React, Next.js, React Native (Expo), and TypeScript.',
   keywords: [
     'Abdulaziz',
     'Portfolio',
-    'Front-end Developer',
+    'Software Engineer',
     'React',
     'Next.js',
+    'React Native',
+    'Expo',
     'TypeScript',
     'Uzbekistan',
     'FSD Architecture',
@@ -45,19 +47,19 @@ export const metadata: Metadata = {
   creator: 'Abdulaziz',
   alternates: { canonical: '/' },
   openGraph: {
-    title: 'Abdulaziz - Frontend dasturchi',
+    title: 'Abdulaziz - Software Engineer',
     description:
-      'React va Next.js asosida zamonaviy veb-ilovalar yaratuvchi front-end dasturchi.',
+      'I build modern web and mobile apps with React, Next.js, and React Native (Expo).',
     url: '/',
     siteName: 'Abdulaziz Portfolio',
-    locale: 'uz_UZ',
+    locale: 'en_US',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Abdulaziz - Frontend dasturchi',
+    title: 'Abdulaziz - Software Engineer',
     description:
-      'React va Next.js asosida zamonaviy veb-ilovalar yaratuvchi front-end dasturchi.',
+      'I build modern web and mobile apps with React, Next.js, and React Native (Expo).',
   },
 };
 
@@ -68,7 +70,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="uz"
+      lang="en"
       data-scroll-behavior="smooth"
       className={`${bebasNeue.variable} ${inter.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning

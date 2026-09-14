@@ -3,9 +3,9 @@ import { InterestsSection } from '@/widgets/interests/ui/interests-section';
 import { createPageMetadata } from '@/shared/config/site';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Qiziqishlar',
+  title: 'Interests',
   description:
-    'Veb-ilovalar, AI agentlar, Linux serverlar hamda sog‘lom turmush tarziga oid qiziqishlar.',
+    'Interests in web apps, AI agents, Linux servers, and a healthy life.',
   path: '/interests',
 });
 
