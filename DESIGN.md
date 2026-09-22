@@ -448,7 +448,7 @@ Depth in Nike's system comes entirely from photography, not from CSS effects:
 **`button-primary`** — the universal Nike CTA
 - Background `{colors.ink}`, text `{colors.on-primary}`, type `{typography.button-md}`, padding `16px 32px`, height `{spacing.section}` (48px), rounded `{rounded.lg}` (30px pill).
 - Used on every primary action in the system: "Sign Up", "Notify Me", "Buy", "Türkiye" geo-confirm, "Shop" overlay on sport tiles, "Continue".
-- Pressed state lives in `button-primary-active` — the bg stays `{colors.ink}` while the surface shrinks to `scale(0.5)` with `opacity: 0.5` (Nike's signature "tap collapse" feedback that's extracted across all five pages).
+- Pressed state lives in `button-primary-active` — the bg stays `{colors.ink}` while the surface presses to `scale(0.97)` with `translate-y-px` (portfolio implementation in `src/shared/ui/button.tsx`; the `scale(0.5)` tap-collapse from the Nike reference was too extreme for usability and is intentionally softened).
 
 **`button-secondary`** — soft alternative on light surfaces
 - Background `{colors.soft-cloud}`, text `{colors.ink}`, type `{typography.button-md}`, padding `16px 32px`, rounded `{rounded.lg}`.
@@ -564,6 +564,7 @@ The portfolio is composed as six routed fullscreen pages (`{component.fullscreen
 - `ring-orbit` — 24s rotateZ spin locked at a 72° X tilt (contact).
 - `float-y` — 6s ease-in-out vertical drift for decorative chips and the paper plane.
 - All of the above are disabled under `prefers-reduced-motion: reduce`; scroll-snap stays active and animated 3D scenes fall back to static or 2D chip-cloud layouts.
+- Portfolio extension (intentional, beyond the Nike reference): `tech-gyro-turn` (18s), `goals-drift-near/far` (18s/22s), `route-stage-enter` (480ms), `live-wallpaper` canvas aurora, `interactive-background` pointer texture, and `hologram-sheen` are used for the portfolio's 3D tactile panels. Heavy 3D/float animations are additionally paused under `max-width: 1023px` in `src/app/globals.css` as a mobile perf guard (beyond `prefers-reduced-motion`).
 
 ## Do's and Don'ts
 
@@ -577,7 +578,7 @@ The portfolio is composed as six routed fullscreen pages (`{component.fullscreen
 - Anchor on-image CTAs with `{component.button-outline-on-image}` (white pill) at bottom-left — the system's universal "shop this image" position.
 
 ### Don't
-- Don't introduce drop shadows or card elevation. Cards sit flat on the page; the only depth cue is the 1px inset hairline on sticky bars.
+- Don't introduce drop shadows or card elevation on retail chrome. Cards sit flat on the page; the only depth cue is the 1px inset hairline on sticky bars. Exception (portfolio, intentional): 3D tactile panels (`tactile-panel`, `extrusion-edge` in `src/app/globals.css`) use subtle `shadow-sm/xs/md/lg/xl/2xl` to sell the `translateZ` depth — confined to the About/Goals/Interests 3D scenes, never on pill CTAs.
 - Don't use any of the category accent colors (`{colors.accent-pink}`, `{colors.accent-purple-soft}`, `{colors.accent-teal}`) for primary chrome — they belong to swatch dots, soft tile fills, and editorial moments only.
 - Don't replace `{colors.ink}` with a near-black gray like `{colors.charcoal}` for a CTA — Nike's primary pill is true `#111111`.
 - Don't pad inside product cards. The image is full-bleed; metadata sits directly below with `{spacing.sm}` (8px) between rows.

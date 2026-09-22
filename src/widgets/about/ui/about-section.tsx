@@ -13,7 +13,7 @@ import { Container } from '@/shared/ui/container';
 import { Badge } from '@/shared/ui/badge';
 import { FullscreenSection } from '@/shared/ui/fullscreen-section';
 import { TechGyroscope } from '@/shared/ui/tech-gyroscope';
-import { FrontendStackCard } from '@/features/career-path/ui/frontend-stack-card';
+import { FrontendStackCard } from '@/widgets/about/ui/frontend-stack-card';
 import { PROFILE_DATA } from '@/entities/profile/model/profile-data';
 
 const BARCODE_WIDTHS = [3, 1, 2, 1, 4, 2, 1, 3, 1, 2, 5, 1, 2, 1, 3];

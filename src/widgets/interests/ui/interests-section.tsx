@@ -173,7 +173,7 @@ export const InterestsSection: React.FC = () => {
           className="flex flex-wrap items-end justify-between gap-4"
         >
           <div className="space-y-3">
-            <Badge variant="orange" className="uppercase tracking-wider text-[11px]">
+            <Badge variant="purple" className="uppercase tracking-wider text-[11px]">
               INTERESTS & PASSION
             </Badge>
             <h1 className="font-display-campaign text-4xl sm:text-5xl lg:text-6xl uppercase tracking-tight leading-[0.9] text-[#111111]">

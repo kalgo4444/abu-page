@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { ErrorCard } from '@/shared/ui/error-card';
 
 interface ErrorPageProps {
   error: Error & { digest?: string };
@@ -13,11 +14,11 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
   }, [error]);
 
   return (
-    <main className="flex min-h-svh items-center justify-center bg-white px-6 text-center text-[#111111]">
-      <div className="max-w-md space-y-5">
-        <p className="font-mono text-xs font-bold uppercase tracking-widest text-[#707072]">Error</p>
-        <h1 className="font-display-campaign text-5xl font-black uppercase leading-none sm:text-6xl">SOMETHING WENT WRONG</h1>
-        <p className="text-sm leading-relaxed text-[#4b4b4d]">Try to reload the page. If it still fails, come back later.</p>
+    <ErrorCard
+      eyebrow="Error"
+      title="SOMETHING WENT WRONG"
+      description="Try to reload the page. If it still fails, come back later."
+      action={
         <button
           type="button"
           onClick={reset}
@@ -25,7 +26,7 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
         >
           Try Again
         </button>
-      </div>
-    </main>
+      }
+    />
   );
 }

@@ -14,7 +14,7 @@ import { Container } from '@/shared/ui/container';
 import { Button } from '@/shared/ui/button';
 import { Badge } from '@/shared/ui/badge';
 import { FullscreenSection } from '@/shared/ui/fullscreen-section';
-import { ContactWallpaper } from '@/widgets/contact/ui/contact-wallpaper';
+import { LiveWallpaper } from '@/shared/ui/live-wallpaper';
 import { PROFILE_DATA } from '@/entities/profile/model/profile-data';
 import { useContactModal } from '@/features/contact-modal/model/contact-modal-context';
 
@@ -127,7 +127,7 @@ export const ContactSection: React.FC = () => {
       onMouseLeave={handleMouseLeave}
       className="isolate bg-[#111111] text-white"
     >
-      <ContactWallpaper scrollContainerRef={sectionRef} />
+      <LiveWallpaper scrollContainerRef={sectionRef} tone="dark" />
       <div
         aria-hidden="true"
         className="absolute inset-0 hidden items-center justify-center pointer-events-none md:flex"

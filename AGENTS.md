@@ -17,7 +17,7 @@ Use Bun and keep `bun.lock` in sync.
 
 ## Coding Style & Naming Conventions
 
-Keep TypeScript strict and use two-space indentation, single quotes, semicolons, and trailing commas. Name components and exported types in PascalCase, hooks with `use...`, and files/directories in kebab-case (for example, `contact-modal-context.tsx`). Add `'use client'` only where hooks, browser APIs, handlers, or Framer Motion require it. Preserve Uzbek Latin interface copy and ensure motion respects reduced-motion preferences.
+Keep TypeScript strict and use two-space indentation, single quotes, semicolons, and trailing commas. Name components and exported types in PascalCase, hooks with `use...`, and files/directories in kebab-case (for example, `contact-modal-context.tsx`). Add `'use client'` only where hooks, browser APIs, handlers, or Framer Motion require it. Interface copy is English; preserve existing Uzbek Latin strings where present and ensure motion respects reduced-motion preferences.
 
 ## Testing Guidelines
 
