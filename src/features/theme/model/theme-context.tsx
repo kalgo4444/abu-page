@@ -1,12 +1,13 @@
 'use client';
 
-import { createContext, use, useEffect, useState, type ReactNode } from 'react';
+import { createContext, use, useCallback, useEffect, useState, type ReactNode } from 'react';
 
 type Theme = 'light' | 'dark';
 
 interface ThemeContextValue {
   theme: Theme;
   toggleTheme: () => void;
+  isMounted: boolean;
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
@@ -26,18 +27,43 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
       setIsMounted(true);
     });
 
-    return () => window.cancelAnimationFrame(frame);
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleMediaChange = (e: MediaQueryListEvent) => {
+      try {
+        if (!localStorage.getItem('theme')) {
+          const next = e.matches ? 'dark' : 'light';
+          document.documentElement.dataset.theme = next;
+          setTheme(next);
+        }
+      } catch {
+        // Ignore storage access errors
+      }
+    };
+
+    mediaQuery.addEventListener('change', handleMediaChange);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      mediaQuery.removeEventListener('change', handleMediaChange);
+    };
   }, []);
 
-  useEffect(() => {
-    if (!isMounted) return;
-
-    document.documentElement.dataset.theme = theme;
-    localStorage.setItem('theme', theme);
-  }, [isMounted, theme]);
+  const toggleTheme = useCallback(() => {
+    setTheme((prev) => {
+      const next = prev === 'dark' ? 'light' : 'dark';
+      if (typeof document !== 'undefined') {
+        document.documentElement.dataset.theme = next;
+        try {
+          localStorage.setItem('theme', next);
+        } catch {
+          // Ignore storage access errors
+        }
+      }
+      return next;
+    });
+  }, []);
 
   return (
-    <ThemeContext value={{ theme, toggleTheme: () => setTheme(theme === 'dark' ? 'light' : 'dark') }}>
+    <ThemeContext value={{ theme, toggleTheme, isMounted }}>
       {children}
     </ThemeContext>
   );

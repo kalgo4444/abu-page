@@ -1,13 +1,13 @@
 export type SkillStatus = 'know' | 'use' | 'learning';
 
-export interface SkillCategory {
+interface SkillCategory {
   title: string;
   iconName: string;
   description: string;
   items: { name: string; status: SkillStatus }[];
 }
 
-export interface InterestItem {
+interface InterestItem {
   id: string;
   title: string;
   description: string;
@@ -15,7 +15,7 @@ export interface InterestItem {
   category: 'tech' | 'ai' | 'lifestyle';
 }
 
-export interface GoalItem {
+interface GoalItem {
   id: string;
   title: string;
   subtitle: string;

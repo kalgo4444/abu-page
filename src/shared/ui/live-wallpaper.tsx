@@ -9,7 +9,7 @@ import {
   useTransform,
 } from 'framer-motion';
 
-export type LiveWallpaperTone = 'light' | 'dark';
+type LiveWallpaperTone = 'light' | 'dark';
 
 interface LiveWallpaperProps {
   scrollContainerRef: React.RefObject<HTMLElement | null>;

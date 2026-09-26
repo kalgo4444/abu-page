@@ -225,10 +225,13 @@ html[data-theme='dark'] .live-wallpaper--light .live-wallpaper__vignette {
 }
 
 /* Theme scopes preserve the portfolio's intentional inverse campaign sections. */
-html[data-theme='dark'] .theme-page,
-html[data-theme='dark'] .theme-chrome {
+html[data-theme='dark'] .theme-page {
   background-color: var(--canvas);
   color: var(--ink);
+}
+
+header {
+  background-color: transparent !important;
 }
 
 html[data-theme='dark'] .theme-page [class~='bg-white'],
@@ -312,16 +315,10 @@ html[data-theme='dark'] .theme-chrome [class~='border-[#e5e5e5]'] {
   animation: vector-orb-turn 14s linear infinite;
 }
 
-.vector-orb__ring,
-.vector-orb__axis,
-.vector-orb__core,
-.vector-orb__node {
+.vector-orb__ring {
   position: absolute;
   display: block;
   transform-style: preserve-3d;
-}
-
-.vector-orb__ring {
   inset: 14%;
   border: 1px solid currentColor;
   border-radius: 50%;
@@ -334,59 +331,6 @@ html[data-theme='dark'] .theme-chrome [class~='border-[#e5e5e5]'] {
 
 .vector-orb__ring--y {
   transform: rotateY(68deg) rotateZ(-24deg);
-}
-
-.vector-orb__ring--z {
-  inset: 22% 8%;
-  transform: rotateX(42deg) rotateY(30deg);
-}
-
-.vector-orb__axis {
-  left: 10%;
-  top: 50%;
-  width: 80%;
-  border-top: 1px dashed currentColor;
-  opacity: 0.28;
-}
-
-.vector-orb__axis--x {
-  transform: rotateZ(34deg) translateZ(-8px);
-}
-
-.vector-orb__axis--y {
-  transform: rotateZ(-48deg) translateZ(8px);
-}
-
-.vector-orb__core {
-  inset: 38%;
-  border: 1px solid currentColor;
-  background: currentColor;
-  transform: translateZ(18px) rotateX(58deg) rotateZ(45deg);
-}
-
-.vector-orb__node {
-  width: 7px;
-  height: 7px;
-  border: 1px solid currentColor;
-  background: var(--surface);
-}
-
-.vector-orb__node--one {
-  left: 13%;
-  top: 45%;
-  transform: translateZ(12px);
-}
-
-.vector-orb__node--two {
-  right: 18%;
-  top: 19%;
-  transform: translateZ(-6px);
-}
-
-.vector-orb__node--three {
-  bottom: 13%;
-  left: 52%;
-  transform: translateZ(16px);
 }
 
 @keyframes vector-orb-turn {

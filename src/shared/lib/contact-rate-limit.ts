@@ -19,13 +19,13 @@ const rateLimit =
 
 const localRequests = new Map<string, number[]>();
 
-export class ContactRateLimitUnavailableError extends Error {
+class ContactRateLimitUnavailableError extends Error {
   constructor() {
     super('Contact rate limit is not configured.');
   }
 }
 
-export const getContactRateLimitIdentifier = (request: Request) => {
+const getContactRateLimitIdentifier = (request: Request) => {
   const ip =
     request.headers.get('x-vercel-forwarded-for')?.split(',')[0]?.trim() ||
     request.headers.get('x-real-ip')?.trim();
