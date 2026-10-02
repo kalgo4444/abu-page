@@ -3,7 +3,7 @@ import { ButtonLink } from "@/shared/ui/ButtonLink";
 
 export function Hero() {
   return (
-    <section className="py-12 sm:py-16 lg:py-20">
+    <section className="py-10 sm:py-12 lg:py-8">
       {/* Status meta */}
       <div className="flex items-center gap-2 text-xs sm:text-sm text-mute">
         <span className="font-semibold text-ink">[+]</span>

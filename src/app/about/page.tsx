@@ -4,7 +4,7 @@ import { SectionHeading } from "@/shared/ui/SectionHeading";
 
 export default function AboutPage() {
   return (
-    <section className="py-10 sm:py-14 lg:py-16">
+    <section className="py-10 sm:py-14 lg:py-8 lg:flex lg:min-h-[calc(100vh-3.5rem)] lg:flex-col lg:justify-center">
       <SectionHeading
         title="About"
         description="Profile overview & developer background."

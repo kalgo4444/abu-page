@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { profile } from "@/entities/profile/model";
+import { Container } from "@/shared/ui/Container";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -18,7 +19,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-hairline bg-canvas/95 backdrop-blur-sm">
-      <div className="mx-auto flex h-14 w-full max-w-[960px] items-center justify-between px-4 sm:px-6 lg:px-8">
+      <Container className="flex h-14 items-center justify-between">
         <Link
           href="/"
           className="flex items-center gap-2 text-base font-bold tracking-tight text-ink transition-colors hover:text-ink-deep"
@@ -60,21 +61,21 @@ export function Header() {
         <div className="flex items-center gap-2 md:hidden">
           <a
             href={profile.links.email}
-            className="inline-flex h-[34px] items-center justify-center rounded-[4px] bg-ink px-3 text-xs font-medium text-canvas"
+            className="inline-flex h-9 items-center justify-center rounded-[4px] bg-ink px-3 text-xs font-medium text-canvas"
           >
             Contact
           </a>
           <button
             type="button"
             onClick={() => setOpen(!open)}
-            className="inline-flex h-[34px] min-w-[54px] items-center justify-center rounded-[4px] border border-hairline-strong bg-canvas px-2.5 text-xs font-medium text-ink transition-colors hover:bg-surface-soft active:bg-surface-card"
+            className="inline-flex h-9 min-w-[54px] items-center justify-center rounded-[4px] border border-hairline-strong bg-canvas px-2.5 text-xs font-medium text-ink transition-colors hover:bg-surface-soft active:bg-surface-card"
             aria-expanded={open}
             aria-label="Toggle navigation menu"
           >
             {open ? "[close]" : "[menu]"}
           </button>
         </div>
-      </div>
+      </Container>
 
       {/* Mobile Drawer */}
       {open ? (

@@ -1,24 +1,21 @@
 import { profile } from "@/entities/profile/model";
+import { Container } from "@/shared/ui/Container";
 
 export function Footer() {
   return (
     <footer className="mt-16 sm:mt-20 border-t border-hairline bg-canvas">
-      <div className="mx-auto max-w-[960px] px-4 sm:px-6 lg:px-8">
-        {/* Top row: 4-up desktop, 2-up mobile grid with hairline dividers */}
-        <div className="grid grid-cols-2 border-b border-hairline md:grid-cols-4">
-          {profile.socials.map((s, idx) => (
+      <Container>
+        {/* Social grid: hairline dividers via gap-px, 2-up mobile / 4-up desktop */}
+        <div className="grid grid-cols-2 gap-px border-b border-hairline bg-hairline md:grid-cols-4">
+          {profile.socials.map((s) => (
             <a
               key={s.label}
               href={s.href}
               target={s.href.startsWith("mailto:") ? undefined : "_blank"}
               rel={s.href.startsWith("mailto:") ? undefined : "noreferrer"}
-              className={`flex h-11 items-center justify-center gap-1.5 px-3 text-[14px] text-body transition-colors hover:bg-surface-soft hover:text-ink ${
-                idx % 2 === 1 ? "border-l border-hairline" : ""
-              } ${idx >= 2 ? "border-t border-hairline md:border-t-0" : ""} ${
-                idx > 0 && idx % 2 === 0 ? "md:border-l md:border-hairline" : ""
-              } ${idx === 3 ? "md:border-l md:border-hairline" : ""}`}
+              className="flex h-11 items-center justify-center gap-1.5 bg-canvas px-3 text-[14px] text-body transition-colors hover:bg-surface-soft hover:text-ink"
             >
-              <span className="text-mute font-mono">[↗]</span>
+              <span className="text-mute">[↗]</span>
               <span>{s.label}</span>
             </a>
           ))}
@@ -31,7 +28,7 @@ export function Footer() {
             {profile.role} · {profile.location}
           </p>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }
