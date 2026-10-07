@@ -11,7 +11,7 @@ from playwright.sync_api import sync_playwright
 
 BASE = "http://localhost:3000"
 
-# Mirror of src/entities/profile/model.ts + src/entities/skill/model.ts
+# Mirror of src/entities/profile/model/profile.ts + src/entities/skill/model/skills.ts
 # (hardcoded on purpose: tests catch drift between content and rendering).
 PROFILE = {
     "name": "Abdulaziz Abdugafurov",
@@ -98,13 +98,6 @@ with sync_playwright() as p:
     check("home shows role/location/age", all(s in body for s in [PROFILE["role"], PROFILE["location"], "Age 19"]))
     check("home shows tagline", PROFILE["tagline"] in body)
     check("home TUI mockup", "abu@engineer:~ (tui)" in body and "[status: available]" in body)
-    # compact StackList: first 3 groups only
-    for title, _ in SKILL_GROUPS[:3]:
-        check(f"home stack has {title}", title in body)
-    for title, _ in SKILL_GROUPS[3:]:
-        check(f"home stack hides {title} (compact)", title not in body)
-    for cap in CAPABILITIES:
-        check(f"home capability {cap}", cap in body)
 
     # --- 3. About content ------------------------------------------------
     page.goto(BASE + "/about")

@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { profile } from '@/entities/profile/model';
-import { Container } from '@/shared/ui/Container';
+import { profile } from '@/entities/profile';
+import { Container } from '@/shared/ui';
 
 const navLinks = [
 	{ href: '/', label: 'Home' },

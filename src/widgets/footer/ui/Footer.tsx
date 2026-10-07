@@ -1,5 +1,6 @@
-import { profile } from '@/entities/profile/model';
-import { Container } from '@/shared/ui/Container';
+import { profile } from '@/entities/profile';
+import { externalLinkProps } from '@/shared/lib/external-link';
+import { Container } from '@/shared/ui';
 
 export function Footer() {
 	return (
@@ -11,8 +12,7 @@ export function Footer() {
 						<a
 							key={s.label}
 							href={s.href}
-							target={s.href.startsWith('mailto:') ? undefined : '_blank'}
-							rel={s.href.startsWith('mailto:') ? undefined : 'noreferrer'}
+							{...externalLinkProps(s.href)}
 							className='flex h-11 items-center justify-center gap-1.5 bg-canvas px-3 text-[14px] text-body transition-colors hover:bg-surface-soft hover:text-ink'
 						>
 							<span className='text-mute'>[↗]</span>

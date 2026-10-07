@@ -1,14 +1,22 @@
-import { profile } from '@/entities/profile/model';
-import { ButtonLink } from '@/shared/ui/ButtonLink';
-import { SectionHeading } from '@/shared/ui/SectionHeading';
+import { Fragment } from 'react';
+import { profile } from '@/entities/profile';
+import { ButtonLink, SectionHeading } from '@/shared/ui';
+
+const spec = [
+	['Name', profile.name],
+	['Role', profile.role],
+	['Age', profile.age],
+	['Location', profile.location],
+	['Status', profile.status],
+	['Specialization', profile.specialization],
+] as const;
 
 export default function AboutPage() {
 	return (
-		<section className='py-10 sm:py-14 lg:py-8 lg:flex lg:min-h-[calc(100vh-3.5rem)] lg:flex-col lg:justify-center'>
+		<section>
 			<SectionHeading
 				title='About'
 				description='Profile overview & developer background.'
-				marker='[+]'
 			/>
 
 			<div className='space-y-6'>
@@ -27,37 +35,22 @@ export default function AboutPage() {
 						[DEVELOPER SPECIFICATION]
 					</div>
 					<div className='grid grid-cols-1 gap-2 sm:grid-cols-[130px_1fr]'>
-						<span className='text-mute font-medium'>Name:</span>
-						<span className='text-ink'>{profile.name}</span>
-
-						<span className='text-mute font-medium'>Role:</span>
-						<span className='text-ink'>{profile.role}</span>
-
-						<span className='text-mute font-medium'>Age:</span>
-						<span className='text-ink'>{profile.age}</span>
-
-						<span className='text-mute font-medium'>Location:</span>
-						<span className='text-ink'>{profile.location}</span>
-
-						<span className='text-mute font-medium'>Status:</span>
-						<span className='text-ink'>University student & Engineer</span>
-
-						<span className='text-mute font-medium'>Specialization:</span>
-						<span className='text-ink'>Web, Mobile, AI-powered products</span>
+						{spec.map(([label, value]) => (
+							<Fragment key={label}>
+								<span className='text-mute font-medium'>{label}:</span>
+								<span className='text-ink'>{value}</span>
+							</Fragment>
+						))}
 					</div>
 				</div>
 
 				<div className='space-y-3 text-base text-body leading-[1.5]'>
 					<p>{profile.tagline}</p>
-					<p>
-						University student building web, mobile, and AI-powered products.
-					</p>
+					<p>{profile.summary}</p>
 				</div>
 
 				<div className='flex flex-wrap items-center gap-3 pt-4 border-t border-hairline'>
-					<ButtonLink href='/skills' variant='primary'>
-						[+] View Skills
-					</ButtonLink>
+					<ButtonLink href='/skills'>[+] View Skills</ButtonLink>
 					<ButtonLink href='/social' variant='secondary'>
 						[↗] Social Profiles
 					</ButtonLink>

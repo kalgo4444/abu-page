@@ -26,35 +26,11 @@
 	--color-success: #30d158;
 }
 
-:root {
-	--canvas: #fdfcfc;
-	--ink: #201d1d;
-	--ink-deep: #0f0000;
-	--surface-soft: #f8f7f7;
-	--surface-card: #f1eeee;
-	--surface-dark: #201d1d;
-	--surface-dark-elevated: #302c2c;
-	--hairline: rgba(15, 0, 0, 0.12);
-	--hairline-strong: #646262;
-	--charcoal: #302c2c;
-	--body: #424245;
-	--mute: #646262;
-	--stone: #6e6e73;
-	--ash: #9a9898;
-	--accent: #007aff;
-	--danger: #ff3b30;
-	--warning: #ff9f0a;
-	--success: #30d158;
-}
-
 html,
 body {
-	background-color: #fdfcfc;
-	color: #201d1d;
-	font-family:
-		var(--font-mono), 'Berkeley Mono', 'IBM Plex Mono', 'JetBrains Mono',
-		ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-		'Courier New', monospace;
+	background-color: var(--color-canvas);
+	color: var(--color-ink);
+	font-family: var(--font-mono);
 	font-feature-settings: 'liga' 0;
 	text-rendering: geometricPrecision;
 	-webkit-font-smoothing: antialiased;
@@ -62,6 +38,6 @@ body {
 }
 
 ::selection {
-	background-color: #201d1d;
-	color: #fdfcfc;
+	background-color: var(--color-ink);
+	color: var(--color-canvas);
 }

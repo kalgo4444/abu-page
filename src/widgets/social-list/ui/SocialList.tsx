@@ -1,4 +1,5 @@
-import { profile } from '@/entities/profile/model';
+import { profile } from '@/entities/profile';
+import { externalLinkProps } from '@/shared/lib/external-link';
 
 export function SocialList() {
 	return (
@@ -14,8 +15,7 @@ export function SocialList() {
 					</div>
 					<a
 						href={s.href}
-						target={s.href.startsWith('mailto:') ? undefined : '_blank'}
-						rel={s.href.startsWith('mailto:') ? undefined : 'noreferrer'}
+						{...externalLinkProps(s.href)}
 						className='break-all pl-6 text-body underline decoration-hairline-strong underline-offset-4 transition-colors hover:text-ink hover:decoration-ink sm:pl-0'
 					>
 						{s.href.replace('mailto:', '')}

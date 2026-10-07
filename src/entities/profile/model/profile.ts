@@ -10,13 +10,16 @@ export const profile = {
 	role: 'Software Engineer',
 	age: 19,
 	location: 'Tashkent, Uzbekistan',
+	status: 'University student & Engineer',
+	specialization: 'Web, Mobile, AI-powered products',
 	tagline:
 		'Full-stack engineer and university student building web, mobile, and AI-powered products.',
+	summary: 'University student building web, mobile, and AI-powered products.',
 	links,
 	socials: [
 		{ label: 'GitHub', href: links.github },
 		{ label: 'LinkedIn', href: links.linkedin },
 		{ label: 'Telegram', href: links.telegram },
 		{ label: 'Email', href: links.email },
-	] as { label: string; href: string }[],
+	],
 } as const;

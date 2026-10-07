@@ -1,5 +1,9 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
+import { externalLinkProps } from '../lib/external-link';
+
+const base =
+	'inline-flex items-center justify-center rounded-[4px] px-5 py-1.5 text-base font-medium leading-[2.0] transition-colors duration-150 text-center select-none';
 
 const variants = {
 	primary:
@@ -12,34 +16,24 @@ export function ButtonLink({
 	href,
 	children,
 	variant = 'primary',
-	className = '',
 }: {
 	href: string;
 	children: ReactNode;
 	variant?: keyof typeof variants;
-	className?: string;
 }) {
-	const base =
-		'inline-flex items-center justify-center rounded-[4px] px-5 py-1.5 text-base font-medium leading-[2.0] transition-colors duration-150 text-center select-none';
-	const combinedClass = `${base} ${variants[variant]}${className ? ` ${className}` : ''}`;
+	const className = `${base} ${variants[variant]}`;
 
-	if (href.startsWith('http') || href.startsWith('mailto:')) {
-		const isWeb = href.startsWith('http');
+	if (href.startsWith('/')) {
 		return (
-			<a
-				href={href}
-				className={combinedClass}
-				target={isWeb ? '_blank' : undefined}
-				rel={isWeb ? 'noopener noreferrer' : undefined}
-			>
+			<Link href={href} className={className}>
 				{children}
-			</a>
+			</Link>
 		);
 	}
 
 	return (
-		<Link href={href} className={combinedClass}>
+		<a href={href} className={className} {...externalLinkProps(href)}>
 			{children}
-		</Link>
+		</a>
 	);
 }

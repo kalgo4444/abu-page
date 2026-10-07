@@ -1,9 +1,9 @@
-import { profile } from '@/entities/profile/model';
-import { ButtonLink } from '@/shared/ui/ButtonLink';
+import { profile } from '@/entities/profile';
+import { ButtonLink } from '@/shared/ui';
 
 export function Hero() {
 	return (
-		<section className='py-10 sm:py-12 lg:py-8'>
+		<section>
 			{/* Status meta */}
 			<div className='flex items-center gap-2 text-xs sm:text-sm text-mute'>
 				<span className='font-semibold text-ink'>[+]</span>
@@ -24,9 +24,7 @@ export function Hero() {
 
 			{/* Action buttons */}
 			<div className='mt-6 flex flex-wrap items-center gap-3'>
-				<ButtonLink href={profile.links.email} variant='primary'>
-					[+] Get in touch
-				</ButtonLink>
+				<ButtonLink href={profile.links.email}>[+] Get in touch</ButtonLink>
 				<ButtonLink href='/skills' variant='secondary'>
 					[x] View Skills
 				</ButtonLink>

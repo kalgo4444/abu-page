@@ -1,9 +1,9 @@
-import { type SkillGroup, skillGroups } from '@/entities/skill/model';
+import { skillGroups } from '../model/skills';
 
-export function StackRows({ groups = skillGroups }: { groups?: SkillGroup[] }) {
+export function StackRows() {
 	return (
 		<dl className='divide-y divide-hairline border-y border-hairline'>
-			{groups.map(g => (
+			{skillGroups.map(g => (
 				<div
 					key={g.title}
 					className='flex flex-col gap-1 py-3.5 text-base sm:flex-row sm:items-baseline sm:gap-6'
