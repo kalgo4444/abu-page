@@ -2,11 +2,19 @@
 import PixelWord from './PixelWord.astro';
 import { profile } from '../data/profile';
 
-const links = [
+const desktopLinks = [
 	{ label: 'About', href: '/about' },
 	{ label: 'Skills', href: '/skills' },
 	{ label: 'Stack', href: '/stack' },
 	...(profile.projects.length ? [{ label: 'Projects', href: '/projects' }] : []),
+];
+
+const mobileLinks = [
+	{ label: 'Home', href: '/', icon: 'home' },
+	{ label: 'About', href: '/about', icon: 'about' },
+	{ label: 'Skills', href: '/skills', icon: 'skills' },
+	{ label: 'Stack', href: '/stack', icon: 'stack' },
+	...(profile.projects.length ? [{ label: 'Projects', href: '/projects', icon: 'projects' }] : []),
 ];
 
 // Built pages are served with a trailing slash, the dev server without one.
@@ -14,38 +22,69 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const current = (href: string) => (path === href ? 'page' : undefined);
 ---
 
-<header class="nav">
+<header class="nav" transition:name="nav">
 	<div class="nav-inner container">
 		<a class="brand" href="/" aria-label={`${profile.name}, home`}>
 			<PixelWord text="ABU" label="Abu" />
 		</a>
 
 		<nav class="links" aria-label="Primary">
-			{links.map(link => <a href={link.href} aria-current={current(link.href)}>{link.label}</a>)}
+			{desktopLinks.map(link => <a href={link.href} aria-current={current(link.href)}>{link.label}</a>)}
 		</nav>
 
 		<a class="btn btn-primary" href="/contact" aria-current={current('/contact')}>Contact</a>
-
-		<details class="menu">
-			<summary>
-				<span class="mark mark-closed" aria-hidden="true">[+]</span>
-				<span class="mark mark-open" aria-hidden="true">[-]</span>
-				Menu
-			</summary>
-			<nav class="drawer" aria-label="Primary">
-				{links.map(link => <a href={link.href} aria-current={current(link.href)}>{link.label}</a>)}
-			</nav>
-		</details>
 	</div>
 </header>
 
-<script>
-	// Close the mobile drawer after picking a page, so it isn't open on the way back.
-	const menu = document.querySelector<HTMLDetailsElement>('.menu');
-	menu?.addEventListener('click', event => {
-		if ((event.target as HTMLElement).closest('.drawer a')) menu.open = false;
-	});
-</script>
+<nav class="mobile-dock" aria-label="Mobile" transition:name="mobile-dock">
+	<div class="dock-container">
+		{
+			mobileLinks.map(link => (
+				<a
+					href={link.href}
+					class:list={['dock-tab', { active: current(link.href) === 'page' }]}
+					aria-current={current(link.href)}
+					aria-label={link.label}
+				>
+					{link.icon === 'home' && (
+						<svg class="dock-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+							<path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+						</svg>
+					)}
+					{link.icon === 'about' && (
+						<svg class="dock-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+							<circle cx="12" cy="7" r="4" />
+						</svg>
+					)}
+					{link.icon === 'skills' && (
+						<svg class="dock-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<polyline points="16 18 22 12 16 6" />
+							<polyline points="8 6 2 12 8 18" />
+						</svg>
+					)}
+					{link.icon === 'stack' && (
+						<svg class="dock-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.9a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
+							<path d="m22 12.5-8.58 3.9a2 2 0 0 1-1.66 0L2 12.5" />
+							<path d="m22 17.5-8.58 3.9a2 2 0 0 1-1.66 0L2 17.5" />
+						</svg>
+					)}
+					{link.icon === 'projects' && (
+						<svg class="dock-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z" />
+							<circle cx="12" cy="13" r="2" />
+							<path d="M14 13h3" />
+							<path d="M7 13h3" />
+						</svg>
+					)}
+					<span class="dock-label">{link.label}</span>
+				</a>
+			))
+		}
+	</div>
+</nav>
 
 <style>
 	.nav {
@@ -67,6 +106,15 @@ const current = (href: string) => (path === href ? 'page' : undefined);
 		margin-right: auto;
 		padding-block: var(--space-lg);
 		color: var(--ink);
+		transition: opacity 0.15s ease, transform 0.15s ease;
+	}
+
+	.brand:hover {
+		opacity: 0.8;
+	}
+
+	.brand:active {
+		transform: scale(0.97);
 	}
 
 	.links {
@@ -74,59 +122,20 @@ const current = (href: string) => (path === href ? 'page' : undefined);
 		gap: var(--space-xl);
 	}
 
-	.links a,
-	.drawer a {
+	.links a {
 		font-weight: 500;
 		text-decoration: none;
+		transition: color 0.15s ease, opacity 0.15s ease;
 	}
 
 	.links a:hover,
-	.drawer a:hover,
-	.links a[aria-current='page'],
-	.drawer a[aria-current='page'] {
+	.links a[aria-current='page'] {
 		text-decoration: underline;
 	}
 
-	.menu {
+	/* Mobile Floating Dock (modeled on the user's reference image) */
+	.mobile-dock {
 		display: none;
-	}
-
-	.menu summary {
-		display: flex;
-		align-items: center;
-		gap: var(--space-sm);
-		min-height: 44px;
-		color: var(--ink);
-		font-weight: 500;
-		list-style: none;
-		cursor: pointer;
-	}
-
-	.menu summary::-webkit-details-marker {
-		display: none;
-	}
-
-	.mark-open,
-	.menu[open] .mark-closed {
-		display: none;
-	}
-
-	.menu[open] .mark-open {
-		display: inline;
-	}
-
-	.drawer {
-		position: absolute;
-		inset: 100% 0 auto 0;
-		z-index: 10;
-		display: grid;
-		padding: var(--space-sm) var(--gutter);
-		border-bottom: 1px solid var(--hairline);
-		background: var(--canvas);
-	}
-
-	.drawer a {
-		padding-block: 10px;
 	}
 
 	@media (max-width: 768px) {
@@ -138,8 +147,100 @@ const current = (href: string) => (path === href ? 'page' : undefined);
 			display: none;
 		}
 
-		.menu {
+		.mobile-dock {
+			position: fixed;
+			bottom: max(20px, env(safe-area-inset-bottom, 20px));
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 100;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			pointer-events: auto;
+			animation: dock-entrance 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+		}
+
+		.dock-container {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			padding: 6px 8px;
+			background: #ffffff;
+			border: 1px solid var(--hairline);
+			border-radius: 9999px;
+			box-shadow: 0 4px 20px rgba(15, 0, 0, 0.08), 0 1px 3px rgba(15, 0, 0, 0.04);
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
+		}
+
+		.dock-tab {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			height: 42px;
+			min-width: 44px;
+			padding: 0 12px;
+			border-radius: 9999px;
+			color: var(--ink);
+			text-decoration: none;
+			font-family: var(--font-mono), monospace;
+			font-size: 14px;
+			font-weight: 500;
+			line-height: 1;
+			transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+				color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+				padding 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+				gap 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+				transform 0.15s ease;
+			white-space: nowrap;
+			-webkit-tap-highlight-color: transparent;
+		}
+
+		.dock-tab:hover {
+			background: var(--surface-soft);
+		}
+
+		.dock-tab:active {
+			transform: scale(0.96);
+		}
+
+		.dock-icon {
 			display: block;
+			flex-shrink: 0;
+			width: 20px;
+			height: 20px;
+			stroke: currentColor;
+		}
+
+		.dock-label {
+			display: none;
+		}
+
+		/* Active tab becomes the dark pill with icon and label, exactly like the image */
+		.dock-tab[aria-current='page'] {
+			background: var(--ink);
+			color: var(--canvas);
+			padding: 0 18px 0 14px;
+			gap: 8px;
+		}
+
+		.dock-tab[aria-current='page']:hover {
+			background: var(--ink-deep);
+		}
+
+		.dock-tab[aria-current='page'] .dock-label {
+			display: inline;
+		}
+	}
+
+	@keyframes dock-entrance {
+		from {
+			opacity: 0.5;
+			transform: translate(-50%, 10px);
+		}
+		to {
+			opacity: 1;
+			transform: translate(-50%, 0);
 		}
 	}
 </style>
