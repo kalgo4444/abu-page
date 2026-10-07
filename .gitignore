@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # e2e test environment
 .venv/
+
+# python
+__pycache__/

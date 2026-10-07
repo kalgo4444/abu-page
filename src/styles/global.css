@@ -1,10 +1,7 @@
 /* Tokens from DESIGN.md. Every color and spacing value on the site comes from here. */
 :root {
 	--canvas: #fdfcfc;
-	--surface-soft: #f8f7f7;
 	--surface-card: #f1eeee;
-	--surface-dark: #201d1d;
-	--surface-dark-elevated: #302c2c;
 	--hairline: rgba(15, 0, 0, 0.12);
 	--hairline-strong: #646262;
 
@@ -12,10 +9,7 @@
 	--ink-deep: #0f0000;
 	--body: #424245;
 	--mute: #646262;
-	--ash: #9a9898;
-	--on-dark: #fdfcfc;
 
-	--space-xs: 4px;
 	--space-sm: 8px;
 	--space-md: 12px;
 	--space-lg: 16px;
@@ -130,18 +124,6 @@ b {
 .container {
 	width: min(100% - 2 * var(--gutter), var(--column));
 	margin-inline: auto;
-}
-
-.sr-only {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	margin: -1px;
-	padding: 0;
-	overflow: hidden;
-	clip-path: inset(50%);
-	white-space: nowrap;
-	border: 0;
 }
 
 /* An inner page (About, Skills, …): takes the space under the nav, with its

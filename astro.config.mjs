@@ -3,6 +3,9 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
+	devToolbar: {
+		enabled: false,
+	},
 	fonts: [
 		{
 			// Open-source stand-in for Berkeley Mono (see DESIGN.md, "Note on Font Substitutes").
