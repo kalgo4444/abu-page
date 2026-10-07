@@ -1,64 +1,46 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Terminal from '../components/Terminal.astro';
 import { profile } from '../data/profile';
 
 const github = profile.links.find(link => link.label === 'GitHub');
 ---
 
 <Layout title={`${profile.name} · ${profile.role}`} description={profile.summary}>
-	<div class="home">
-		<div class="hero container">
-			<p class="intro">
-				<span class="badge">{profile.location}</span>
-				<span>{profile.name} · {profile.role}</span>
-			</p>
-			<h1>{profile.headline}</h1>
-			<p class="lede">
-				I'm {profile.firstName}, a software engineer and university student. I work in TypeScript
-				from the interface down to the database.
-			</p>
-			<div class="actions">
-				<a class="btn btn-primary" href="/contact">Contact me</a>
-				{
-					github && (
-						<a class="btn btn-secondary" href={github.href} rel="noopener">
-							GitHub -&gt;
-						</a>
-					)
-				}
-			</div>
+	<section class="hero container">
+		<p class="intro">{profile.name} · {profile.role} · {profile.location}</p>
+		<h1>{profile.headline}</h1>
+		<p class="lede">
+			I'm {profile.firstName}, a software engineer and university student. I work in TypeScript
+			from the interface down to the database.
+		</p>
+		<div class="actions">
+			<a class="btn btn-primary" href="/contact">Contact me</a>
+			{
+				github && (
+					<a class="btn btn-secondary" href={github.href} rel="noopener">
+						GitHub -&gt;
+					</a>
+				)
+			}
 		</div>
-
-		<div class="frame">
-			<Terminal />
-		</div>
-	</div>
+	</section>
 </Layout>
 
 <style>
+	/* Takes the space under the nav, with its content centred in it. */
 	.hero {
-		padding-block: 64px 48px;
+		display: flex;
+		flex: 1 0 auto;
+		flex-direction: column;
+		justify-content: center;
+		padding-block: var(--space-section);
 	}
 
 	.intro {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: var(--space-xs) var(--space-md);
 		margin-bottom: var(--space-xl);
 		color: var(--mute);
 		font-size: 14px;
 		line-height: 2;
-	}
-
-	/* badge-news */
-	.badge {
-		padding: 2px var(--space-sm);
-		border-radius: var(--radius-sm);
-		background: var(--surface-dark);
-		color: var(--on-dark);
-		line-height: 1.5;
 	}
 
 	h1 {
@@ -82,42 +64,7 @@ const github = profile.links.find(link => link.label === 'GitHub');
 		margin-top: var(--space-xxl);
 	}
 
-	.frame {
-		max-width: var(--frame);
-		margin-inline: auto;
-	}
-
-	/* Desktop: text and terminal sit side by side so the page fits one screen. */
-	@media (min-width: 1025px) {
-		.home {
-			display: grid;
-			flex: 1 0 auto;
-			grid-template-columns: 1fr 1fr;
-			align-items: center;
-			width: min(100%, var(--frame));
-			margin-inline: auto;
-			padding-block: var(--space-xl);
-		}
-
-		/* The left padding lines the text up with the nav: 100% here is half
-		   the frame, and the nav's column is centred in that frame. */
-		.hero {
-			width: auto;
-			margin: 0;
-			padding: 0 var(--space-xxl) 0 max(var(--gutter), calc(100% - var(--column) / 2));
-		}
-
-		.frame {
-			max-width: none;
-			margin: 0;
-		}
-	}
-
 	@media (max-width: 640px) {
-		.hero {
-			padding-block: 48px 32px;
-		}
-
 		h1 {
 			font-size: 28px;
 		}

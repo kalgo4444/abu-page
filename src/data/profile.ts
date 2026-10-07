@@ -45,7 +45,7 @@ export const profile = {
 		},
 	],
 
-	// Shown on the Contact page and in the terminal's `contact` command.
+	// Shown on the Contact page.
 	links: [
 		{
 			label: 'GitHub',

@@ -15,11 +15,6 @@
 	--ash: #9a9898;
 	--on-dark: #fdfcfc;
 
-	/* Semantic ramp: only used inside the hero terminal. */
-	--accent: #007aff;
-	--danger: #ff3b30;
-	--success: #30d158;
-
 	--space-xs: 4px;
 	--space-sm: 8px;
 	--space-md: 12px;
@@ -30,7 +25,6 @@
 
 	--radius-sm: 4px;
 	--column: 960px;
-	--frame: 1100px;
 	--gutter: 24px;
 }
 
