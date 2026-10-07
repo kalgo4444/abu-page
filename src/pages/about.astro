@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { profile } from '../data/profile';
+
+const databases = profile.stack.find(group => group.label === 'Databases')?.items ?? [];
+---
+
+<Layout title={`About · ${profile.name}`} description={profile.summary}>
+	<section class="page container">
+		<h1>Who is {profile.firstName}?</h1>
+		<div class="prose">
+			<p>
+				I'm {profile.name}, a {profile.age}-year-old software engineer and university student
+				in {profile.location}.
+			</p>
+			<p>
+				I work across the whole stack: React and Next.js on the web, React Native on mobile, and
+				NestJS with {databases.join(' or ')} behind them.
+			</p>
+		</div>
+	</section>
+</Layout>

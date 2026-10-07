@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { profile } from '../data/profile';
+
+// Nothing to show (and no nav link) until profile.projects has entries.
+if (profile.projects.length === 0) return Astro.redirect('/');
+---
+
+<Layout title={`Projects · ${profile.name}`} description={profile.summary}>
+	<section class="page container">
+		<h1>Projects</h1>
+		<ul>
+			{
+				profile.projects.map(project => (
+					<li class="row">
+						<span aria-hidden="true">[+]</span>
+						<strong>
+							{project.href ? (
+								<a href={project.href} rel="noopener">
+									{project.name}
+								</a>
+							) : (
+								project.name
+							)}
+						</strong>
+						<span class="detail">{project.description}</span>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+</Layout>

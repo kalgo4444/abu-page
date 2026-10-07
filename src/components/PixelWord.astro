@@ -1,0 +1,54 @@
+---
+// Block-pixel wordmark. Glyphs are drawn as 5-row ASCII bitmaps and rendered
+// as crisp pixel cells so the rows never show seams at any size.
+interface Props {
+	text: string;
+	label?: string;
+}
+
+const GLYPHS: Record<string, string[]> = {
+	A: ['.##.', '#..#', '####', '#..#', '#..#'],
+	B: ['###.', '#..#', '###.', '#..#', '###.'],
+	D: ['###.', '#..#', '#..#', '#..#', '###.'],
+	I: ['###', '.#.', '.#.', '.#.', '###'],
+	L: ['#...', '#...', '#...', '#...', '####'],
+	U: ['#..#', '#..#', '#..#', '#..#', '.##.'],
+	Z: ['####', '...#', '.##.', '#...', '####'],
+};
+const ROWS = 5;
+
+const { text, label = text } = Astro.props;
+
+// Merge each horizontal run of filled cells into one rect.
+const runs: { x: number; y: number; w: number }[] = [];
+let offset = 0;
+for (const char of text.toUpperCase()) {
+	const glyph = GLYPHS[char];
+	if (!glyph) throw new Error(`PixelWord: no glyph for "${char}". Add it to GLYPHS.`);
+	glyph.forEach((row, y) => {
+		for (const match of row.matchAll(/#+/g)) {
+			runs.push({ x: offset + match.index, y, w: match[0].length });
+		}
+	});
+	offset += glyph[0].length + 1;
+}
+const width = offset - 1;
+---
+
+<svg
+	viewBox={`0 0 ${width} ${ROWS}`}
+	role="img"
+	aria-label={label}
+	fill="currentColor"
+	shape-rendering="crispEdges"
+>
+	{runs.map(run => <rect x={run.x} y={run.y} width={run.w} height="1" />)}
+</svg>
+
+<style>
+	svg {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+</style>

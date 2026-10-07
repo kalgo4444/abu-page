@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { profile } from '../data/profile';
+---
+
+<Layout title={`Skills · ${profile.name}`} description={profile.summary}>
+	<section class="page container">
+		<h1>Skills</h1>
+		<ul>
+			{
+				profile.skills.map(skill => (
+					<li class="row">
+						<span aria-hidden="true">[+]</span>
+						<strong>{skill.name}</strong>
+						<span class="detail">{skill.detail}</span>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+</Layout>

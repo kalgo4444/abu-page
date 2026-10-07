@@ -1,0 +1,388 @@
+---
+// hero-tui-mockup: the page's single dark surface. The prompt is real — each
+// command prints the matching <template> below into the log.
+import PixelWord from './PixelWord.astro';
+import { profile } from '../data/profile';
+
+const commands = [
+	{ name: 'whoami', hint: 'who is behind this page', href: '/about' },
+	{ name: 'stack', hint: 'languages, frameworks, databases', href: '/stack' },
+	{ name: 'skills', hint: 'what I build', href: '/skills' },
+	{ name: 'contact', hint: 'where to reach me', href: '/contact' },
+];
+---
+
+<section class="tui" aria-label="Terminal" data-terminal>
+	<div class="tui-inner">
+		<div class="wordmark">
+			<PixelWord text={profile.firstName} label={profile.firstName} />
+		</div>
+
+		<div class="log" role="log" aria-label="Terminal output" tabindex="0" data-log>
+			<p class="echo"><span class="sigil" aria-hidden="true">&gt;</span> help</p>
+			<dl class="table">
+				{
+					commands.map(command => (
+						<div>
+							<dt>{command.name}</dt>
+							<dd>{command.hint}</dd>
+						</div>
+					))
+				}
+				<div>
+					<dt>clear</dt>
+					<dd>clear the screen</dd>
+				</div>
+			</dl>
+		</div>
+
+		<form class="prompt" data-form>
+			<label class="prompt-line">
+				<span class="sr-only">Command</span>
+				<span class="sigil" aria-hidden="true">&gt;</span>
+				<input
+					type="text"
+					name="command"
+					placeholder="Type a command, e.g. stack"
+					autocomplete="off"
+					autocapitalize="none"
+					spellcheck="false"
+					enterkeyhint="go"
+					data-input
+				/>
+			</label>
+			<p class="prompt-meta">
+				<strong>Build</strong>
+				<span>TypeScript</span>
+				<span class="dim">React · NestJS</span>
+			</p>
+		</form>
+
+		<div class="hints">
+			<nav class="shortcuts" aria-label="Terminal commands">
+				{
+					commands.map(command => (
+						<a href={command.href} data-run={command.name}>
+							{command.name}
+						</a>
+					))
+				}
+			</nav>
+			<p class="keys">
+				<span>tab</span> complete <span>enter</span> run
+			</p>
+		</div>
+	</div>
+
+	<template data-tpl="echo">
+		<p class="echo"><span class="sigil" aria-hidden="true">&gt;</span> <span data-text></span></p>
+	</template>
+
+	<template data-tpl="error">
+		<p class="error">command not found: <span data-text></span>. Try help.</p>
+	</template>
+
+	<template data-cmd="help">
+		<dl class="table">
+			{
+				commands.map(command => (
+					<div>
+						<dt>{command.name}</dt>
+						<dd>{command.hint}</dd>
+					</div>
+				))
+			}
+			<div>
+				<dt>clear</dt>
+				<dd>clear the screen</dd>
+			</div>
+		</dl>
+	</template>
+
+	<template data-cmd="whoami">
+		<p>{profile.name}</p>
+		<p class="dim">{profile.role} · {profile.age} · {profile.location}</p>
+		<p>{profile.summary}</p>
+	</template>
+
+	<template data-cmd="stack">
+		<dl class="table">
+			{
+				profile.stack.map(group => (
+					<div>
+						<dt>{group.label.toLowerCase()}</dt>
+						<dd>{group.items.join(', ')}</dd>
+					</div>
+				))
+			}
+		</dl>
+	</template>
+
+	<template data-cmd="skills">
+		<ul>
+			{
+				profile.skills.map(skill => (
+					<li>
+						<span class="ok" aria-hidden="true">
+							[+]
+						</span>{' '}
+						{skill.name}
+					</li>
+				))
+			}
+		</ul>
+	</template>
+
+	<template data-cmd="contact">
+		<dl class="table">
+			{
+				profile.links.map(link => (
+					<div>
+						<dt>{link.label.toLowerCase()}</dt>
+						<dd>
+							<a href={link.href} rel="noopener">
+								{link.text}
+							</a>
+						</dd>
+					</div>
+				))
+			}
+		</dl>
+	</template>
+</section>
+
+<script>
+	const root = document.querySelector<HTMLElement>('[data-terminal]');
+	const log = root?.querySelector<HTMLElement>('[data-log]');
+	const form = root?.querySelector<HTMLFormElement>('[data-form]');
+	const input = root?.querySelector<HTMLInputElement>('[data-input]');
+
+	if (root && log && form && input) {
+		const names = [
+			...Array.from(root.querySelectorAll<HTMLTemplateElement>('template[data-cmd]')).map(
+				template => template.dataset.cmd!,
+			),
+			'clear',
+		];
+
+		// Clone a helper template and fill its [data-text] slot.
+		const line = (name: string, text: string) => {
+			const template = root.querySelector<HTMLTemplateElement>(`template[data-tpl="${name}"]`)!;
+			const node = template.content.cloneNode(true) as DocumentFragment;
+			node.querySelector('[data-text]')!.textContent = text;
+			return node;
+		};
+
+		const run = (raw: string) => {
+			const command = raw.trim().toLowerCase();
+			if (!command) return;
+			if (command === 'clear') {
+				log.replaceChildren();
+				return;
+			}
+			log.append(line('echo', command));
+			const output = names.includes(command)
+				? root.querySelector<HTMLTemplateElement>(`template[data-cmd="${command}"]`)
+				: null;
+			log.append(output ? output.content.cloneNode(true) : line('error', command));
+			log.scrollTop = log.scrollHeight;
+		};
+
+		form.addEventListener('submit', event => {
+			event.preventDefault();
+			run(input.value);
+			input.value = '';
+		});
+
+		// Tab completes a unique prefix; otherwise it moves focus as usual.
+		input.addEventListener('keydown', event => {
+			if (event.key !== 'Tab' || event.shiftKey) return;
+			const typed = input.value.trim().toLowerCase();
+			if (!typed) return;
+			const matches = names.filter(name => name.startsWith(typed));
+			if (matches.length === 1 && matches[0] !== typed) {
+				event.preventDefault();
+				input.value = matches[0];
+			}
+		});
+
+		// Shortcut links run their command here instead of leaving for that page.
+		root.querySelectorAll<HTMLAnchorElement>('a[data-run]').forEach(link => {
+			link.addEventListener('click', event => {
+				event.preventDefault();
+				run(link.dataset.run!);
+			});
+		});
+	}
+</script>
+
+<style>
+	.tui {
+		padding: 64px var(--space-xxl);
+		background: var(--surface-dark);
+		color: var(--on-dark);
+	}
+
+	.tui-inner {
+		display: grid;
+		gap: var(--space-xl);
+		max-width: 640px;
+		margin-inline: auto;
+	}
+
+	.wordmark {
+		width: min(100%, 430px);
+		margin: 0 auto var(--space-sm);
+	}
+
+	.log {
+		height: 216px;
+		overflow-y: auto;
+		scrollbar-width: thin;
+		scrollbar-color: var(--surface-dark-elevated) transparent;
+	}
+
+	.log:focus-visible,
+	.prompt:focus-within {
+		outline: 1px solid var(--ash);
+		outline-offset: 4px;
+	}
+
+	.log:focus-visible {
+		border-radius: var(--radius-sm);
+	}
+
+	/* A full blank line between commands keeps the scrolled log on the line grid. */
+	.echo:not(:first-child) {
+		margin-top: 1.5em;
+	}
+
+	.sigil {
+		color: var(--accent);
+		font-weight: 700;
+	}
+
+	.table > div {
+		display: grid;
+		grid-template-columns: 11ch 1fr;
+		column-gap: var(--space-sm);
+	}
+
+	.table dd {
+		overflow-wrap: anywhere;
+	}
+
+	.table dt,
+	.dim {
+		color: var(--ash);
+	}
+
+	.ok {
+		color: var(--success);
+	}
+
+	.error {
+		color: var(--danger);
+	}
+
+	.log a {
+		color: var(--on-dark);
+	}
+
+	/* tui-prompt-row */
+	.prompt {
+		display: grid;
+		gap: var(--space-xs);
+		padding: var(--space-sm) var(--space-md);
+		border-left: 2px solid var(--accent);
+		border-radius: var(--radius-sm);
+		background: var(--surface-dark-elevated);
+	}
+
+	.prompt:focus-within {
+		outline-offset: 0;
+	}
+
+	.prompt-line {
+		display: flex;
+		align-items: center;
+		gap: var(--space-sm);
+	}
+
+	.prompt input {
+		flex: 1;
+		min-width: 0;
+		padding: 0;
+		border: 0;
+		outline: 0;
+		background: transparent;
+		color: var(--on-dark);
+		caret-color: var(--accent);
+	}
+
+	.prompt input::placeholder {
+		color: var(--ash);
+		opacity: 1;
+	}
+
+	.prompt-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0 var(--space-lg);
+		font-size: 14px;
+	}
+
+	.prompt-meta strong {
+		font-weight: 500;
+	}
+
+	.hints {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0 var(--space-xl);
+		color: var(--ash);
+		font-size: 14px;
+		line-height: 2;
+	}
+
+	.shortcuts {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0 var(--space-lg);
+	}
+
+	.shortcuts a {
+		padding-block: var(--space-sm);
+		color: var(--on-dark);
+		text-decoration: none;
+	}
+
+	.shortcuts a:hover {
+		text-decoration: underline;
+	}
+
+	.shortcuts a:focus-visible {
+		outline-color: var(--on-dark);
+	}
+
+	.keys span {
+		color: var(--on-dark);
+	}
+
+	.keys span:not(:first-child) {
+		margin-left: var(--space-lg);
+	}
+
+	@media (max-width: 640px) {
+		.tui {
+			padding: 48px var(--gutter);
+		}
+
+		/* No tab key on a phone. */
+		.keys {
+			display: none;
+		}
+	}
+</style>

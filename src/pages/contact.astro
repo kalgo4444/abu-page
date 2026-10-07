@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { profile } from '../data/profile';
+---
+
+<Layout title={`Contact · ${profile.name}`} description={profile.summary}>
+	<section class="page container">
+		<h1>Contact</h1>
+		<div class="prose">
+			<p>Building something for the web or mobile? Send me a message.</p>
+		</div>
+		<ul>
+			{
+				profile.links.map(link => (
+					<li class="row">
+						<span aria-hidden="true">[+]</span>
+						<strong>{link.label}</strong>
+						<a class="detail" href={link.href} rel="noopener">
+							{link.text}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+</Layout>

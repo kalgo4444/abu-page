@@ -1,0 +1,145 @@
+---
+import PixelWord from './PixelWord.astro';
+import { profile } from '../data/profile';
+
+const links = [
+	{ label: 'About', href: '/about' },
+	{ label: 'Skills', href: '/skills' },
+	{ label: 'Stack', href: '/stack' },
+	...(profile.projects.length ? [{ label: 'Projects', href: '/projects' }] : []),
+];
+
+// Built pages are served with a trailing slash, the dev server without one.
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const current = (href: string) => (path === href ? 'page' : undefined);
+---
+
+<header class="nav">
+	<div class="nav-inner container">
+		<a class="brand" href="/" aria-label={`${profile.name}, home`}>
+			<PixelWord text="ABU" label="Abu" />
+		</a>
+
+		<nav class="links" aria-label="Primary">
+			{links.map(link => <a href={link.href} aria-current={current(link.href)}>{link.label}</a>)}
+		</nav>
+
+		<a class="btn btn-primary" href="/contact" aria-current={current('/contact')}>Contact</a>
+
+		<details class="menu">
+			<summary>
+				<span class="mark mark-closed" aria-hidden="true">[+]</span>
+				<span class="mark mark-open" aria-hidden="true">[-]</span>
+				Menu
+			</summary>
+			<nav class="drawer" aria-label="Primary">
+				{links.map(link => <a href={link.href} aria-current={current(link.href)}>{link.label}</a>)}
+			</nav>
+		</details>
+	</div>
+</header>
+
+<script>
+	// Close the mobile drawer after picking a page, so it isn't open on the way back.
+	const menu = document.querySelector<HTMLDetailsElement>('.menu');
+	menu?.addEventListener('click', event => {
+		if ((event.target as HTMLElement).closest('.drawer a')) menu.open = false;
+	});
+</script>
+
+<style>
+	.nav {
+		position: relative;
+		border-bottom: 1px solid var(--hairline);
+		background: var(--canvas);
+	}
+
+	.nav-inner {
+		display: flex;
+		align-items: center;
+		gap: var(--space-xl);
+		min-height: 56px;
+	}
+
+	.brand {
+		display: block;
+		width: 67px;
+		margin-right: auto;
+		padding-block: var(--space-lg);
+		color: var(--ink);
+	}
+
+	.links {
+		display: flex;
+		gap: var(--space-xl);
+	}
+
+	.links a,
+	.drawer a {
+		font-weight: 500;
+		text-decoration: none;
+	}
+
+	.links a:hover,
+	.drawer a:hover,
+	.links a[aria-current='page'],
+	.drawer a[aria-current='page'] {
+		text-decoration: underline;
+	}
+
+	.menu {
+		display: none;
+	}
+
+	.menu summary {
+		display: flex;
+		align-items: center;
+		gap: var(--space-sm);
+		min-height: 44px;
+		color: var(--ink);
+		font-weight: 500;
+		list-style: none;
+		cursor: pointer;
+	}
+
+	.menu summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.mark-open,
+	.menu[open] .mark-closed {
+		display: none;
+	}
+
+	.menu[open] .mark-open {
+		display: inline;
+	}
+
+	.drawer {
+		position: absolute;
+		inset: 100% 0 auto 0;
+		z-index: 10;
+		display: grid;
+		padding: var(--space-sm) var(--gutter);
+		border-bottom: 1px solid var(--hairline);
+		background: var(--canvas);
+	}
+
+	.drawer a {
+		padding-block: 10px;
+	}
+
+	@media (max-width: 768px) {
+		.nav-inner {
+			gap: var(--space-lg);
+		}
+
+		.links {
+			display: none;
+		}
+
+		.menu {
+			display: block;
+		}
+	}
+</style>
