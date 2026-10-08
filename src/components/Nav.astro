@@ -19,7 +19,7 @@ const mobileLinks = [
 
 // Built pages are served with a trailing slash, the dev server without one.
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
-const current = (href: string) => (path === href ? 'page' : undefined);
+const current = (href: string) => (href !== '/' && path === href ? 'page' : undefined);
 ---
 
 <header class="nav" transition:name="nav">
@@ -32,7 +32,7 @@ const current = (href: string) => (path === href ? 'page' : undefined);
 			{desktopLinks.map(link => <a href={link.href} aria-current={current(link.href)}>{link.label}</a>)}
 		</nav>
 
-		<a class="btn btn-primary" href="/contact" aria-current={current('/contact')}>Contact</a>
+		<a class="btn btn-primary btn-contact" href="/contact" aria-current={current('/contact')}>Contact</a>
 	</div>
 </header>
 
@@ -42,7 +42,7 @@ const current = (href: string) => (path === href ? 'page' : undefined);
 			mobileLinks.map(link => (
 				<a
 					href={link.href}
-					class:list={['dock-tab', { active: current(link.href) === 'page' }]}
+					class:list={['dock-tab', { active: path === link.href }]}
 					aria-current={current(link.href)}
 					aria-label={link.label}
 				>
@@ -88,52 +88,95 @@ const current = (href: string) => (path === href ? 'page' : undefined);
 
 <style>
 	.nav {
-		position: relative;
+		position: sticky;
+		top: 0;
+		z-index: 50;
 		border-bottom: 1px solid var(--hairline);
-		background: var(--canvas);
+		background: rgba(253, 252, 252, 0.82);
+		backdrop-filter: blur(16px) saturate(180%);
+		-webkit-backdrop-filter: blur(16px) saturate(180%);
+		transition: background-color 0.2s ease, border-color 0.2s ease;
 	}
 
 	.nav-inner {
 		display: flex;
 		align-items: center;
 		gap: var(--space-xl);
-		min-height: 56px;
+		min-height: 58px;
 	}
 
 	.brand {
 		display: block;
 		width: 67px;
 		margin-right: auto;
-		padding-block: var(--space-lg);
+		padding-block: var(--space-md);
 		color: var(--ink);
-		transition: opacity 0.15s ease, transform 0.15s ease;
+		transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
 	.brand:hover {
-		opacity: 0.8;
+		opacity: 0.85;
+		transform: scale(1.04);
 	}
 
 	.brand:active {
-		transform: scale(0.97);
+		transform: scale(0.96);
 	}
 
 	.links {
 		display: flex;
-		gap: var(--space-xl);
+		align-items: center;
+		gap: 6px;
 	}
 
 	.links a {
+		display: inline-flex;
+		align-items: center;
+		padding: 6px 14px;
+		border-radius: var(--radius-sm);
 		font-weight: 500;
+		font-size: 14px;
+		color: var(--mute);
 		text-decoration: none;
-		transition: color 0.15s ease, opacity 0.15s ease;
+		border: 1px solid transparent;
+		transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+		position: relative;
 	}
 
-	.links a:hover,
+	.links a:hover {
+		color: var(--ink);
+		background: rgba(15, 0, 0, 0.04);
+		transform: translateY(-1px);
+	}
+
+	.links a:active {
+		transform: scale(0.97);
+	}
+
 	.links a[aria-current='page'] {
-		text-decoration: underline;
+		color: var(--ink);
+		font-weight: 700;
+		background: var(--surface-card);
+		border-color: var(--hairline);
 	}
 
-	/* Mobile Floating Dock (modeled on the user's reference image) */
+	.links a[aria-current='page']:hover {
+		border-color: var(--hairline-strong);
+	}
+
+	.btn-contact {
+		transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.btn-contact:hover {
+		transform: translateY(-1px);
+	}
+
+	.btn-contact:active {
+		transform: scale(0.97);
+	}
+
+	/* Mobile Floating Dock */
 	.mobile-dock {
 		display: none;
 	}
@@ -165,12 +208,12 @@ const current = (href: string) => (path === href ? 'page' : undefined);
 			align-items: center;
 			gap: 6px;
 			padding: 6px 8px;
-			background: #ffffff;
+			background: rgba(255, 255, 255, 0.85);
 			border: 1px solid var(--hairline);
 			border-radius: 9999px;
 			box-shadow: 0 4px 20px rgba(15, 0, 0, 0.08), 0 1px 3px rgba(15, 0, 0, 0.04);
-			backdrop-filter: blur(12px);
-			-webkit-backdrop-filter: blur(12px);
+			backdrop-filter: blur(16px) saturate(180%);
+			-webkit-backdrop-filter: blur(16px) saturate(180%);
 		}
 
 		.dock-tab {
@@ -216,19 +259,19 @@ const current = (href: string) => (path === href ? 'page' : undefined);
 			display: none;
 		}
 
-		/* Active tab becomes the dark pill with icon and label, exactly like the image */
-		.dock-tab[aria-current='page'] {
+		/* Active tab becomes the dark pill with icon and label */
+		.dock-tab.active {
 			background: var(--ink);
 			color: var(--canvas);
 			padding: 0 18px 0 14px;
 			gap: 8px;
 		}
 
-		.dock-tab[aria-current='page']:hover {
+		.dock-tab.active:hover {
 			background: var(--ink-deep);
 		}
 
-		.dock-tab[aria-current='page'] .dock-label {
+		.dock-tab.active .dock-label {
 			display: inline;
 		}
 	}

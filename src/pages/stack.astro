@@ -2,106 +2,228 @@
 import Layout from '../layouts/Layout.astro';
 import { profile } from '../data/profile';
 
-const databases = profile.stack.find(group => group.label === 'Databases')?.items ?? [];
-
-// Fig 1, drawn for wide and narrow screens. Plain ASCII so every cell lines up.
-// The database box is sized to whatever profile.stack lists.
-const dbLabel = databases.join(' · ');
-const dbRule = `+${'-'.repeat(dbLabel.length + 2)}+`;
-
-const figureWide = [
-	'+------------------+',
-	'| React · Next.js  |---+',
-	`+------------------+   |     +-------------------+      ${dbRule}`,
-	`                       +---->| NestJS · REST API |----->| ${dbLabel} |`,
-	`+------------------+   |     +-------------------+      ${dbRule}`,
-	'| React Native     |---+',
-	'+------------------+',
-].join('\n');
-
-// Narrow: centre the database box under the arrow in column 12.
-const dbIndent = ' '.repeat(Math.max(0, 12 - Math.floor(dbRule.length / 2)));
-
-const figureNarrow = [
-	'+---------+  +--------------+',
-	'| React   |  | React Native |',
-	'| Next.js |  |              |',
-	'+----+----+  +------+-------+',
-	'     |              |',
-	'     +------+-------+',
-	'            |',
-	'            v',
-	'  +-------------------+',
-	'  | NestJS · REST API |',
-	'  +---------+---------+',
-	'            |',
-	'            v',
-	`${dbIndent}${dbRule}`,
-	`${dbIndent}| ${dbLabel} |`,
-	`${dbIndent}${dbRule}`,
-].join('\n');
+const totalTechnologies = profile.stack.reduce((acc, g) => acc + g.items.length, 0);
 ---
 
 <Layout title={`Stack · ${profile.name}`} description={profile.summary}>
 	<section class="page container">
-		<h1>Stack</h1>
-		<figure class="figure">
-			<div
-				role="img"
-				aria-label={`Diagram: React, Next.js and React Native clients call a NestJS REST API, which reads and writes ${databases.join(' and ')}.`}
-			>
-				<pre class="figure-wide" aria-hidden="true">{figureWide}</pre>
-				<pre class="figure-narrow" aria-hidden="true">{figureNarrow}</pre>
+		<header class="page-header">
+			<div class="title-row">
+				<h1>Stack</h1>
+				<span class="badge-tag" aria-hidden="true">[ production ]</span>
 			</div>
-			<figcaption>Fig 1. The stack, from client to database.</figcaption>
-		</figure>
-		<dl>
-			{
-				profile.stack.map(group => (
-					<div class="row row-pair">
-						<dt>{group.label}</dt>
-						<dd>{group.items.join(', ')}</dd>
-					</div>
-				))
-			}
-		</dl>
+			<p class="lede">Technologies, runtimes, and frameworks powering products end-to-end.</p>
+		</header>
+
+		<div class="spec-card">
+			<div class="spec-header" aria-hidden="true">
+				<span class="col-marker">[#]</span>
+				<span class="col-domain">Layer / Domain</span>
+				<span class="col-tech">Technologies & Runtimes</span>
+			</div>
+
+			<dl class="stack-list">
+				{
+					profile.stack.map((group, idx) => (
+						<div class="row stack-row">
+							<span class="marker" aria-hidden="true">{`0${idx + 1}`}</span>
+							<dt>{group.label}</dt>
+							<dd class="stack-items">
+								{group.items.map((item, index) => (
+									<span class="tech-chip">
+										<span class="chip-label">{item}</span>
+										{index < group.items.length - 1 && <span class="chip-sep">, </span>}
+									</span>
+								))}
+							</dd>
+						</div>
+					))
+				}
+			</dl>
+
+			<footer class="spec-footer">
+				<span class="spec-meta">{profile.stack.length} layers · {totalTechnologies} technologies</span>
+				<span class="spec-status" aria-hidden="true">[ active stack ]</span>
+			</footer>
+		</div>
 	</section>
 </Layout>
 
 <style>
-	/* chart-tile */
-	.figure {
-		margin-bottom: var(--space-lg);
-		padding-block: var(--space-lg);
+	.page-header {
+		margin-bottom: var(--space-xl);
 	}
 
-	.figure pre {
-		color: var(--body);
-		line-height: 1.25;
-		overflow-x: auto;
-		/* Ligatures would redraw `|---` and `--->` and break the grid. */
-		font-variant-ligatures: none;
+	.title-row {
+		display: flex;
+		align-items: center;
+		gap: var(--space-md);
+		margin-bottom: var(--space-xs);
 	}
 
-	.figure-narrow {
-		display: none;
-		font-size: 14px;
+	.page-header h1 {
+		margin-bottom: 0;
 	}
 
-	.figure figcaption {
-		margin-top: var(--space-lg);
+	.badge-tag {
+		font-size: 13px;
+		color: var(--mute);
+		font-weight: 500;
+	}
+
+	.lede {
 		color: var(--mute);
 		font-size: 14px;
-		line-height: 2;
+		line-height: 1.5;
 	}
 
-	@media (max-width: 850px) {
-		.figure-wide {
+	/* Modern spec card */
+	.spec-card {
+		border: 1px solid var(--hairline);
+		border-radius: var(--radius-sm);
+		background: var(--canvas);
+		overflow: hidden;
+		transition: border-color 0.2s ease;
+	}
+
+	.spec-card:hover {
+		border-color: var(--hairline-strong);
+	}
+
+	.spec-header {
+		display: grid;
+		grid-template-columns: 4ch 19ch 1fr;
+		column-gap: var(--space-lg);
+		padding: 10px var(--space-lg);
+		background: var(--surface-soft);
+		border-bottom: 1px solid var(--hairline);
+		font-size: 12px;
+		color: var(--mute);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.col-marker {
+		color: var(--mute);
+	}
+
+	.col-domain {
+		font-weight: 700;
+		color: var(--ink);
+	}
+
+	.col-tech {
+		color: var(--mute);
+	}
+
+	.stack-list {
+		margin: 0;
+	}
+
+	.stack-row {
+		grid-template-columns: 4ch 19ch 1fr;
+		column-gap: var(--space-lg);
+		padding: 12px var(--space-lg);
+		border-bottom: 1px solid var(--hairline);
+		align-items: center;
+		transition: background-color 0.15s ease;
+	}
+
+	.stack-row:last-child {
+		border-bottom: none;
+	}
+
+	.stack-row:hover {
+		background: var(--surface-soft);
+	}
+
+	.marker {
+		color: var(--mute);
+		font-size: 13px;
+		transition: color 0.15s ease;
+	}
+
+	.stack-row:hover .marker {
+		color: var(--ink);
+	}
+
+	.stack-row dt {
+		font-weight: 700;
+		color: var(--ink);
+		font-size: 15px;
+	}
+
+	.stack-items {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 8px;
+		margin: 0;
+	}
+
+	.tech-chip {
+		display: inline-flex;
+		align-items: center;
+		background: var(--surface-card);
+		border: 1px solid var(--hairline);
+		border-radius: var(--radius-sm);
+		padding: 3px 10px;
+		font-size: 14px;
+		color: var(--ink);
+		font-weight: 500;
+		transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+	}
+
+	.tech-chip:hover {
+		background: var(--canvas);
+		border-color: var(--hairline-strong);
+		transform: translateY(-1px);
+	}
+
+	.chip-sep {
+		display: inline-block;
+		width: 0;
+		height: 0;
+		overflow: hidden;
+		color: transparent;
+		user-select: none;
+	}
+
+	.spec-footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 8px var(--space-lg);
+		background: var(--surface-soft);
+		border-top: 1px solid var(--hairline);
+		font-size: 12px;
+		color: var(--mute);
+	}
+
+	.spec-status {
+		color: var(--mute);
+	}
+
+	@media (max-width: 640px) {
+		.spec-header {
 			display: none;
 		}
 
-		.figure-narrow {
-			display: block;
+		.stack-row {
+			grid-template-columns: 4ch 1fr;
+			padding: 12px var(--space-md);
+			row-gap: var(--space-xs);
+		}
+
+		.stack-items {
+			grid-column: 2;
+		}
+
+		.spec-footer {
+			padding: 8px var(--space-md);
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 4px;
 		}
 	}
 </style>

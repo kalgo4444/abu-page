@@ -197,43 +197,6 @@ def stack_lists_every_group(page):
     )
 
 
-def box_lines_align(figure):
-    """Every labelled box in the ASCII figure has corners or sides directly above and below its sides."""
-    lines = figure.split("\n")
-    boxes = 0
-    for number, line in enumerate(lines):
-        for box in re.finditer(r"\| \S.*? \|", line):
-            boxes += 1
-            for neighbour in (lines[number - 1], lines[number + 1]):
-                for column in (box.start(), box.end() - 1):
-                    assert neighbour[column : column + 1] in ("+", "|"), (
-                        f"line {number}: box {box.group()!r} is not closed by {neighbour!r}"
-                    )
-    assert boxes, figure
-
-
-@test()
-def stack_shows_the_wide_figure_on_desktop(page):
-    open_page(page, "/stack")
-    expect(page.locator(".figure-wide")).to_be_visible()
-    expect(page.locator(".figure-narrow")).to_be_hidden()
-    figure = page.locator(".figure-wide").text_content()
-    assert "| PostgreSQL |" in figure, figure
-    box_lines_align(figure)
-    assert "PostgreSQL" in page.locator('.figure [role="img"]').get_attribute("aria-label")
-
-
-@test("mobile")
-def stack_shows_the_narrow_figure_on_a_phone(page):
-    open_page(page, "/stack")
-    expect(page.locator(".figure-narrow")).to_be_visible()
-    expect(page.locator(".figure-wide")).to_be_hidden()
-    figure = page.locator(".figure-narrow").text_content()
-    box_lines_align(figure)
-    pre = page.locator(".figure-narrow")
-    assert pre.evaluate("el => el.scrollWidth <= el.clientWidth"), "narrow figure overflows its box"
-
-
 @test()
 def contact_lists_every_link(page):
     open_page(page, "/contact")
