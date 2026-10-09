@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
-Bun is the package manager (`bun.lock`). Node >= 22.12.
+Bun is the package manager (`bun.lock`). Node >= 22.12
 
 ```sh
 bun install
