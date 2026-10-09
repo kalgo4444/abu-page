@@ -1,8 +1,8 @@
 ---
 name: code-improver
 description: Scans files and suggests improvements for readability, performance, and best practices. Use after writing or modifying code.
-tools: Read, Grep, Glob, Bash
-model: sonnet
+tools: Read, Grep, Bash
+model: opus
 color: green
 ---
 
