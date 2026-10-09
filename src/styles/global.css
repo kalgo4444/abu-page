@@ -1,6 +1,7 @@
 /* Tokens from DESIGN.md. Every color and spacing value on the site comes from here. */
 :root {
 	--canvas: #fdfcfc;
+	--surface-soft: #f8f7f7;
 	--surface-card: #f1eeee;
 	--hairline: rgba(15, 0, 0, 0.12);
 	--hairline-strong: #646262;
@@ -10,6 +11,7 @@
 	--body: #424245;
 	--mute: #646262;
 
+	--space-xs: 4px;
 	--space-sm: 8px;
 	--space-md: 12px;
 	--space-lg: 16px;
@@ -20,6 +22,44 @@
 	--radius-sm: 4px;
 	--column: 960px;
 	--gutter: 24px;
+
+	/* Dynamic overlays for chrome */
+	--nav-bg: rgba(253, 252, 252, 0.82);
+	--nav-link-hover: rgba(15, 0, 0, 0.04);
+	--dock-bg: rgba(255, 255, 255, 0.85);
+	--dock-shadow: 0 4px 20px rgba(15, 0, 0, 0.08), 0 1px 3px rgba(15, 0, 0, 0.04);
+}
+
+html[data-theme='dark'] {
+	--canvas: #201d1d;
+	--surface-soft: #262323;
+	--surface-card: #302c2c;
+	--hairline: rgba(253, 252, 252, 0.12);
+	--hairline-strong: #787575;
+
+	--ink: #fdfcfc;
+	--ink-deep: #ffffff;
+	--body: #cecbcb;
+	--mute: #9a9898;
+
+	--nav-bg: rgba(32, 29, 29, 0.82);
+	--nav-link-hover: rgba(253, 252, 252, 0.06);
+	--dock-bg: rgba(38, 35, 35, 0.85);
+	--dock-shadow: 0 4px 20px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+/* Smooth theme transition */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+	transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+	            border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+	            color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+	            fill 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+	            stroke 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+	            box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+	transition-delay: 0s !important;
 }
 
 @media (max-width: 850px) {
@@ -65,6 +105,7 @@ body {
 	font-weight: 400;
 	line-height: 1.5;
 	font-style: normal;
+	transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 main {
@@ -109,6 +150,7 @@ a {
 	color: var(--ink);
 	text-decoration: underline;
 	text-underline-offset: 3px;
+	transition: color 0.15s ease;
 }
 
 strong,
@@ -141,6 +183,7 @@ b {
 	color: var(--ink);
 	font-size: 16px;
 	font-weight: 700;
+	transition: color 0.2s ease;
 }
 
 .prose {
@@ -164,6 +207,7 @@ b {
 .row strong,
 .row dt {
 	color: var(--ink);
+	transition: color 0.2s ease;
 }
 
 .row-pair {

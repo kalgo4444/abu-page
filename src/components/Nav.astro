@@ -1,5 +1,6 @@
 ---
 import PixelWord from './PixelWord.astro';
+import ThemeToggle from './ThemeToggle.astro';
 import { profile } from '../data/profile';
 
 const desktopLinks = [
@@ -32,7 +33,10 @@ const current = (href: string) => (href !== '/' && path === href ? 'page' : unde
 			{desktopLinks.map(link => <a href={link.href} aria-current={current(link.href)}>{link.label}</a>)}
 		</nav>
 
-		<a class="btn btn-primary btn-contact" href="/contact" aria-current={current('/contact')}>Contact</a>
+		<div class="nav-actions">
+			<ThemeToggle />
+			<a class="btn btn-primary btn-contact" href="/contact" aria-current={current('/contact')}>Contact</a>
+		</div>
 	</div>
 </header>
 
@@ -92,10 +96,10 @@ const current = (href: string) => (href !== '/' && path === href ? 'page' : unde
 		top: 0;
 		z-index: 50;
 		border-bottom: 1px solid var(--hairline);
-		background: rgba(253, 252, 252, 0.82);
+		background: var(--nav-bg);
 		backdrop-filter: blur(16px) saturate(180%);
 		-webkit-backdrop-filter: blur(16px) saturate(180%);
-		transition: background-color 0.2s ease, border-color 0.2s ease;
+		transition: background-color 0.3s ease, border-color 0.3s ease;
 	}
 
 	.nav-inner {
@@ -111,7 +115,7 @@ const current = (href: string) => (href !== '/' && path === href ? 'page' : unde
 		margin-right: auto;
 		padding-block: var(--space-md);
 		color: var(--ink);
-		transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+		transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
 	}
 
 	.brand:hover {
@@ -145,7 +149,7 @@ const current = (href: string) => (href !== '/' && path === href ? 'page' : unde
 
 	.links a:hover {
 		color: var(--ink);
-		background: rgba(15, 0, 0, 0.04);
+		background: var(--nav-link-hover);
 		transform: translateY(-1px);
 	}
 
@@ -162,6 +166,12 @@ const current = (href: string) => (href !== '/' && path === href ? 'page' : unde
 
 	.links a[aria-current='page']:hover {
 		border-color: var(--hairline-strong);
+	}
+
+	.nav-actions {
+		display: flex;
+		align-items: center;
+		gap: var(--space-md);
 	}
 
 	.btn-contact {
@@ -183,11 +193,15 @@ const current = (href: string) => (href !== '/' && path === href ? 'page' : unde
 
 	@media (max-width: 768px) {
 		.nav-inner {
-			gap: var(--space-lg);
+			gap: var(--space-md);
 		}
 
 		.links {
 			display: none;
+		}
+
+		.nav-actions {
+			gap: var(--space-sm);
 		}
 
 		.mobile-dock {
@@ -208,12 +222,13 @@ const current = (href: string) => (href !== '/' && path === href ? 'page' : unde
 			align-items: center;
 			gap: 6px;
 			padding: 6px 8px;
-			background: rgba(255, 255, 255, 0.85);
+			background: var(--dock-bg);
 			border: 1px solid var(--hairline);
 			border-radius: 9999px;
-			box-shadow: 0 4px 20px rgba(15, 0, 0, 0.08), 0 1px 3px rgba(15, 0, 0, 0.04);
+			box-shadow: var(--dock-shadow);
 			backdrop-filter: blur(16px) saturate(180%);
 			-webkit-backdrop-filter: blur(16px) saturate(180%);
+			transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 		}
 
 		.dock-tab {
@@ -259,7 +274,7 @@ const current = (href: string) => (href !== '/' && path === href ? 'page' : unde
 			display: none;
 		}
 
-		/* Active tab becomes the dark pill with icon and label */
+		/* Active tab becomes the dark/inverted pill with icon and label */
 		.dock-tab.active {
 			background: var(--ink);
 			color: var(--canvas);

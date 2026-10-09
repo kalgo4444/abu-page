@@ -1,0 +1,200 @@
+---
+---
+
+<button
+	type="button"
+	class="theme-toggle"
+	id="theme-toggle"
+	aria-label="Switch to dark mode"
+	title="Switch theme mode"
+>
+	<span class="bracket" aria-hidden="true">[</span>
+	<span class="track" aria-hidden="true">
+		<span class="thumb"></span>
+	</span>
+	<span class="bracket" aria-hidden="true">]</span>
+	<span class="mode-label">
+		<span class="label-light">light</span>
+		<span class="label-dark">dark</span>
+	</span>
+</button>
+
+<script>
+	function updateAriaLabel() {
+		const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+		const toggles = document.querySelectorAll('.theme-toggle');
+		toggles.forEach(toggle => {
+			toggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+		});
+	}
+
+	function toggleTheme() {
+		const current = document.documentElement.getAttribute('data-theme') || 'light';
+		const next = current === 'dark' ? 'light' : 'dark';
+
+		document.documentElement.classList.add('theme-transition');
+		document.documentElement.setAttribute('data-theme', next);
+
+		try {
+			localStorage.setItem('theme', next);
+		} catch (e) {
+			// localStorage might be unavailable or disabled
+		}
+
+		const metaTheme = document.querySelector('meta[name="theme-color"]');
+		if (metaTheme) {
+			metaTheme.setAttribute('content', next === 'dark' ? '#201d1d' : '#fdfcfc');
+		}
+
+		updateAriaLabel();
+
+		window.setTimeout(() => {
+			document.documentElement.classList.remove('theme-transition');
+		}, 350);
+	}
+
+	// Delegated listener ensures click works across Astro View Transitions
+	document.addEventListener('click', e => {
+		const target = e.target as HTMLElement | null;
+		if (target && target.closest('.theme-toggle')) {
+			toggleTheme();
+		}
+	});
+
+	// Synchronize accessibility attributes on page transitions
+	document.addEventListener('astro:page-load', updateAriaLabel);
+	updateAriaLabel();
+</script>
+
+<style>
+	.theme-toggle {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		height: 36px;
+		padding: 4px 10px;
+		background: var(--canvas);
+		color: var(--ink);
+		border: 1px solid var(--hairline);
+		border-radius: var(--radius-sm);
+		font-family: var(--font-mono), monospace;
+		font-size: 13px;
+		font-weight: 500;
+		line-height: 1;
+		cursor: pointer;
+		text-decoration: none;
+		white-space: nowrap;
+		user-select: none;
+		-webkit-user-select: none;
+		transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.theme-toggle:hover {
+		background: var(--surface-card);
+		border-color: var(--hairline-strong);
+		transform: translateY(-1px);
+	}
+
+	.theme-toggle:active {
+		transform: scale(0.97);
+	}
+
+	.bracket {
+		color: var(--mute);
+		font-weight: 700;
+		line-height: 1;
+		transition: color 0.2s ease;
+	}
+
+	.theme-toggle:hover .bracket {
+		color: var(--ink);
+	}
+
+	.track {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		width: 22px;
+		height: 12px;
+		background: var(--surface-card);
+		border: 1px solid var(--hairline);
+		border-radius: 2px;
+		overflow: hidden;
+		transition: background-color 0.25s ease, border-color 0.25s ease;
+	}
+
+	.thumb {
+		position: absolute;
+		left: 1px;
+		top: 1px;
+		width: 8px;
+		height: 8px;
+		background: var(--ink);
+		border-radius: 1px;
+		transform: translateX(0);
+		transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease;
+	}
+
+	:global(html[data-theme='dark']) .thumb {
+		transform: translateX(10px);
+	}
+
+	:global(html[data-theme='dark']) .track {
+		background: var(--surface-soft);
+		border-color: var(--hairline-strong);
+	}
+
+	.mode-label {
+		position: relative;
+		display: inline-block;
+		min-width: 4ch;
+		height: 14px;
+		overflow: hidden;
+		font-size: 13px;
+		font-weight: 500;
+		line-height: 14px;
+		color: var(--ink);
+	}
+
+	.label-light,
+	.label-dark {
+		display: inline-block;
+		transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+	}
+
+	.label-light {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.label-dark {
+		position: absolute;
+		left: 0;
+		top: 0;
+		opacity: 0;
+		transform: translateY(6px);
+		pointer-events: none;
+	}
+
+	:global(html[data-theme='dark']) .label-light {
+		opacity: 0;
+		transform: translateY(-6px);
+		pointer-events: none;
+	}
+
+	:global(html[data-theme='dark']) .label-dark {
+		opacity: 1;
+		transform: translateY(0);
+		pointer-events: auto;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.theme-toggle,
+		.thumb,
+		.label-light,
+		.label-dark,
+		.track {
+			transition: none !important;
+		}
+	}
+</style>

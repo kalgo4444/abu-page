@@ -114,6 +114,54 @@ def desktop_nav_hides_the_menu(page):
     expect(page.locator("details.menu")).to_be_hidden()
 
 
+@test()
+def theme_toggle_switches_mode_and_persists(page):
+    open_page(page, "/")
+    expect(page.locator("html")).to_have_attribute("data-theme", "light")
+    bg_light = page.evaluate("getComputedStyle(document.body).backgroundColor")
+    assert "253" in bg_light or "252" in bg_light, bg_light
+
+    toggle = page.locator("#theme-toggle")
+    expect(toggle).to_be_visible()
+    expect(toggle).to_have_attribute("aria-label", "Switch to dark mode")
+
+    toggle.click()
+    expect(page.locator("html")).to_have_attribute("data-theme", "dark")
+    expect(toggle).to_have_attribute("aria-label", "Switch to light mode")
+    page.wait_for_timeout(400)
+    bg_dark = page.evaluate("getComputedStyle(document.body).backgroundColor")
+    assert "32" in bg_dark, bg_dark
+    assert page.evaluate("localStorage.getItem('theme')") == "dark"
+
+    # Navigation retains dark theme
+    page.locator("nav.links").get_by_role("link", name="About").click()
+    page.wait_for_url("**/about")
+    expect(page.locator("html")).to_have_attribute("data-theme", "dark")
+
+    page.reload()
+    page.wait_for_load_state("networkidle")
+    expect(page.locator("html")).to_have_attribute("data-theme", "dark")
+
+    page.locator("#theme-toggle").click()
+    expect(page.locator("html")).to_have_attribute("data-theme", "light")
+    page.wait_for_timeout(400)
+    bg_light_again = page.evaluate("getComputedStyle(document.body).backgroundColor")
+    assert "253" in bg_light_again or "252" in bg_light_again, bg_light_again
+    assert page.evaluate("localStorage.getItem('theme')") == "light"
+
+
+@test("mobile")
+def mobile_theme_toggle_switches_mode(page):
+    open_page(page, "/")
+    toggle = page.locator("#theme-toggle")
+    expect(toggle).to_be_visible()
+    toggle.click()
+    expect(page.locator("html")).to_have_attribute("data-theme", "dark")
+    page.wait_for_timeout(400)
+    bg_dark = page.evaluate("getComputedStyle(document.body).backgroundColor")
+    assert "32" in bg_dark, bg_dark
+
+
 @test("mobile")
 def mobile_menu_opens_and_navigates(page):
     open_page(page, "/")

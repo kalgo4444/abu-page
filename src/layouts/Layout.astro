@@ -27,6 +27,26 @@ const { title, description } = Astro.props;
 		<Font cssVariable="--font-mono" preload />
 		<title>{title}</title>
 		<ClientRouter />
+		<script is:inline>
+			(function () {
+				function applyTheme() {
+					try {
+						const stored = localStorage.getItem('theme');
+						// Default mode is light
+						const theme = stored === 'dark' ? 'dark' : 'light';
+						document.documentElement.setAttribute('data-theme', theme);
+						const meta = document.querySelector('meta[name="theme-color"]');
+						if (meta) {
+							meta.setAttribute('content', theme === 'dark' ? '#201d1d' : '#fdfcfc');
+						}
+					} catch (e) {
+						document.documentElement.setAttribute('data-theme', 'light');
+					}
+				}
+				applyTheme();
+				document.addEventListener('astro:after-swap', applyTheme);
+			})();
+		</script>
 	</head>
 	<body>
 		<Nav />

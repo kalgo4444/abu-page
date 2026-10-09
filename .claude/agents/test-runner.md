@@ -1,7 +1,7 @@
 ---
 name: test-runner
 description: Runs tests/lint/typecheck and reports only failures. Use proactively after code changes or when asked to run tests.
-tools: Read, Grep, Glob
+tools: Read, Grep, Glob, Bash
 model: sonnet
 color: red
 ---

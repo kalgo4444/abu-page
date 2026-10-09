@@ -2,6 +2,7 @@ import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import { beforeAll, describe, expect, it } from 'vitest';
 import Nav from '../../src/components/Nav.astro';
 import PixelWord from '../../src/components/PixelWord.astro';
+import ThemeToggle from '../../src/components/ThemeToggle.astro';
 import { profile } from '../../src/data/profile';
 
 let container: AstroContainer;
@@ -60,6 +61,28 @@ describe('PixelWord', () => {
 	});
 });
 
+describe('ThemeToggle', () => {
+	it('renders a theme toggle button with accessible label', async () => {
+		const html = await container.renderToString(ThemeToggle);
+		expect(html).toContain('class="theme-toggle"');
+		expect(html).toContain('aria-label="Switch to dark mode"');
+	});
+
+	it('renders ASCII brackets and slider track', async () => {
+		const html = await container.renderToString(ThemeToggle);
+		expect(html).toContain('[');
+		expect(html).toContain(']');
+		expect(html).toContain('class="track"');
+		expect(html).toContain('class="thumb"');
+	});
+
+	it('defaults to light mode label', async () => {
+		const html = await container.renderToString(ThemeToggle);
+		expect(html).toContain('label-light');
+		expect(html).toContain('light');
+	});
+});
+
 describe('Nav', () => {
 	const render = (path: string) =>
 		container.renderToString(Nav, { request: new Request(`http://localhost${path}`) });
@@ -72,6 +95,11 @@ describe('Nav', () => {
 			expect(count(html, new RegExp(`href="${href}"`, 'g'))).toBe(2);
 		}
 		expect(count(html, /href="\/contact"/g)).toBe(1);
+	});
+
+	it('includes the theme toggle in the header', async () => {
+		const html = await render('/');
+		expect(html).toContain('class="theme-toggle"');
 	});
 
 	it('marks no link as current on the home page', async () => {
