@@ -24,18 +24,27 @@ const current = (href: string) => (href !== '/' && path === href ? 'page' : unde
 ---
 
 <header class="nav" transition:name="nav">
-	<div class="nav-inner container">
+	<div class="nav-inner">
 		<a class="brand" href="/" aria-label={`${profile.name}, home`}>
-			<PixelWord text="ABU" label="Abu" />
+			<span class="brand-badge" aria-hidden="true">
+				<svg class="brand-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M12 19V5M5 12l7-7 7 7" />
+				</svg>
+			</span>
+			<span class="brand-wordmark">
+				<PixelWord text="ABU" label="Abu" />
+			</span>
 		</a>
 
-		<nav class="links" aria-label="Primary">
-			{desktopLinks.map(link => <a href={link.href} aria-current={current(link.href)}>{link.label}</a>)}
-		</nav>
+		<div class="nav-right">
+			<nav class="links" aria-label="Primary">
+				{desktopLinks.map(link => <a href={link.href} aria-current={current(link.href)}>{link.label}</a>)}
+			</nav>
 
-		<div class="nav-actions">
-			<ThemeToggle />
-			<a class="btn btn-primary btn-contact" href="/contact" aria-current={current('/contact')}>Contact</a>
+			<div class="nav-actions">
+				<ThemeToggle />
+				<a class="btn btn-primary btn-contact" href="/contact" aria-current={current('/contact')}>Contact</a>
+			</div>
 		</div>
 	</div>
 </header>
@@ -95,61 +104,122 @@ const current = (href: string) => (href !== '/' && path === href ? 'page' : unde
 		position: sticky;
 		top: 0;
 		z-index: 50;
-		border-bottom: 1px solid var(--hairline);
-		background: var(--nav-bg);
-		backdrop-filter: blur(16px) saturate(180%);
-		-webkit-backdrop-filter: blur(16px) saturate(180%);
-		transition: background-color 0.3s ease, border-color 0.3s ease;
+		width: 100%;
+		padding: 14px var(--gutter) 8px;
+		pointer-events: none;
+		transition: padding 0.2s ease;
 	}
 
 	.nav-inner {
 		display: flex;
 		align-items: center;
-		gap: var(--space-xl);
-		min-height: 58px;
+		justify-content: space-between;
+		gap: var(--space-md);
+		width: 100%;
+		max-width: var(--column);
+		margin: 0 auto;
+		height: 52px;
+		padding: 6px 8px 6px 12px;
+		background: var(--nav-bar-bg);
+		border: 1px solid var(--nav-bar-border);
+		border-radius: 12px;
+		box-shadow: var(--nav-bar-shadow);
+		backdrop-filter: blur(20px) saturate(180%);
+		-webkit-backdrop-filter: blur(20px) saturate(180%);
+		pointer-events: auto;
+		transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 	}
 
 	.brand {
-		display: block;
-		width: 67px;
-		margin-right: auto;
-		padding-block: var(--space-md);
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		padding: 4px 6px;
+		border-radius: 8px;
 		color: var(--ink);
-		transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+		text-decoration: none;
+		user-select: none;
+		-webkit-user-select: none;
+		transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
 	.brand:hover {
-		opacity: 0.85;
-		transform: scale(1.04);
+		opacity: 0.92;
+		transform: translateY(-1px);
 	}
 
 	.brand:active {
-		transform: scale(0.96);
+		transform: scale(0.97);
+	}
+
+	.brand-badge {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 24px;
+		height: 24px;
+		border-radius: 6px;
+		background: var(--brand-badge-bg);
+		color: var(--brand-badge-fg);
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16);
+		transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, color 0.3s ease;
+	}
+
+	.brand:hover .brand-badge {
+		transform: scale(1.05);
+	}
+
+	.brand-icon {
+		display: block;
+		width: 12px;
+		height: 12px;
+		stroke-width: 2.5;
+		transition: transform 0.2s ease;
+	}
+
+	.brand:hover .brand-icon {
+		transform: translateY(-1px);
+	}
+
+	.brand-wordmark {
+		display: block;
+		width: 44px;
+		height: auto;
+		color: var(--ink);
+		transition: color 0.3s ease;
+	}
+
+	.nav-right {
+		display: flex;
+		align-items: center;
+		gap: 12px;
 	}
 
 	.links {
 		display: flex;
 		align-items: center;
-		gap: 6px;
+		gap: 3px;
 	}
 
 	.links a {
 		display: inline-flex;
 		align-items: center;
-		padding: 6px 14px;
-		border-radius: var(--radius-sm);
+		padding: 6px 12px;
+		border-radius: 6px;
+		font-family: var(--font-mono), monospace;
 		font-weight: 500;
-		font-size: 14px;
-		color: var(--mute);
+		font-size: 13.5px;
+		line-height: 1;
+		color: var(--nav-link-color);
 		text-decoration: none;
 		border: 1px solid transparent;
-		transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+		transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 		position: relative;
 	}
 
 	.links a:hover {
-		color: var(--ink);
-		background: var(--nav-link-hover);
+		color: var(--nav-link-hover);
+		background: var(--nav-link-hover-bg);
 		transform: translateY(-1px);
 	}
 
@@ -159,27 +229,41 @@ const current = (href: string) => (href !== '/' && path === href ? 'page' : unde
 
 	.links a[aria-current='page'] {
 		color: var(--ink);
-		font-weight: 700;
-		background: var(--surface-card);
-		border-color: var(--hairline);
+		font-weight: 600;
+		background: var(--nav-link-active-bg);
+		border-color: var(--nav-link-active-border);
 	}
 
 	.links a[aria-current='page']:hover {
+		background: var(--nav-link-active-bg);
 		border-color: var(--hairline-strong);
 	}
 
 	.nav-actions {
 		display: flex;
 		align-items: center;
-		gap: var(--space-md);
+		gap: 8px;
 	}
 
 	.btn-contact {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: 32px;
+		padding: 0 14px;
+		border-radius: 8px;
+		font-family: var(--font-mono), monospace;
+		font-size: 13px;
+		font-weight: 600;
+		line-height: 1;
+		text-decoration: none;
 		transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 	}
 
 	.btn-contact:hover {
 		transform: translateY(-1px);
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16);
 	}
 
 	.btn-contact:active {
@@ -192,16 +276,41 @@ const current = (href: string) => (href !== '/' && path === href ? 'page' : unde
 	}
 
 	@media (max-width: 768px) {
+		.nav {
+			padding: 10px 14px 4px;
+		}
+
 		.nav-inner {
-			gap: var(--space-md);
+			height: 46px;
+			padding: 4px 6px 4px 10px;
+			gap: var(--space-sm);
 		}
 
 		.links {
 			display: none;
 		}
 
+		.nav-right {
+			gap: 6px;
+		}
+
+		.brand {
+			padding: 2px;
+			gap: 8px;
+		}
+
+		.brand-wordmark {
+			width: 38px;
+		}
+
 		.nav-actions {
-			gap: var(--space-sm);
+			gap: 6px;
+		}
+
+		.btn-contact {
+			height: 30px;
+			padding: 0 10px;
+			font-size: 12px;
 		}
 
 		.mobile-dock {

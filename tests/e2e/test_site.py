@@ -163,33 +163,29 @@ def mobile_theme_toggle_switches_mode(page):
 
 
 @test("mobile")
-def mobile_menu_opens_and_navigates(page):
+def mobile_dock_is_visible_and_navigates(page):
     open_page(page, "/")
     expect(page.locator("nav.links")).to_be_hidden()
-    menu = page.locator("details.menu")
-    drawer = page.locator("nav.drawer")
-    expect(drawer).to_be_hidden()
-    menu.locator("summary").click()
-    expect(drawer).to_be_visible()
-    page.screenshot(path=f"{SHOTS}/mobile-menu.png")
-    menu.locator("summary").click()
-    expect(drawer).to_be_hidden()
-    menu.locator("summary").click()
-    drawer.get_by_role("link", name="Skills").click()
+    dock = page.locator("nav.mobile-dock")
+    expect(dock).to_be_visible()
+    page.screenshot(path=f"{SHOTS}/mobile-dock.png")
+    dock.get_by_role("link", name="Skills").click()
     page.wait_for_url("**/skills")
     expect(page.locator("h1")).to_have_text("Skills")
-    expect(page.locator("nav.drawer")).to_be_hidden()
+    expect(dock.locator('.dock-tab[aria-current="page"]')).to_have_attribute("href", "/skills")
 
 
 @test("mobile")
-def mobile_menu_is_closed_after_going_back(page):
+def mobile_dock_preserves_active_tab_after_going_back(page):
     open_page(page, "/")
-    page.locator("details.menu summary").click()
-    page.locator("nav.drawer").get_by_role("link", name="About").click()
+    dock = page.locator("nav.mobile-dock")
+    dock.get_by_role("link", name="About").click()
     page.wait_for_url("**/about")
+    page.wait_for_timeout(350)
     page.go_back()
     page.wait_for_url(BASE + "/")
-    expect(page.locator("nav.drawer")).to_be_hidden()
+    page.wait_for_timeout(350)
+    expect(dock.locator('.dock-tab[href="/"]')).to_have_class(re.compile(r"\bactive\b"))
 
 
 @test("mobile")

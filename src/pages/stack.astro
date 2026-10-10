@@ -81,9 +81,11 @@ const totalTechnologies = profile.stack.reduce((acc, g) => acc + g.items.length,
 	.spec-card {
 		border: 1px solid var(--hairline);
 		border-radius: var(--radius-sm);
-		background: var(--canvas);
+		background: color-mix(in srgb, var(--canvas) 85%, transparent);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
 		overflow: hidden;
-		transition: border-color 0.2s ease;
+		transition: border-color 0.2s ease, background-color 0.3s ease;
 	}
 
 	.spec-card:hover {
@@ -95,7 +97,7 @@ const totalTechnologies = profile.stack.reduce((acc, g) => acc + g.items.length,
 		grid-template-columns: 4ch 19ch 1fr;
 		column-gap: var(--space-lg);
 		padding: 10px var(--space-lg);
-		background: var(--surface-soft);
+		background: color-mix(in srgb, var(--surface-soft) 85%, transparent);
 		border-bottom: 1px solid var(--hairline);
 		font-size: 12px;
 		color: var(--mute);
@@ -194,7 +196,7 @@ const totalTechnologies = profile.stack.reduce((acc, g) => acc + g.items.length,
 		align-items: center;
 		justify-content: space-between;
 		padding: 8px var(--space-lg);
-		background: var(--surface-soft);
+		background: color-mix(in srgb, var(--surface-soft) 85%, transparent);
 		border-top: 1px solid var(--hairline);
 		font-size: 12px;
 		color: var(--mute);

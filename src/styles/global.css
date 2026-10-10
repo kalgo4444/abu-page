@@ -25,7 +25,20 @@
 
 	/* Dynamic overlays for chrome */
 	--nav-bg: rgba(253, 252, 252, 0.82);
-	--nav-link-hover: rgba(15, 0, 0, 0.04);
+	--nav-bar-bg: rgba(255, 255, 255, 0.85);
+	--nav-bar-border: rgba(15, 0, 0, 0.08);
+	--nav-bar-shadow: 0 10px 30px -10px rgba(15, 0, 0, 0.08), 0 1px 3px rgba(15, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+	--nav-link-color: #646262;
+	--nav-link-hover: #18181b;
+	--nav-link-hover-bg: rgba(15, 0, 0, 0.04);
+	--nav-link-active-bg: rgba(15, 0, 0, 0.06);
+	--nav-link-active-border: rgba(15, 0, 0, 0.08);
+	--brand-badge-bg: #18181b;
+	--brand-badge-fg: #ffffff;
+	--theme-toggle-bg: rgba(15, 0, 0, 0.03);
+	--theme-toggle-border: rgba(15, 0, 0, 0.08);
+	--theme-toggle-track: rgba(15, 0, 0, 0.08);
+	--theme-toggle-thumb: #18181b;
 	--dock-bg: rgba(255, 255, 255, 0.85);
 	--dock-shadow: 0 4px 20px rgba(15, 0, 0, 0.08), 0 1px 3px rgba(15, 0, 0, 0.04);
 }
@@ -43,7 +56,20 @@ html[data-theme='dark'] {
 	--mute: #9a9898;
 
 	--nav-bg: rgba(32, 29, 29, 0.82);
-	--nav-link-hover: rgba(253, 252, 252, 0.06);
+	--nav-bar-bg: rgba(18, 19, 23, 0.82);
+	--nav-bar-border: rgba(255, 255, 255, 0.1);
+	--nav-bar-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+	--nav-link-color: #9d9da6;
+	--nav-link-hover: #ffffff;
+	--nav-link-hover-bg: rgba(255, 255, 255, 0.06);
+	--nav-link-active-bg: rgba(255, 255, 255, 0.08);
+	--nav-link-active-border: rgba(255, 255, 255, 0.12);
+	--brand-badge-bg: #ffffff;
+	--brand-badge-fg: #09090b;
+	--theme-toggle-bg: rgba(255, 255, 255, 0.05);
+	--theme-toggle-border: rgba(255, 255, 255, 0.12);
+	--theme-toggle-track: rgba(255, 255, 255, 0.14);
+	--theme-toggle-thumb: #ffffff;
 	--dock-bg: rgba(38, 35, 35, 0.85);
 	--dock-shadow: 0 4px 20px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.25);
 }
@@ -94,6 +120,7 @@ html {
 
 /* Every page fills the screen: nav on top, the page's content in the rest. */
 body {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
@@ -109,6 +136,8 @@ body {
 }
 
 main {
+	position: relative;
+	z-index: 1;
 	display: flex;
 	flex: 1 0 auto;
 	flex-direction: column;
@@ -274,7 +303,9 @@ b {
 }
 
 .btn-secondary {
-	background: var(--canvas);
+	background: color-mix(in srgb, var(--canvas) 92%, transparent);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
 	border-color: var(--hairline-strong);
 	color: var(--ink);
 }

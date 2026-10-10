@@ -2,6 +2,7 @@
 import { Font } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
 import Nav from '../components/Nav.astro';
+import PulseBeams from '../components/PulseBeams.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -49,6 +50,7 @@ const { title, description } = Astro.props;
 		</script>
 	</head>
 	<body>
+		<PulseBeams />
 		<Nav />
 
 		<main transition:animate="fade">

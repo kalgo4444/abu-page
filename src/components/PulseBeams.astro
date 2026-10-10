@@ -1,0 +1,355 @@
+---
+---
+
+<div id="pulse-beams-bg" class="pulse-beams-container" aria-hidden="true" transition:persist="pulse-beams">
+	<canvas id="pulse-beams-canvas" class="pulse-beams-canvas"></canvas>
+</div>
+
+<script>
+	// Vertex shader for full viewport coverage
+	const VERTEX_SHADER_SRC = `
+		attribute vec2 aPos;
+		void main() {
+			gl_Position = vec4(aPos, 0.0, 1.0);
+		}
+	`;
+
+	// Fragment shader based on getdesign.md Pulse Beams, enhanced for theme mode
+	const FRAG_SHADER_SRC = `
+		precision mediump float;
+		uniform vec2 uRes;
+		uniform float uTime;
+		uniform float uSpeed;
+		uniform float uCount;
+		uniform vec3 uC0Dark;
+		uniform vec3 uBgDark;
+		uniform vec3 uC0Light;
+		uniform vec3 uBgLight;
+		uniform float uTheme; // 0.0 = Light mode, 1.0 = Dark mode
+
+		float hash1(float n) {
+			return fract(sin(n * 127.1) * 43758.5453);
+		}
+		float hash2(vec2 p) {
+			return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+		}
+		float vnoise(float x) {
+			float i = floor(x);
+			float f = fract(x);
+			float u = f * f * (3.0 - 2.0 * f);
+			return mix(hash1(i), hash1(i + 1.0), u);
+		}
+
+		void main() {
+			vec2 uv = gl_FragCoord.xy / uRes;
+			float yt = 1.0 - uv.y; // 0 at the top edge, 1 at the floor
+			float s = uTime * uSpeed;
+
+			float x = uv.x * uCount;
+			float acc = 0.0;
+
+			// Scan the column under this pixel plus two neighbors each side so the
+			// wide halos overlap instead of clipping at column boundaries.
+			for (int k = -2; k <= 2; k++) {
+				float id = floor(x) + float(k);
+				float inRange = step(-0.5, id) * step(id, uCount - 0.5);
+				float rnd = hash1(id * 7.31 + 1.7);
+
+				// Per-beam flicker: slow breathing modulated by a faster shimmer.
+				float rate = 0.7 + rnd * 1.6;
+				float fl = 0.3 + 0.7 * pow(vnoise(s * rate + rnd * 43.0), 1.7);
+				fl *= 0.82 + 0.18 * vnoise(s * rate * 2.6 + rnd * 91.0);
+
+				// Width breathes; the beam sways slightly off its column center.
+				float wPulse = 0.7 + 0.3 * sin(s * (0.4 + rnd * 0.5) + rnd * 6.283);
+				float center = id + 0.5 + 0.2 * sin(s * 0.26 + rnd * 6.283);
+				float d = abs(x - center);
+
+				// Narrow hot core inside a wide soft halo.
+				float core = exp(-pow(d / (0.11 * wPulse + 0.02), 2.0));
+				float halo = 0.38 * exp(-pow(d / (0.5 + 0.3 * rnd), 2.0));
+
+				// Energy drifting down the beam so each column shimmers along its length.
+				float travel = 0.68 + 0.32 * vnoise(yt * 2.6 + s * (0.5 + rnd * 0.7) + rnd * 29.0);
+
+				acc += inRange * (core + halo) * fl * travel * (0.55 + 0.45 * rnd);
+			}
+
+			// Beams hang from the top and dissolve toward the floor; the very top
+			// edge eases in so columns don't hit the frame with a hard line.
+			float fall = exp(-yt * 1.5);
+			float lift = smoothstep(0.0, 0.06, yt);
+			float i = acc * fall * lift + 0.05 * exp(-yt * 2.2);
+
+			// Bespoke film grain so soft gradients don't band
+			float gr = hash2(gl_FragCoord.xy + floor(uTime * 5.0) * vec2(13.7, 7.3));
+
+			// --- Dark Mode Rendering ---
+			vec3 beamDark = uC0Dark * i * 1.15 + vec3(1.0) * pow(i, 3.0) * 0.35;
+			beamDark = 1.0 - exp(-beamDark * 1.6);
+			vec3 colDark = uBgDark + beamDark * 0.75;
+			colDark *= 0.93 + 0.14 * gr;
+			colDark += (gr - 0.5) * 0.025;
+
+			// --- Light Mode Rendering ---
+			// In light mode, beams provide living atmospheric columns on warm cream.
+			float beamAlpha = clamp(i * 0.42, 0.0, 0.65);
+			vec3 colLight = mix(uBgLight, uC0Light, beamAlpha);
+			colLight -= vec3(pow(i, 3.0) * 0.08);
+			colLight *= 0.98 + 0.04 * gr;
+			colLight += (gr - 0.5) * 0.015;
+
+			// Smooth crossfade between light mode and dark mode
+			vec3 finalCol = mix(colLight, colDark, uTheme);
+
+			gl_FragColor = vec4(clamp(finalCol, 0.0, 1.0), 1.0);
+		}
+	`;
+
+	let currentCleanup: (() => void) | null = null;
+	let initializedCanvas: HTMLCanvasElement | null = null;
+
+	function initPulseBeams() {
+		const canvas = document.getElementById('pulse-beams-canvas') as HTMLCanvasElement | null;
+		if (!canvas) return;
+		if (initializedCanvas === canvas) return;
+
+		if (currentCleanup) {
+			currentCleanup();
+			currentCleanup = null;
+		}
+
+		initializedCanvas = canvas;
+
+		const gl = (canvas.getContext('webgl', {
+			antialias: false,
+			alpha: false,
+			powerPreference: 'low-power',
+		}) || canvas.getContext('experimental-webgl')) as WebGLRenderingContext | null;
+
+		if (!gl) return;
+
+		const compileShader = (type: number, src: string) => {
+			const shader = gl.createShader(type);
+			if (!shader) return null;
+			gl.shaderSource(shader, src);
+			gl.compileShader(shader);
+			if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+				gl.deleteShader(shader);
+				return null;
+			}
+			return shader;
+		};
+
+		const vs = compileShader(gl.VERTEX_SHADER, VERTEX_SHADER_SRC);
+		const fs = compileShader(gl.FRAGMENT_SHADER, FRAG_SHADER_SRC);
+		if (!vs || !fs) return;
+
+		const program = gl.createProgram();
+		if (!program) return;
+		gl.attachShader(program, vs);
+		gl.attachShader(program, fs);
+		gl.linkProgram(program);
+		if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+			return;
+		}
+
+		gl.useProgram(program);
+
+		// Fullscreen quad buffer
+		const buffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+
+		const aPosLoc = gl.getAttribLocation(program, 'aPos');
+		gl.enableVertexAttribArray(aPosLoc);
+		gl.vertexAttribPointer(aPosLoc, 2, gl.FLOAT, false, 0, 0);
+
+		// Uniform locations
+		const uResLoc = gl.getUniformLocation(program, 'uRes');
+		const uTimeLoc = gl.getUniformLocation(program, 'uTime');
+		const uSpeedLoc = gl.getUniformLocation(program, 'uSpeed');
+		const uCountLoc = gl.getUniformLocation(program, 'uCount');
+		const uC0DarkLoc = gl.getUniformLocation(program, 'uC0Dark');
+		const uBgDarkLoc = gl.getUniformLocation(program, 'uBgDark');
+		const uC0LightLoc = gl.getUniformLocation(program, 'uC0Light');
+		const uBgLightLoc = gl.getUniformLocation(program, 'uBgLight');
+		const uThemeLoc = gl.getUniformLocation(program, 'uTheme');
+
+		const getIsDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
+		let targetTheme = getIsDark() ? 1.0 : 0.0;
+		let currentTheme = targetTheme;
+
+		let beamCount = 16.0;
+		const updateBeamCount = () => {
+			const width = canvas.clientWidth;
+			if (width < 640) {
+				beamCount = 10.0;
+			} else if (width < 1024) {
+				beamCount = 14.0;
+			} else {
+				beamCount = 18.0;
+			}
+		};
+
+		const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+		let isReducedMotion = prefersReduced.matches;
+		let isVisible = !document.hidden;
+		let animId = 0;
+		const startTime = performance.now();
+
+		const render = (timeMs: number) => {
+			if (gl.isContextLost()) return;
+
+			// Smooth interpolation between themes over ~350ms
+			currentTheme += (targetTheme - currentTheme) * 0.12;
+			if (Math.abs(targetTheme - currentTheme) < 0.001) {
+				currentTheme = targetTheme;
+			}
+
+			const elapsed = isReducedMotion ? 2.5 : (timeMs - startTime) / 1000;
+
+			gl.uniform2f(uResLoc, gl.drawingBufferWidth, gl.drawingBufferHeight);
+			gl.uniform1f(uTimeLoc, elapsed);
+			gl.uniform1f(uSpeedLoc, 1.0);
+			gl.uniform1f(uCountLoc, beamCount);
+			gl.uniform1f(uThemeLoc, currentTheme);
+
+			// Dark mode colors: #201d1d canvas, #d6dbe4 silver pulse
+			gl.uniform3f(uBgDarkLoc, 32 / 255, 29 / 255, 29 / 255);
+			gl.uniform3f(uC0DarkLoc, 214 / 255, 219 / 255, 228 / 255);
+
+			// Light mode colors: #fdfcfc canvas, #aba39c warm stone beam
+			gl.uniform3f(uBgLightLoc, 253 / 255, 252 / 255, 252 / 255);
+			gl.uniform3f(uC0LightLoc, 171 / 255, 163 / 255, 156 / 255);
+
+			gl.drawArrays(gl.TRIANGLES, 0, 3);
+		};
+
+		const loop = (now: number) => {
+			if (!isVisible || isReducedMotion) {
+				animId = 0;
+				return;
+			}
+			render(now);
+			animId = requestAnimationFrame(loop);
+		};
+
+		const startLoop = () => {
+			if (!animId && isVisible && !isReducedMotion) {
+				animId = requestAnimationFrame(loop);
+			}
+		};
+
+		const stopLoop = () => {
+			if (animId) {
+				cancelAnimationFrame(animId);
+				animId = 0;
+			}
+		};
+
+		const onResize = () => {
+			const dpr = Math.min(window.devicePixelRatio || 1, 2);
+			const w = Math.round(canvas.clientWidth * dpr);
+			const h = Math.round(canvas.clientHeight * dpr);
+			if (canvas.width !== w || canvas.height !== h) {
+				canvas.width = w;
+				canvas.height = h;
+				gl.viewport(0, 0, w, h);
+			}
+			updateBeamCount();
+			render(performance.now());
+		};
+
+		const resizeObserver = new ResizeObserver(onResize);
+		resizeObserver.observe(canvas);
+		onResize();
+
+		const themeObserver = new MutationObserver(() => {
+			targetTheme = getIsDark() ? 1.0 : 0.0;
+			startLoop();
+		});
+		themeObserver.observe(document.documentElement, {
+			attributes: true,
+			attributeFilter: ['data-theme'],
+		});
+
+		const onVisibility = () => {
+			isVisible = !document.hidden;
+			if (isVisible) {
+				render(performance.now());
+				startLoop();
+			} else {
+				stopLoop();
+			}
+		};
+		document.addEventListener('visibilitychange', onVisibility);
+
+		const onReducedMotion = (e: MediaQueryListEvent) => {
+			isReducedMotion = e.matches;
+			render(performance.now());
+			if (isReducedMotion) {
+				stopLoop();
+			} else {
+				startLoop();
+			}
+		};
+		prefersReduced.addEventListener('change', onReducedMotion);
+
+		const onContextLost = (e: Event) => {
+			e.preventDefault();
+			stopLoop();
+		};
+		canvas.addEventListener('webglcontextlost', onContextLost);
+
+		const onContextRestored = () => {
+			initializedCanvas = null;
+			initPulseBeams();
+		};
+		canvas.addEventListener('webglcontextrestored', onContextRestored);
+
+		startLoop();
+
+		currentCleanup = () => {
+			stopLoop();
+			resizeObserver.disconnect();
+			themeObserver.disconnect();
+			document.removeEventListener('visibilitychange', onVisibility);
+			prefersReduced.removeEventListener('change', onReducedMotion);
+			canvas.removeEventListener('webglcontextlost', onContextLost);
+			canvas.removeEventListener('webglcontextrestored', onContextRestored);
+			initializedCanvas = null;
+		};
+	}
+
+	// Initialize on initial page load and view transitions
+	initPulseBeams();
+	document.addEventListener('astro:page-load', initPulseBeams);
+	document.addEventListener('astro:after-swap', () => {
+		const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+		// Trigger immediate update on swap
+		initPulseBeams();
+	});
+</script>
+
+<style>
+	.pulse-beams-container {
+		position: fixed;
+		inset: 0;
+		width: 100vw;
+		height: 100vh;
+		pointer-events: none;
+		z-index: 0;
+		overflow: hidden;
+	}
+
+	.pulse-beams-canvas {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		display: block;
+		pointer-events: none;
+	}
+</style>
+

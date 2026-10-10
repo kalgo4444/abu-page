@@ -2,6 +2,7 @@ import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import { beforeAll, describe, expect, it } from 'vitest';
 import Nav from '../../src/components/Nav.astro';
 import PixelWord from '../../src/components/PixelWord.astro';
+import PulseBeams from '../../src/components/PulseBeams.astro';
 import ThemeToggle from '../../src/components/ThemeToggle.astro';
 import { profile } from '../../src/data/profile';
 
@@ -123,3 +124,14 @@ describe('Nav', () => {
 		expect(html.includes('href="/projects"')).toBe(profile.projects.length > 0);
 	});
 });
+
+describe('PulseBeams', () => {
+	it('renders a canvas and background container with persist attribute', async () => {
+		const html = await container.renderToString(PulseBeams);
+		expect(html).toContain('id="pulse-beams-bg"');
+		expect(html).toContain('id="pulse-beams-canvas"');
+		expect(html).toContain('aria-hidden="true"');
+		expect(html).toContain('data-astro-transition-persist="pulse-beams"');
+	});
+});
+
