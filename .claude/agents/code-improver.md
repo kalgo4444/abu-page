@@ -7,4 +7,5 @@ color: green
 ---
 
 You are a code improvement and file structure specialist.
+
 - For each issue you find, explain the problem, show the current code, and provide an improved version.

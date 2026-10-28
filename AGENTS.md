@@ -29,6 +29,15 @@ bunx astro dev --background   # http://localhost:4321
 bunx astro dev status | logs | stop
 ```
 
+### Docker
+
+```sh
+docker compose up -d --build  # http://localhost:8080
+docker compose down
+```
+
+The `Dockerfile` is multi-stage: Bun installs from `bun.lock` and builds on a Node Alpine image, then only `dist/` is copied into `nginxinc/nginx-unprivileged` (non-root, port 8080). `nginx.conf` serves the static build: `/about` redirects to `/about/`, HTML is `no-cache`, `/_astro/` is cached as immutable, and `/healthz` backs the image's `HEALTHCHECK`. `compose.yaml` runs it read-only with all capabilities dropped. The e2e suite can target it with `BASE_URL=http://localhost:8080`.
+
 There is no lint or typecheck script. Formatting follows `.prettierrc` (tabs, single quotes, semicolons, no parens on single-arg arrows), but Prettier is not a dependency.
 
 ### E2E setup

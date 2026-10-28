@@ -1,0 +1,23 @@
+# Keep the build context to what `astro build` needs.
+node_modules
+dist
+.astro
+.git
+.gitignore
+.vscode
+.idea
+.claude
+.venv
+**/__pycache__
+.env
+!.env.example
+.env.*
+.DS_Store
+npm-debug.log*
+
+tests
+docs
+*.md
+Dockerfile
+.dockerignore
+compose.yaml
